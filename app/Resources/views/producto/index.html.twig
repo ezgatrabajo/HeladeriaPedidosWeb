@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_filter 'bootstrap_3_layout.html.twig' %}
+{% block body %}
+   
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li ><a href="{{path('producto_index')}}">Productos</a></li>
+</ol>
+
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Listado de Productos</div>
+        <div class="panel-body">
+            <a href="{{ path('producto_new') }}" class="btn btn-primary"
+               data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="glyphicon  glyphicon-floppy-saved"  aria-hidden="true"></span></a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <strong>Total:{{ pagination.getTotalItemCount }}  </strong>
+                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'm.id') }}</th>
+                        <th>Nombre</th>
+                        <th>Codigo Externo</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 {% for item in pagination %}
+                    <tr>
+                        <td><a href="{{ path('producto_show', { 'id': item.id }) }}">{{ item.id }}</a></td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.codigoexterno }}</td>
+                        <td>{{ item.stock }}</td>
+                        <td>{{ item.precio }}</td>
+                        <td>
+                            <a href="{{ path('producto_show', { 'id': item.id }) }}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ver">
+                                <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span>
+                            <a href="{{ path('producto_edit', { 'id': item.id }) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <span class="glyphicon glyphicon glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+
+         </div>
+    </div>
+    </div>
+         
+             
+    <div class="col-xs-12 col-sm-3 col-lg-3">
+        <div class="panel panel-default">
+         <div class="panel-heading">
+            <h3 class="panel-title">Filtros</h3>
+          </div>
+
+          <div class="panel-body">
+               {{ form(form_filter, {'attr': {'novalidate': 'novalidate'}}) }}
+          </div>
+        </div>
+    </div> 
+         
+ </div>
+
+    
+            
+{% endblock %}

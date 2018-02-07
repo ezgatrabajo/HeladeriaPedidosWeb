@@ -1,0 +1,41 @@
+ejemplos JSON
+-------------------------------------------------------------------------------
+
+Pedidos POST
+{
+	"pedido":{
+		"fecha":"20-07-2017",
+		"empresa_id":"1",
+		"user_id":"3",
+		"android_id":"1",
+                "cliente_id":"1",
+		"pedidodetalles":
+			[
+				{
+					"android_id": "6",
+					"producto_id": "1",
+					"cantidad":"1"
+				}
+		
+			]
+		}
+}
+---------------------------------------------------------------
+php bin/console generate:doctrine:crud AppBundle:Tipodocumento
+
+php bin/console generate:doctrine:entity AppBundle:Entidadiva
+php bin/console generate:doctrine:crud AppBundle:Entidadiva
+
+php bin/console generate:doctrine:entity AppBundle:Proveedor
+php bin/console generate:doctrine:crud AppBundle:Proveedor
+---------------------------------------------------------------
+
+-----------------------------------------------
+https://databases.000webhost.com/
+root
+Gamuza99
+
+https://pedidosapp.000webhostapp.com/
+q1w2e3r4
+ezgatrabajo@gmail.com
+-----------------------------------------------

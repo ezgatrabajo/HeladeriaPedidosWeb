@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li ><a href="{{path('hojaruta_index')}}">Hoja de rutas</a></li>
+  <li class="active"><a href="#">Detalle</a></li>
+</ol>
+    
+    
+    <div class="row">
+    <div class="col-xs-12 col-sm-6">
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Datos de Hoja de ruta</b></div>
+    <div class="panel-body">
+            
+                   <table class="table">
+                       <tr><th>ID:</th><td>{{hojaruta.id}}</td></tr>
+                       <tr><th>Usuario:</th><td>{{hojaruta.empleado.textocombo}} 
+                               <a href="{{ path('empleado_show', { 'id': hojaruta.empleado.id }) }}" class="btn btn-sm btn-default">Ver Datos</a> </td></tr>  
+                       <tr><th>Titulo:</th><td>{{hojaruta.titulo}}</td></tr>
+                       <tr><th>Notas:</th><td>{{hojaruta.notas}}</td></tr>
+                       
+                   </table>
+               </div>
+            </div>
+        </div>
+    
+    <div class="col-xs-12 col-sm-6">      
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Agregar Cliente:</b></div>
+    <div class="panel-body">
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input class="btn btn-primary" type="submit" value="Agregar Cliente" />
+            <a href="{{ path('hojaruta_index')}}" class="btn btn-default">Volver al Listado</a>
+        {{ form_end(form) }}
+        
+    </div>
+    </div>
+    </div>
+    </div>
+
+    
+   
+    
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Listado de Clientes en la Hoja:</b></div>
+    <div class="panel-body">
+    <div class="row">
+        
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Hora</th>
+                    <th>Notas</th>
+                </thead>
+                <tbody>
+                    
+                    {% for item in hojarutadetalles %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.cliente.TextoCombo}}</td>
+                        <td>{{item.hora|date('H:i') }}</td>
+                        <td>{{item.notas }}</td>
+                        <td><a href="{{ path('hojarutadetalle_delete', {'id':item.id}) }}" class="btn btn-xs btn-danger">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+     </div>
+     </div>
+     </div>
+               
+            
+{% endblock %}

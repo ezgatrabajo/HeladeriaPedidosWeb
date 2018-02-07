@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+    <div class="col-xs-12 col-sm-6">
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Datos del Pedido</b></div>
+    <div class="panel-body">
+            
+                   <table class="table">
+                       <tr><th>ID:</th><td>{{pedido.id}}</td></tr>
+                       <tr><th>Usuario:</th><td>{{pedido.user.textocombo}}</td></tr>
+                       <tr><th>Fecha:</th><td>{{pedido.fecha|date('d-m-Y')}}</td></tr>
+                       <tr><th>Cliente:</th><td>{{pedido.cliente.textocombo}}</td></tr>
+                       <tr><th>Estado:</th><td>{{estados[pedido.estadoId]}}</td></tr>
+                  
+                   </table>
+                    
+                        
+                    {% if pedido.estadoId == preparadoid%}
+                        {{ form_start(formchangestatus) }}
+                                <input type="submit" value="Pasar a Preparado" disabled class="btn btn-flat btn-success">
+                        {{ form_end(formchangestatus) }}
+                    {% else %}
+                        {{ form_start(formchangestatus) }}
+                                <input type="submit" value="Pasar a Preparado" class="btn btn-flat btn-success">
+                        {{ form_end(formchangestatus) }}
+                    {% endif %}
+               </div>
+            </div>
+        </div>
+    
+    <div class="col-xs-12 col-sm-6">      
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Agregar Producto:</b></div>
+    <div class="panel-body">
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input class="btn btn-primary" type="submit" value="Agregar Producto" />
+            <a href="{{ path('pedido_index')}}" class="btn btn-default">Volver al Listado</a>
+        {{ form_end(form) }}
+        
+    </div>
+    </div>
+    </div>
+    </div>
+
+    
+   
+    
+    <div class="panel panel-default">
+    <div class="panel-heading"> <b>Listado de Productos en Pedido:</b></div>
+    <div class="panel-body">
+    <div class="row">
+            <div class="row">
+               <div class="col-xs-12"> 
+               
+               <div name="alert" class="alert alert-success alert-dismissable" style="display:none">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       Cantidad Actualizada Correctamente
+               </div>
+               </div>
+            </div>
+               
+               
+            <table class="table">
+                            
+                <thead>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Monto</th>
+                    <th>Actions</th>
+                    
+                </thead>
+                <tbody>
+                    
+                    {% for item in pedidodetalles %}
+                    <tr>
+                        <form>
+                            <td>{{item.id}}</td>
+                            <td >{{item.producto.nombre}}</td>
+                            <td class="col-md-2">{{item.preciounitario|number_format(3, '.', ',') }}</td>
+                            <td class="col-md-2">
+                                <input name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidad }}">
+                                <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div>
+                            </td>
+                           
+                            
+                            <td class="col-md-2" data-id="{{item.id}}" name="monto">{{(item.cantidad * item.preciounitario)|number_format(3, '.', ',')  }}</td>
+                            <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="btn btn-xs btn-danger">Eliminar</a></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+     </div>
+     </div>
+     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        jQuery(document).ready(function($)
+        {
+            
+            /*Detectar evento click */
+            
+            $(".btn.btn-xs.btn-default.actualizaritempedido").click(function(){
+                
+                
+
+                    //Armar json
+                    var id = $(this).attr("data-id");
+                    var select = "input[data-id=" + id + "][name='cantidad']";
+                    var cantidad = $(select).val();
+                    var json_item = {
+                                    "id": id,
+                                    "cantidad": cantidad
+                                    };
+                        
+                        $.ajax({
+                            method: "POST",
+                            url: "/api/pedidodetalle/edit",
+                            dataType: 'json',
+                            data: JSON.stringify( json_item ),
+                            success: function(data)
+                            {
+                                if(data.hasOwnProperty("code") && data.code === 200)
+                                {
+                                    alert("Cantidad Actualizada Correctamente...");
+                                    //var msg = $("div[name='alert']");
+                                    var monto = $("td[data-id=" + id + "][name='monto']");
+                                    importe = data.data.cantidad * data.data.preciounitario;
+                                    monto.html(importe);
+                                }
+                            },
+                            error: function(jqXHR, exception)
+                            {
+                                if(jqXHR.status === 405)
+                                {
+                                    console.error("METHOD NOT ALLOWED!");
+                                }
+                            }
+                    });
+
+                        
+                        
+            });
+            
+            
+        });
+    </script>
+{% endblock %}

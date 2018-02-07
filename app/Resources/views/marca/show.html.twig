@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li ><a href="{{path('marcas_index')}}">Marcas </a></li>
+  <li class="active"><a href="#">Detalle </a></li>
+</ol>
+  
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Detalle Registro</div>
+        <div class="panel-body">
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ marca.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ marca.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Descripcion</th>
+                    <td>{{ marca.descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Imagen</th>
+                    <td>{{ marca.imagen }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {{ include('marca/form.html.twig', {form:delete_form} ) }}
+             
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

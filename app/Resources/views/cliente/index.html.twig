@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_filter 'bootstrap_3_layout.html.twig' %}
+{% block body %}
+    
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{{path('homepage')}}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{{path('cliente_index')}}">Clientes</a></li>
+</ol>
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Listado de Clientes</div>
+        <div class="panel-body">
+            <a href="{{ path('cliente_new') }}" class="btn btn-primary"
+               data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="glyphicon  glyphicon-floppy-saved"  aria-hidden="true"></span></a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <span class="label label-info">Total {{ pagination.getTotalItemCount }}</span>
+                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'm.id') }}</th>
+                        <th>Razon social</th>
+                        <th>Contacto</th>
+                        
+                        <th>Num.Doc.</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cliente in pagination %}
+                    <tr>
+                        <td><a href="{{ path('cliente_show', { 'id': cliente.id }) }}">{{ cliente.id }}</a></td>
+                        <td>{{ cliente.razonsocial }}</td>
+                        <td>{{ cliente.contacto }}</td>
+                        <td>{{ cliente.ndoc }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.email }}</td>
+
+                        <td>
+                            <a href="{{ path('cliente_show', { 'id': cliente.id }) }}" class="btn btn-default"
+                               data-toggle="tooltip" data-placement="top" title="Ver">
+                                <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span>
+                            </a>
+                            <a href="{{ path('cliente_edit', { 'id': cliente.id }) }}"
+                               class="btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Editar">
+                                <span class="glyphicon glyphicon glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-3 col-lg-3">
+            <div class="panel panel-default">
+             <div class="panel-heading">
+                <h3 class="panel-title">Filtros</h3>
+              </div>
+              
+              <div class="panel-body">
+                   {{ form(form_filter, {'attr': {'novalidate': 'novalidate'}}) }}
+              </div>
+            </div>
+        </div>
+    
+{% endblock %}
