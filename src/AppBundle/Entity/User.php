@@ -25,6 +25,97 @@ class User extends BaseUser
         // your own logic
     }
     
+    
+    
+    
+    /**
+      * @ORM\Column(name="localidad", type="string", length=50, nullable=true)
+     */
+    private $localidad;
+    
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+    
+    public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+        return $this;
+    }
+    
+    
+    /**
+      * @ORM\Column(name="calle", type="string", length=50, nullable=true)
+     */
+    private $calle;
+    
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+    
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+        return $this;
+    }
+    
+    
+    /**
+      * @ORM\Column(name="nro", type="integer", length=2, nullable=true)
+     */
+    private $nro;
+    
+    public function getNro()
+    {
+        return $this->nro;
+    }
+    
+    public function setNro($nro)
+    {
+        $this->nro = $nro;
+        return $this;
+    }
+    
+    
+    /**
+      * @ORM\Column(name="piso", type="string", length=10, nullable=true)
+     */
+    private $piso;
+    
+    public function getPiso()
+    {
+        return $this->piso;
+    }
+    
+    public function setPiso($piso)
+    {
+        $this->piso = $piso;
+        return $this;
+    }
+    
+    
+    /**
+      * @ORM\Column(name="contacto", type="string", length=50, nullable=true)
+     */
+    private $contacto;
+    
+    public function getContacto()
+    {
+        return $this->contacto;
+    }
+    
+    public function setContacto($contacto)
+    {
+        $this->contacto = $contacto;
+        return $this;
+    }
+    
+    
+    
+    
+    
     /**
      * @ORM\ManyToOne(targetEntity="Empresa", inversedBy="users" )
      * @ORM\JoinColumn(name="empresa_id", referencedColumnName="id")
@@ -69,10 +160,7 @@ class User extends BaseUser
     
     
     
-     /**
-     * 
-     * 
-     */
+    
     protected $enabled;
     
     public function getEnabled()
