@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use \FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use \AppBundle\Entity\GlobalValue;
 
 
@@ -61,57 +62,66 @@ class UserController extends FOSRestController
   */
   public function registerJson(Request $request)
   { 
-        //Registracion del usuario via App Android
-        $content = $request->getContent();
-        $code = '200'; $message='OK'; $result = ""; $bool=false;
-        //$json = json_decode($content, true);
-        $username  = $request->get('username');
-        $password  = $request->get('password');
-        $localidad = $request->get('localidad');
-        $calle     = $request->get('calle');
-        $nro       = $request->get('nro');
-        $piso      = $request->get('piso');
-        $contacto  = $request->get('contacto');
-        
-        //Asignar datos a nuevo usuario
-        $user = new User();
-        $user->setRoles(array());
-        $user->setEnabled(1);
-        $user->setUsername($username);
-        $user->setEmail($username);
-        $user->setEmailCanonical($username);
-        $user->setPlainPassword($password);
-        $user->setLocalidad($localidad);
-        $user->setCalle($calle);
-        $user->setNro($nro);
-        $user->setPiso($piso);
-        $user->setContacto($contacto);
-        
-                
-        $user_manager = $this->get('fos_user.user_manager');
-        $factory = $this->get('security.encoder_factory');
-        
-        $userManager = $this->get('fos_user.user_manager');
-        $usernew = $userManager->createUser();
-        $usernew = $user;
-        $em->persist($usernew);
-        $em->flush();
-        
-        
+      try{
+            //Registracion del usuario via App Android
 
-        
+            $message='OK'; 
+            //$json = json_decode($content, true);
 
-        if ($bool==true){
+
+            //Leer datos desde el JSON
+            $username  = $request->get('username');
+            $password  = $request->get('password');
+            $telefono  = $request->get('telefono');
+            $localidad = $request->get('localidad');
+            $calle     = $request->get('calle');
+            $nro       = $request->get('nro');
+            $piso      = $request->get('piso');
+            $contacto  = $request->get('contacto');
+
+
+            //Asignar datos a nuevo usuario
+
+
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->createUser();
+            $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
+            $user->setEnabled(1);
+            $user->setUsername($username);
+            $user->setEmail($username);
+            $user->setEmailCanonical($username);
+            $user->setPlainPassword($password);
+            $user->setTelefono($telefono);
+            $user->setLocalidad($localidad);
+            $user->setCalle($calle);
+            $user->setNro($nro);
+            $user->setPiso($piso);
+            $user->setContacto($contacto);
+            $user->setEmpresa(GlobalValue::CODE_HELADERIA_ROMA);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
             $respuesta = array('code'=>Response::HTTP_OK,
-                               'message'=>$message,
-                               'data'=>$user
-                            );
-        }else{
+                                   'message'=>$message,
+                                   'data'=>$user
+                                );
+            return $respuesta;
+        }catch (UniqueConstraintViolationException $e) {
             $respuesta = array('code'=>Response::HTTP_UNAUTHORIZED,
-                               'message'=>'Usuario y/o Contraseña Invalido',
-                               'data'=>''
-                            );  
+                               'message'=>'El Usuario ya Existe en la base de datos ',
+                               'data'=>$user
+                            ); 
+            return $respuesta;
+        } catch (Exception $e) {
+            $respuesta = array('code'=>Response::HTTP_UNAUTHORIZED,
+                               'message'=>'Error Al Crear el Usuario '. $e->getMessage(),
+                               'data'=>$user
+                            ); 
+            return $respuesta;
         }
-        return $respuesta;
+        
+        
+        
     }
 }

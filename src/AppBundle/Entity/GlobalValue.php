@@ -16,12 +16,14 @@ class GlobalValue{
     const ROLE_VENDEDOR = 'ROLE_VENDEDOR';
     const ROLE_CARGADATOS = 'ROLE_CARGADATOS';
     const ROLE_DEPOSITO = 'ROLE_DEPOSITO';
+    const ROLE_CLIENTE = 'ROLE_CLIENTE';
     
     const ROLE_ADMIN_DISPLAY = 'Administrador';
     const ROLE_EMPRESA_DISPLAY = 'Empresa';
     const ROLE_VENDEDOR_DISPLAY = 'Vendedor';
     const ROLE_CARGADATOS_DISPLAY = 'Carga de Datos';
     const ROLE_DEPOSITO_DISPLAY = 'Deposito';
+    const ROLE_CLIENTE_DISPLAY = 'Cliente';
     
     const ROLES = 
             array(
@@ -29,7 +31,8 @@ class GlobalValue{
                     GlobalValue::ROLE_EMPRESA => GlobalValue::ROLE_EMPRESA_DISPLAY,
                     GlobalValue::ROLE_VENDEDOR => GlobalValue::ROLE_VENDEDOR_DISPLAY,
                     GlobalValue::ROLE_CARGADATOS => GlobalValue::ROLE_CARGADATOS_DISPLAY,
-                    GlobalValue::ROLE_DEPOSITO => GlobalValue::ROLE_DEPOSITO_DISPLAY
+                    GlobalValue::ROLE_DEPOSITO => GlobalValue::ROLE_DEPOSITO_DISPLAY,
+                    GlobalValue::ROLE_CLIENTE => GlobalValue::ROLE_CLIENTE_DISPLAY
                 );
     
     
@@ -238,5 +241,7 @@ class GlobalValue{
     const LISTAPRECIOS_PRECIO=1;
     
     const ERROR_VALIDATEFILE= 99;
+    
+    const CODE_HELADERIA_ROMA = 1;
     
 }
