@@ -64,11 +64,9 @@ class UserController extends FOSRestController
   { 
       try{
             //Registracion del usuario via App Android
-
             $message='OK'; 
-            //$json = json_decode($content, true);
-
-
+            $em = $this->getDoctrine()->getManager();
+            
             //Leer datos desde el JSON
             $username  = $request->get('username');
             $password  = $request->get('password');
@@ -79,10 +77,7 @@ class UserController extends FOSRestController
             $piso      = $request->get('piso');
             $contacto  = $request->get('contacto');
 
-
             //Asignar datos a nuevo usuario
-
-
             $userManager = $this->get('fos_user.user_manager');
             $user = $userManager->createUser();
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
@@ -97,9 +92,10 @@ class UserController extends FOSRestController
             $user->setNro($nro);
             $user->setPiso($piso);
             $user->setContacto($contacto);
-            $user->setEmpresa(GlobalValue::CODE_HELADERIA_ROMA);
-
-            $em = $this->getDoctrine()->getManager();
+            $empresa = $em->getRepository('AppBundle:Empresa')->find(GlobalValue::CODE_HELADERIA_ROMA);
+            $user->setEmpresa($empresa);
+          
+            
             $em->persist($user);
             $em->flush();
             $respuesta = array('code'=>Response::HTTP_OK,
