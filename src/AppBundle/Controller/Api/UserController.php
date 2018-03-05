@@ -66,6 +66,15 @@ class UserController extends FOSRestController
             //Registracion del usuario via App Android
             $message='OK'; 
             $em = $this->getDoctrine()->getManager();
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->createUser();
+            
+            //SI viene el ID, Significa que el usuario esta editando sus datos
+            $id  = $request->get('id');
+            if($id > 0){
+                //BUSCAR EL ID
+                $user = $em->getRepository('AppBundle:User')->find($id);
+            }
             
             //Leer datos desde el JSON
             $username  = $request->get('username');
@@ -78,8 +87,7 @@ class UserController extends FOSRestController
             $contacto  = $request->get('contacto');
 
             //Asignar datos a nuevo usuario
-            $userManager = $this->get('fos_user.user_manager');
-            $user = $userManager->createUser();
+            
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
             $user->setUsername($username);
