@@ -14,7 +14,6 @@
         <group>
             <file>file:/C:/xampp/htdocs/HeladeriaPedidosWeb/app/config/config_dev.yml</file>
             <file>file:/C:/xampp/htdocs/HeladeriaPedidosWeb/src/AppBundle/Entity/GlobalValue.php</file>
-            <file>file:/C:/xampp/htdocs/HeladeriaPedidosWeb/src/AppBundle/Controller/UserController.php</file>
             <file>file:/C:/xampp/htdocs/HeladeriaPedidosWeb/src/AppBundle/Controller/Api/UserController.php</file>
         </group>
     </open-files>
