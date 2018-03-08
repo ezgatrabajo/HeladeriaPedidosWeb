@@ -52,7 +52,7 @@ class Producto
     /**
      * @var 
      *
-     * @ORM\Column(name="stock", type="decimal", precision=7, scale=2, options={"default" : 0})
+     * @ORM\Column(name="stock", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $stock;
     
