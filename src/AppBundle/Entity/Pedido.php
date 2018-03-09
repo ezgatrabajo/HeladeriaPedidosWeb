@@ -60,6 +60,64 @@ class Pedido
      */
     private $monto;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localidad", type="string", length=50, nullable=true)
+     */
+    private $localidad;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="calle", type="string", length=75, nullable=true)
+     */
+    private $calle;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="piso", type="string", length=15, nullable=true)
+     */
+    private $piso;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nro", type="string", length=15, nullable=true)
+     */
+    private $nro;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=25, nullable=true)
+     */
+    private $telefono;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto", type="string", length=50, nullable=true)
+     */
+    private $contacto;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cucharitas", type="integer",  nullable=true)
+     */
+    private $cucharitas;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="cucuruchos", type="integer",  nullable=true)
+     */
+    private $cucuruchos;
+    
+    
+            
     
    
     /**
@@ -302,7 +360,96 @@ class Pedido
     }
     
 
-
+    
+    
+    
+    //--------------------------------------------------------------------------
+    //Campos para Heladerias
+    //--------------------------------------------------------------------------
+    public function getCucharitas()
+    {
+        return $this->cucharitas;
+    }
+    public function getCucuruchos()
+    {
+        return $this->cucuruchos;
+    }
+    
+    
+    
+    
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+    
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+    
+    public function getPiso()
+    {
+        return $this->piso;
+    }
+    
+    public function getNro()
+    {
+        return $this->nro;
+    }
+    
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+    
+    public function getContacto()
+    {
+        return $this->contacto;
+    }
+    
+    
+    
+    //SETTERS -----------------------------------------------------------------
+    public function setLocalidad($localidad)
+    {
+        $this->localidad= $localidad;
+    }
+    
+    public function setCalle($calle)
+    {
+        $this->calle=$calle;
+    }
+    
+    public function setPiso($piso)
+    {
+        $this->piso= $piso;
+    }
+    
+    public function setNro($nro)
+    {
+        $this->nro=$nro;
+    }
+    
+    public function setTelefono($telefono)
+    {
+        $this->telefono= $telefono;
+    }
+    
+    public function setContacto($contacto)
+    {
+        $this->contacto= $contacto;
+    }
+    
+    
+    public function setCucharitas($cucharitas)
+    {
+        $this->cucharitas= $cucharitas;
+    }
+    public function setCucuruchos($cucuruchos)
+    {
+        $this->cucuruchos=$cucuruchos;
+    }
     
     
     

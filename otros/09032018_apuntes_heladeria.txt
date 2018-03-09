@@ -1,0 +1,26 @@
+Apuntes:
+elegir potes por separado
+elegir mas cantidad de un helado
+desde listado de productos, dar la posibilidad de marcar si esta disponible el gusto.
+dentro de pedidos, agregar totalizador de pedidos, cantidad de pedidos, monto , kilos, dejarlo abierto a filtros.
+
+--------------------------------
+ver como generar un sonido de alerta, para nuevo pedido.
+pedido nuevo, opcion cambiar pedido a entregado, setear tiempo de entrega en 30 y 45 min.
+el usuario va a ver el estado dle pedido y el tiempo estimado de entrega.
+
+--------------------------------
+opcion en el menu, ver promos
+
+abm generar promos.
+
+nuevo pedido, agregar opcion, retirar en el local.
+
+
+* investigar notificacion al usuario cuando un pedido pasa a preparado.
+
+
+
+}
+
+
