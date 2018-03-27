@@ -132,7 +132,7 @@ class ProductoController extends Controller
             $producto->setEmpresa($this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
             $em->persist($producto);
             $em->flush();
-            $this->addFlash(  'success','Guardado Correctamente!');
+            $this->addFlash(  'success','Guardado Correctamenteeeeee!');
             return $this->redirectToRoute('producto_show', array('id' => $producto->getId()));
         }
 

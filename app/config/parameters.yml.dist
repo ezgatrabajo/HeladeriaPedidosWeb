@@ -1,10 +1,10 @@
 
 parameters:
-    database_host: 72.55.165.119
+    database_host: 18.228.6.207
     database_port: 2082
-    database_name: apppedidos_symfony
-    database_user: apppedidos_superadmin
-    database_password: q0L6OIx;K(?W
+    database_name: symfony_heladeria_roma
+    database_user: heladeria_roma
+    database_password: q1w2e3r4
     mailer_transport: gmail
     mailer_host: smtp.gmail.com
     mailer_user: ezgatrabajo@gmail.com
