@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li ><a href="{{path('cliente_index')}}">Clientes </a></li>
+  <li class="active"><a href="#">Detalle </a></li>
+  
+</ol>
+
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Detalle Registro</div>
+        <div class="panel-body">
+
+    <table class="table">
+           <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ promo.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ promo.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ promo.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{% if promo.enabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha desde</th>
+                <td>{% if promo.fechadesde %}{{ promo.fechadesde|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fecha hasta</th>
+                <td>{% if promo.fechahasta %}{{ promo.fechahasta|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Cantidad kilos</th>
+                <td>{{ promo.cantidadkilos }}</td>
+            </tr>
+            <tr>
+                <th>Importe descuento</th>
+                <td>{{ promo.importedescuento }}</td>
+            </tr>
+            <tr>
+                <th>Precio promo</th>
+                <td>{{ promo.preciopromo }}</td>
+            </tr>
+            <tr>
+                <th>Precio anterior</th>
+                <td>{{ promo.precioanterior }}</td>
+            </tr>
+        </tbody>
+ </table>
+        
+            {{ form_start(delete_form) }}
+                <a href="{{ path('promo_edit', { 'id': promo.id }) }}" class="btn btn-flat btn-primary" >Editar</a>
+                <input type="submit" value="Delete" class="btn btn-flat btn-danger">
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

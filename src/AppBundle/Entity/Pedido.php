@@ -117,29 +117,14 @@ class Pedido
     private $cucuruchos;
     
     
-            
-    
-   
-    /**
-     * @ORM\ManyToOne(targetEntity="Cliente")
-     * @ORM\JoinColumn(name="cliente_id", referencedColumnName="id")
-     */
-    private $cliente;
-    
-    
-    public function getCliente()
-    {
-        return $this->cliente;
-    }
-    
-    
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-        return $this;
-    }
+
+
+
+
+
 
     
+   
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -374,9 +359,6 @@ class Pedido
     {
         return $this->cucuruchos;
     }
-    
-    
-    
     
     public function getLocalidad()
     {
