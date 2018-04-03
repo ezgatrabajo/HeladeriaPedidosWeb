@@ -152,12 +152,29 @@ class PedidoController extends FOSRestController{
         $json = json_decode($content, true);
         $em = $this->getDoctrine()->getManager();
         //Leer Pedido
-        $fecha = $json['pedido']['fecha'];
-        $empresa_id = $json['pedido']['empresa_id'];
-        $user_id = $json['pedido']['user_id'];
-        $android_id = $json['pedido']['android_id'];
-        $cliente_id = $json['pedido']['cliente_id'];
-      
+        $fecha          = $json['pedido']['fecha'];
+        $empresa_id     = $json['pedido']['empresa_id'];
+        $user_id        = $json['pedido']['user_id'];
+        $android_id     = $json['pedido']['android_id'];
+        $cliente_id     = $json['pedido']['cliente_id'];
+        $monto          = $json['pedido']['monto'];
+        
+        //Datos Heladeria
+        $localidad     = $json['pedido']['localidad'];
+        $calle         = $json['pedido']['calle'];
+        $nro           = $json['pedido']['nro'];
+        $piso          = $json['pedido']['piso'];
+        $telefono      = $json['pedido']['telefono'];
+        $contacto      = $json['pedido']['contacto'];
+        
+        $cucharitas         = $json['pedido']['cucharitas'];
+        $cucuruchos         = $json['pedido']['cucuruchos'];
+        $cucurucho_monto    = $json['pedido']['cucurucho_monto'];
+        $enviodomicilio     = $json['pedido']['envio_domicilio'];
+        $monto_descuento    = $json['pedido']['monto_descuento'];
+        $cantidad_descuento = $json['pedido']['cantidad_descuento'];
+        
+        
         $empresa = $this->getDoctrine()->getRepository(Empresa::class)->find($empresa_id);
         if (!$empresa) {
             
@@ -170,12 +187,14 @@ class PedidoController extends FOSRestController{
             $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro usuario', 'data'=>$result);
             return $respuesta;
         }
-       
+        /*
         $cliente = $this->getDoctrine()->getRepository(Cliente::class)->find($cliente_id);
         if(!$cliente){
             $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro cliente', 'data'=>$result);
             return $respuesta;
         }
+         * 
+         */
         
         
         if ($code==Response::HTTP_OK){        
@@ -183,6 +202,7 @@ class PedidoController extends FOSRestController{
             $pedido->setFecha(new \DateTime($fecha));
             $pedido->setEstadoId(GlobalValue::ENVIADO);
             $pedido->setCliente($cliente);
+            
             //$pedido->setEmpleado($empleado);
             $pedido->setAndroid_id($android_id);
         

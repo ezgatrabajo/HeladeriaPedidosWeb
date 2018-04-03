@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li ><a href="{{path('parametro_index')}}">Parametro</a></li>
+  <li class="active"><a href="#">Detalle </a></li>
+</ol>
+
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Detalle Registro</div>
+        <div class="panel-body">
+
+        <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parametro.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ parametro.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Valortexto</th>
+                <td>{{ parametro.valorTexto }}</td>
+            </tr>
+            <tr>
+                <th>Valorinteger</th>
+                <td>{{ parametro.valorInteger }}</td>
+            </tr>
+            <tr>
+                <th>Valordecimal</th>
+                <td>{{ parametro.valorDecimal }}</td>
+            </tr>
+            <tr>
+                <th>Valorfecha</th>
+                <td>{% if parametro.valorFecha %}{{ parametro.valorFecha|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ parametro.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Eliminar" class="btn btn-flat btn-danger">
+        <a href="{{ path('parametro_edit', { 'id': parametro.id }) }}" class="btn btn-flat btn-primary">Editar</a>
+    {{ form_end(delete_form) }}
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

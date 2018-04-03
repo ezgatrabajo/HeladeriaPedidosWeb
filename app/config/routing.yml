@@ -1,3 +1,7 @@
+app_parametro:
+    resource: "@AppBundle/Controller/ParametroController.php"
+    type:     annotation
+
 app_promo:
     resource: "@AppBundle/Controller/PromoController.php"
     type:     annotation

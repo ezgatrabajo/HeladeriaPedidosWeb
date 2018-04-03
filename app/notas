@@ -1,19 +1,18 @@
-web bugs
-
-quitar empleado
-usar siempre user
-
-testear alta de empleado
-edicion
-eliminar
-listado
-
-crear cuenta (empresa) 
-loguearse desde celu con el email o usuario
 
 
+OK - web Crear abm de promos y api
+Android Chequear funcionamiento descarga de promos en la app android
+Android hacer funcion para actualizar las promos en la app desde la web, luego de generar un pedido nuevo
+Android cambiar colores a la app
 
-nota de prueba
+Web crear campo enabled en productos
+Android agregar campo enabled en productos, crud y api 
+
+
+Crear abm de parametros y api
+    crear los parametros que necesita la app
+    en la app quitar el insert de parametros inicial
+    hacer que los parametros se descarguen desde la web
 
 -------------------------------------------
 aws
@@ -35,22 +34,6 @@ php bin/console cache:clear --no-warmup --env=prod
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:validate
 
----------------------------------------------
-DESARROLLAR:
-
-ajustar tipo de campos
-realizar validaciones
-formato css login
-formato css register
-register, ajustar logica registrar empresa y asociar mutuamente
-marca, cargar imagen
-categoria, cargar imagen
-productos, cargar imagen
-crud hojaruta
-crud hojarutadetalle
-crud pedido
-crud pedidodetalle
-ajustar logica de alta en todos los modelos,empresa_id = a user login
 
 
 -----------------------------------------------
@@ -60,3 +43,5 @@ ajustar logica de alta en todos los modelos,empresa_id = a user login
     filtrar clientes por empresa, 
     estado no puede ser null
     Pedido detalle formato de campos money y cantidad
+
+-----------------------------------------------

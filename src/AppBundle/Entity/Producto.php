@@ -64,6 +64,14 @@ class Producto
      */
     private $imagen;
     
+    
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Empresa")
      * @ORM\JoinColumn(name="empresa_id", referencedColumnName="id")
@@ -297,5 +305,30 @@ class Producto
     public function getTextoCombo(){
          return $this->id . ' '. $this->nombre ;
     }
+    
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Promo
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+    
 }
 
