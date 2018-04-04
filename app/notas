@@ -14,6 +14,12 @@ Crear abm de parametros y api
     en la app quitar el insert de parametros inicial
     hacer que los parametros se descarguen desde la web
 
+OK - Web pedidos api procesar nuevo pedido (prueba con insomia)
+Web FrontEnd mostrar pedido de hoy 
+Web FrontEnd mostrar listado de pedidos
+
+
+
 -------------------------------------------
 aws
 
@@ -27,7 +33,7 @@ php bin/console generate:doctrine:crud
 
 php bin/console doctrine:database:create
 
-    php bin/console doctrine:schema:update --force
+php bin/console doctrine:schema:update --force
 
 php bin/console cache:clear --no-warmup --env=dev
 php bin/console cache:clear --no-warmup --env=prod

@@ -2,8 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\DecimalType;
+use Doctrine\DBAL\Types\IntegerType;
+use Doctrine\DBAL\Types\StringType;
+use Doctrine\DBAL\Types\BooleanType;
 /**
  * Pedido
  *
@@ -21,8 +26,9 @@ class Pedido
      */
     private $id;
 
+    
     /**
-     * @var \Date
+     * @var \Datetime
      *
      * @ORM\Column(name="fecha", type="date")
      */
@@ -37,6 +43,7 @@ class Pedido
      */
     private $estadoId;
 
+    
     /**
      * @var int
      *
@@ -44,8 +51,9 @@ class Pedido
      */
     private $android_id;
 
+    
     /**
-     * @var string
+     * @var DecimalType
      *
      * @ORM\Column(name="subtotal", type="decimal", precision=7, scale=2, nullable=true)
      */
@@ -54,11 +62,15 @@ class Pedido
     
 
     /**
-     * @var string
+     * @var DecimalType
      *
      * @ORM\Column(name="monto", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $monto;
+    
+    
+    
+    
     
     /**
      * @var string
@@ -67,12 +79,14 @@ class Pedido
      */
     private $localidad;
     
+    
     /**
      * @var string
      *
      * @ORM\Column(name="calle", type="string", length=75, nullable=true)
      */
     private $calle;
+    
     
     /**
      * @var string
@@ -81,12 +95,14 @@ class Pedido
      */
     private $piso;
     
+    
     /**
      * @var string
      *
      * @ORM\Column(name="nro", type="string", length=15, nullable=true)
      */
     private $nro;
+    
     
     /**
      * @var string
@@ -95,6 +111,7 @@ class Pedido
      */
     private $telefono;
     
+    
     /**
      * @var string
      *
@@ -102,29 +119,104 @@ class Pedido
      */
     private $contacto;
     
+    
     /**
-     * @var string
+     * @var DecimalType
+     *
+     * @ORM\Column(name="precio_kilo", type="decimal",  precision=7, scale=2, nullable=true)
+     */
+    private $precioxkilo;
+    
+    
+    /**
+     * @var DecimalType
+     *
+     * @ORM\Column(name="monto_descuento", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $montodescuento;
+    
+    
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="cantidad_descuento", type="integer",  nullable=true)
+     */
+    private $cantidaddescuento;
+    
+   
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="tiempo_demora", type="integer",  nullable=true)
+     */
+    private $tiempo_demora;
+    
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="cantidad_kilos", type="integer",  nullable=true)
+     */
+    private $cantidadkilos;
+    
+    
+    /**
+     * @var IntegerType
      *
      * @ORM\Column(name="cucharitas", type="integer",  nullable=true)
      */
     private $cucharitas;
     
-     /**
-     * @var string
+    
+    /**
+     * @var IntegerType
      *
      * @ORM\Column(name="cucuruchos", type="integer",  nullable=true)
      */
     private $cucuruchos;
     
     
-
-
-
-
-
-
-    
+    /**
+     * @var DecimalType
+     *
+     * @ORM\Column(name="monto_cucuruchos", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $montocucuruchos;
    
+    
+    /**
+     * @var DecimalType
+     *
+     * @ORM\Column(name="monto_helados", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $montohelados;
+    
+    
+    
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="cantidad_potes", type="integer",  nullable=true)
+     */
+    private $cantidadpotes;
+   
+    
+    /**
+     * @var BooleanType
+     *
+     * @ORM\Column(name="envio_domicilio", type="boolean",  nullable=true)
+     */
+    private $enviodomicilio;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //GETTERS AND SETTERS
+    
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -348,6 +440,9 @@ class Pedido
     
     
     
+    
+    
+    
     //--------------------------------------------------------------------------
     //Campos para Heladerias
     //--------------------------------------------------------------------------
@@ -389,6 +484,53 @@ class Pedido
     {
         return $this->contacto;
     }
+    //Nuevos
+    public function getPreciokilo()
+    {
+        return $this->precioxkilo;
+    }
+    
+    public function getMontodescuento()
+    {
+        return $this->montodescuento;
+    } 
+    
+    public function getCantidaddescuento()
+    {
+        return $this->cantidaddescuento;
+    }
+    
+    public function getTiempodemora()
+    {
+        return $this->tiempo_demora;
+    } 
+    
+    public function getCantidadkilos()
+    {
+        return $this->cantidadkilos;
+    } 
+    
+    public function getMontocucuruchos()
+    {
+        return $this->montocucuruchos;
+    } 
+    
+    public function getMontohelados()
+    {
+        return $this->montohelados;
+    } 
+    
+    public function getCantidadpotes()
+    {
+        return $this->cantidadpotes;
+    } 
+    
+    public function getEnviodomicilio()
+    {
+        return $this->enviodomicilio;
+    }
+    
+    
     
     
     
@@ -428,11 +570,59 @@ class Pedido
     {
         $this->cucharitas= $cucharitas;
     }
+    
     public function setCucuruchos($cucuruchos)
     {
         $this->cucuruchos=$cucuruchos;
     }
     
+    //Nuevos
+    public function setPreciokilo($value)
+    {
+        $this->precioxkilo=$value;
+    }
+    
+    public function setMontodescuento($value)
+    {
+        $this->montodescuento=$value;
+    }
+    
+    public function setCantidaddescuento($value)
+    {
+        $this->cantidaddescuento=$value;
+    }
+    
+    public function setTiempodemora($value)
+    {
+        $this->tiempodemora=$value;
+    }
+    
+    public function setCantidadkilos($value)
+    {
+        $this->cantidadkilos=$value;
+    }
+    
+    public function setMontocucuruchos($value)
+    {
+        $this->montocucuruchos=$value;
+    }
+    
+    public function setMontohelados($value)
+    {
+        $this->montohelados=$value;
+    }
+    
+    public function setCantidadpotes($value)
+    {
+        $this->cantidadpotes=$value;
+    }
+    
+    public function setEnviodomicilio($value)
+    {
+        $this->enviodomicilio=$value;
+    }
+    
+   
     
     
     

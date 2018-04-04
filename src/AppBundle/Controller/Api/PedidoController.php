@@ -18,6 +18,7 @@ use \AppBundle\Entity\Movimientostock;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use \FOS\RestBundle\Controller\FOSRestController;
+use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -151,13 +152,14 @@ class PedidoController extends FOSRestController{
         //parsear detalle
         $json = json_decode($content, true);
         $em = $this->getDoctrine()->getManager();
+        
         //Leer Pedido
-        $fecha          = $json['pedido']['fecha'];
+        $fecha          = $json['pedido']['fecha']; //recibir fecha y hora
         $empresa_id     = $json['pedido']['empresa_id'];
         $user_id        = $json['pedido']['user_id'];
         $android_id     = $json['pedido']['android_id'];
-        $cliente_id     = $json['pedido']['cliente_id'];
         $monto          = $json['pedido']['monto'];
+        $subtotal       = $json['pedido']['subtotal'];
         
         //Datos Heladeria
         $localidad     = $json['pedido']['localidad'];
@@ -171,13 +173,18 @@ class PedidoController extends FOSRestController{
         $cucuruchos         = $json['pedido']['cucuruchos'];
         $cucurucho_monto    = $json['pedido']['cucurucho_monto'];
         $enviodomicilio     = $json['pedido']['envio_domicilio'];
-        $monto_descuento    = $json['pedido']['monto_descuento'];
-        $cantidad_descuento = $json['pedido']['cantidad_descuento'];
-        
+        $montodescuento     = $json['pedido']['monto_descuento'];
+        $cantidaddescuento = $json['pedido']['cantidad_descuento'];
+
+        $preciokilo     = $json['pedido']['precioxkilo'];
+        $tiempodemora   = $json['pedido']['tiempodemora'];
+        $cantidadkilos  = $json['pedido']['cantidadkilos'];
+        $montohelados   = $json['pedido']['monto_helados'];
+        $cantidadpotes  = $json['pedido']['cantidadpotes'];
+        $enviodomicilio = $json['pedido']['enviodomicilio'];
         
         $empresa = $this->getDoctrine()->getRepository(Empresa::class)->find($empresa_id);
         if (!$empresa) {
-            
             $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro empresa', 'data'=>$result);
             return $respuesta;
         }
@@ -187,21 +194,35 @@ class PedidoController extends FOSRestController{
             $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro usuario', 'data'=>$result);
             return $respuesta;
         }
-        /*
-        $cliente = $this->getDoctrine()->getRepository(Cliente::class)->find($cliente_id);
-        if(!$cliente){
-            $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro cliente', 'data'=>$result);
-            return $respuesta;
-        }
-         * 
-         */
-        
-        
+       
         if ($code==Response::HTTP_OK){        
             $pedido->setEmpresa($empresa);
             $pedido->setFecha(new \DateTime($fecha));
             $pedido->setEstadoId(GlobalValue::ENVIADO);
-            $pedido->setCliente($cliente);
+            $pedido->setSubtotal($subtotal);
+            $pedido->setMonto($monto);
+            $pedido->setUser($user);
+            
+            //Campos heladeria 
+            $pedido->setLocalidad($localidad);
+            $pedido->setCalle($calle);
+            $pedido->setNro($nro);
+            $pedido->setPiso($piso);
+            $pedido->setContacto($contacto);
+            $pedido->setTelefono($telefono);
+            
+            $pedido->setCucharitas($cucharitas);
+            $pedido->setCucuruchos($cucuruchos);
+            $pedido->setMontocucuruchos($cucurucho_monto);
+            $pedido->setPreciokilo($preciokilo);
+            $pedido->setMontodescuento($montodescuento);
+            $pedido->setCantidaddescuento($cantidaddescuento);
+            $pedido->setTiempodemora($tiempodemora);
+            $pedido->setCantidadkilos($cantidadkilos);
+            $pedido->setMontohelados($montohelados);
+            $pedido->setCantidadpotes($cantidadpotes);
+            $pedido->setEnviodomicilio($enviodomicilio);
+            
             
             //$pedido->setEmpleado($empleado);
             $pedido->setAndroid_id($android_id);
@@ -210,8 +231,8 @@ class PedidoController extends FOSRestController{
                 $detalles = $json['pedido']['pedidodetalles'];
                 foreach ($detalles as $item){
                     $producto_id = $item['producto_id'];
-                    $android_id = $item['android_id'];
-                    $cantidad = $item['cantidad'];
+                    $android_id  = $item['android_id'];
+                    $cantidad    = $item['cantidad'];
 
                     //Validar que producto pertenezca a la Empresa
                     $producto = new Producto();
@@ -221,12 +242,14 @@ class PedidoController extends FOSRestController{
                         return $respuesta;
                          
                     } 
+                    
                     $pd = new Pedidodetalle();
                     $pd->setProducto($producto);
                     $pd->setCantidad($cantidad);
                     $pedido->addPedidodetalle($pd);     
                     
                     //Generar movimiento de Stock
+                    /*
                     $mv = new Movimientostock();
                     $mv->setCantidad($cantidad);
                     $mv->setFecha(new \DateTime($fecha));
@@ -239,13 +262,14 @@ class PedidoController extends FOSRestController{
                     $stock = $producto->getStock();
                     $stockactual = $stock - $cantidad;
                     $producto->setStock($stockactual);
+                    */
                     
                     
                 }
             }         
-            $em->persist($producto);
+            //$em->persist($producto);
             $em->persist($pedido);
-            $em->persist($mv);
+            //$em->persist($mv);
             $em->flush();
         }//Si paso validacion
 
