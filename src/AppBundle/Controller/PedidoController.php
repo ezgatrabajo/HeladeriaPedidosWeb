@@ -66,10 +66,6 @@ class PedidoController extends Controller
                 $queryBuilder->andWhere('bp.estadoId = :estadoid')
                              ->setParameter('estadoid',  $pedido->getEstadoId());   
             }
-            if ($pedido->getEmpleado()){
-                $queryBuilder->andWhere('bp.empleado = :empleado')
-                             ->setParameter('empleado',  $pedido->getEmpleado());   
-            }
         }
         $queryBuilder->orderBy('bp.fecha', 'DESC');
 

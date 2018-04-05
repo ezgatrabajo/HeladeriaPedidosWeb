@@ -84,31 +84,28 @@ class GlobalValue{
     
     /*Estado de pedido*/
     const PENDIENTE = 1;
-    const ENVIADO = 2;
-    const PREPARADO = 3;
+    const ENPREPARACION = 2;
+    const ENCAMINO = 3;
     const ENTREGADO = 4;
-    const PAGADO = 5;
     
-    const PENDIENTE_DISPLAY = 'Pendiente';
-    const ENVIADO_DISPLAY = 'Pendiente (Android)';
-    const PREPARADO_DISPLAY = 'Preparado';
-    const ENTREGADO_DISPLAY = 'Entregado';
-    const PAGADO_DISPLAY = 'Pagado';
+    const PENDIENTE_DISPLAY     = 'PENDIENTE';
+    const ENPREPARACION_DISPLAY = 'EN PREPARACION';
+    const ENCAMINO_DISPLAY      = 'EN CAMINO';
+    const ENTREGADO_DISPLAY     = 'ENTREGADO';
     
     const ESTADOS = array(
-                            GlobalValue::PENDIENTE =>GlobalValue::PENDIENTE_DISPLAY,
-                            GlobalValue::ENVIADO => GlobalValue::ENVIADO_DISPLAY,
-                            GlobalValue::ENTREGADO => GlobalValue::ENTREGADO_DISPLAY,    
-                            GlobalValue::PREPARADO => GlobalValue::PREPARADO_DISPLAY,
-                            GlobalValue::PAGADO => GlobalValue::PAGADO_DISPLAY);
+                            GlobalValue::PENDIENTE     => GlobalValue::PENDIENTE_DISPLAY,
+                            GlobalValue::ENPREPARACION => GlobalValue::ENPREPARACION_DISPLAY,
+                            GlobalValue::ENCAMINO      => GlobalValue::ENCAMINO_DISPLAY,    
+                            GlobalValue::ENTREGADO     => GlobalValue::ENTREGADO_DISPLAY
+                        );
     
     const ESTADOS_SELECT = 
                         array(
-                          GlobalValue::PENDIENTE_DISPLAY =>GlobalValue::PENDIENTE ,
-                          GlobalValue::PREPARADO_DISPLAY => GlobalValue::PREPARADO ,
-                          GlobalValue::ENVIADO_DISPLAY => GlobalValue::ENVIADO ,
-                          GlobalValue::ENTREGADO_DISPLAY => GlobalValue::ENTREGADO,
-                          GlobalValue::PAGADO_DISPLAY=> GlobalValue::PAGADO
+                            GlobalValue::PENDIENTE_DISPLAY      =>GlobalValue::PENDIENTE ,
+                            GlobalValue::ENPREPARACION_DISPLAY  => GlobalValue::ENPREPARACION ,
+                            GlobalValue::ENCAMINO_DISPLAY       => GlobalValue::ENCAMINO ,
+                            GlobalValue::ENTREGADO_DISPLAY      => GlobalValue::ENTREGADO
                         );
     
     

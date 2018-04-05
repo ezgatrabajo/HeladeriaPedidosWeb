@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use AppBundle\Entity\GlobalValue;
 
 
 
@@ -25,7 +25,7 @@ class PedidoFilterType extends AbstractType
         $builder->add('fechadesde',  DateType::class, [ 'widget' => 'single_text', 'label'=>'Fecha Desde']  )
                 ->add('fechahasta',  DateType::class, [ 'widget' => 'single_text', 'label'=>'Fecha Hasta']  )
                 ->add('estadoid', ChoiceType::class, array(
-                        'choices'   => array('Pendiente' => '1', 'Enviado' => '2', 'Entregado' => '3', 'Rechazado' => '4'),
+                        'choices'   => GlobalValue::ESTADOS_SELECT,
                         'required'  => false,
                         'label'=>'Estado'));
                 ;

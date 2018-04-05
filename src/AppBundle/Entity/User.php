@@ -274,7 +274,7 @@ class User extends BaseUser
      *
      * @param string $nombre
      *
-     * @return Empleado
+     * @return string
      */
     public function setNombre($nombre)
     {
@@ -298,7 +298,7 @@ class User extends BaseUser
      *
      * @param string $apellido
      *
-     * @return Empleado
+     * @return string
      */
     public function setApellido($apellido)
     {
@@ -322,7 +322,7 @@ class User extends BaseUser
      *
      * @param string $ndoc
      *
-     * @return Empleado
+     * @return string
      */
     public function setNdoc($ndoc)
     {
@@ -346,7 +346,7 @@ class User extends BaseUser
      *
      * @param string $direccion
      *
-     * @return Empleado
+     * @return string
      */
     public function setDireccion($direccion)
     {
@@ -370,7 +370,7 @@ class User extends BaseUser
      *
      * @param string $telefono
      *
-     * @return Empleado
+     * @return string
      */
     public function setTelefono($telefono)
     {
@@ -397,7 +397,7 @@ class User extends BaseUser
     
     public function getTextoCombo()
     {
-        return strval ($this->nombre) . ' '. strval ($this->apellido) . ' ' . strval ($this->ndoc);
+        return strval ($this->email );
     }
     
     

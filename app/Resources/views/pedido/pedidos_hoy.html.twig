@@ -13,19 +13,17 @@
         <div class="panel-heading">Listado de Pedidos {{hoy|date('d/m/Y')}}</div>
         <div class="panel-body">
         <a href="{{ path('pedido_new') }}" class="btn btn-primary"
-           data-toggle="tooltip" data-placement="top" title="Nuevo">
-            <span class="glyphicon  glyphicon-floppy-saved"  aria-hidden="true"></span></a>
+           data-toggle="tooltip" data-placement="top" title="Nuevo">Nuevo
+            <span class="glyphicon glyphicon-import"  aria-hidden="true"></span></a>
         <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Fecha</th>
-                <th>Cliente</th>
-                <th>Usuario</th>
+                <th>Usuario/Cliente</th>
                 <th>Estado</th>
-
                 <th>Monto</th>
-                <th>Actions</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +31,6 @@
             <tr>
                 <td><a href="{{ path('pedido_show', { 'id': pedido.id }) }}">{{ pedido.id }}</a></td>
                 <td>{% if pedido.fecha %}{{ pedido.fecha|date('d/m/Y') }}  {% endif %}</td>
-                <td>{{ pedido.cliente.razonsocial}}</td>
                 <td>{{ pedido.user.getTextoCombo}}</td>
                 <td>{{ estados[pedido.estadoId] }}</td>
                 <td>{{ pedido.monto }}</td>

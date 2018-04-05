@@ -25,6 +25,8 @@ aws
 
 
 -------------------------------------------
+cd ../../xampp/htdocs/heladeriapedidosweb
+
 php bin/console server:run 0.0.0.0:8000
 
 php bin/console generate:doctrine:entity
