@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\GlobalValue;
+
 /**
  * ParametroRepository
  *
@@ -10,4 +12,11 @@ namespace AppBundle\Repository;
  */
 class ParametroRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function findPrecioxkilo()
+    {
+        return $this->createQueryBuilder('t')
+        ->andWhere('t.nombre = :nombre')
+        ->setParameter('nombre', GlobalValue::PARAMETRO_PRECIO_KILO);
+    }
 }

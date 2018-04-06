@@ -86,6 +86,8 @@ class ParametroController extends Controller
         ));
     }
 
+    
+
     /**
      * Displays a form to edit an existing parametro entity.
      *
@@ -109,6 +111,34 @@ class ParametroController extends Controller
             'parametro' => $parametro,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+        ));
+    }
+    
+    
+    /**
+     * Displays a form to edit an existing parametro entity.
+     *
+     * @Route("/{id}/editpreciokilo", name="parametro_edit_precio_kilo")
+     * @Method({"GET", "POST"})
+     */
+    public function editpreciokiloAction(Request $request, Parametro $parametro)
+    {
+        if (!$parametro){
+            $parametro = $this->getDoctrine()->getRepository(Parametro::class)->findPrecioxkilo();
+        }
+        
+        $editForm  = $this->createForm('AppBundle\Form\ParametroType', $parametro);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(  'success','Guardado Correctamente!');
+            return $this->redirectToRoute('parametro_edit_precio_kilo', array('id' => $parametro->getId()));
+        }
+        
+        return $this->render('parametro/editparametro.html.twig', array(
+            'parametro' => $parametro,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
