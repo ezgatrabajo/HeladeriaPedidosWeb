@@ -198,7 +198,7 @@ class PedidoController extends FOSRestController{
         if ($code==Response::HTTP_OK){        
             $pedido->setEmpresa($empresa);
             $pedido->setFecha(new \DateTime($fecha));
-            $pedido->setEstadoId(GlobalValue::ENVIADO);
+            $pedido->setEstadoId(GlobalValue::ENPREPARACION);
             $pedido->setSubtotal($subtotal);
             $pedido->setMonto($monto);
             $pedido->setUser($user);

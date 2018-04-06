@@ -28,19 +28,7 @@ class Pedidodetalle
      */
     private $cantidad;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="preciounitario", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $preciounitario;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="monto", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $monto;
+    
 
     /**
     * @ORM\ManyToOne(targetEntity="Pedido", inversedBy="pedidodetalles")
@@ -118,55 +106,22 @@ class Pedidodetalle
         return $this->cantidad;
     }
 
-    /**
-     * Set preciounitario
-     *
-     * @param string $preciounitario
-     *
-     * @return Pedidodetalle
-     */
-    public function setPreciounitario($preciounitario)
-    {
-        $this->preciounitario = $preciounitario;
-
-        return $this;
+    public function getCantidadString(){
+        $texto = "";
+        if ($this->cantidad >= GlobalValue::MEDIDA_HELADO_POCO_DESDE && $this->cantidad <=GlobalValue::MEDIDA_HELADO_POCO_HASTA ){
+            $texto = "Poco";
+        }
+        if ($this->cantidad > GlobalValue::MEDIDA_HELADO_EQUILIBRADO_DESDE  && $this->cantidad <=GlobalValue::MEDIDA_HELADO_EQUILIBRADO_HASTA ){
+            $texto = "Equilibrado";
+        }
+        if ($this->cantidad >= GlobalValue::MEDIDA_HELADO_MUCHO_LIMIT_DESDE && $this->cantidad <=GlobalValue::MEDIDA_HELADO_MUCHO_LIMIT_HASTA ){
+            $texto = "Mucho";
+        }
+        return $texto;
     }
 
-    /**
-     * Get preciounitario
-     *
-     * @return string
-     */
-    public function getPreciounitario()
-    {
-        return $this->preciounitario;
-    }
 
-    /**
-     * Set monto
-     *
-     * @param string $monto
-     *
-     * @return Pedidodetalle
-     */
-    public function setMonto($monto)
-    {
-        $this->monto = $monto;
-
-        return $this;
-    }
-
-    /**
-     * Get monto
-     *
-     * @return string
-     */
-    public function getMonto()
-    {
-        return $this->monto;
-    }
-
-    
+   
 
     
 }

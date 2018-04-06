@@ -9,21 +9,16 @@
             
                    <table class="table">
                        <tr><th>ID:</th><td>{{pedido.id}}</td></tr>
-                       <tr><th>Usuario:</th><td>{{pedido.user.textocombo}}</td></tr>
-                       <tr><th>Fecha:</th><td>{{pedido.fecha|date('d-m-Y')}}</td></tr>
-                       <tr><th>Cliente:</th><td>{{pedido.cliente.textocombo}}</td></tr>
-                       <tr><th>Estado:</th><td>{{estados[pedido.estadoId]}}</td></tr>
-                  
+                       <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
+                       <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
+                       <tr><th>Cliente:</th><td>  {{pedido.user.textocombo}}</td></tr>
+                       <tr><th>Estado:</th><td>   {{estados[pedido.estadoId]}}</td></tr>
                    </table>
                     
                         
-                    {% if pedido.estadoId == preparadoid%}
+                    {% if pedido.estadoId == pendiente_id %}
                         {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Pasar a Preparado" disabled class="btn btn-flat btn-success">
-                        {{ form_end(formchangestatus) }}
-                    {% else %}
-                        {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Pasar a Preparado" class="btn btn-flat btn-success">
+                                <input type="submit" value="Cambiar estado a EN CAMINO" disabled class="btn btn-flat btn-success">
                         {{ form_end(formchangestatus) }}
                     {% endif %}
                </div>
@@ -69,9 +64,7 @@
                 <thead>
                     <th>ID</th>
                     <th>Producto</th>
-                    <th>Precio Unitario</th>
                     <th>Cantidad</th>
-                    <th>Monto</th>
                     <th>Actions</th>
                     
                 </thead>
@@ -82,14 +75,14 @@
                         <form>
                             <td>{{item.id}}</td>
                             <td >{{item.producto.nombre}}</td>
-                            <td class="col-md-2">{{item.preciounitario|number_format(3, '.', ',') }}</td>
+                            <td>{{item.cantidadstring }}</td>
+                            <!--
                             <td class="col-md-2">
-                                <input name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidad }}">
-                                <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div>
+                                <input disabled name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidadstring }}">
+                                <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div> 
                             </td>
-                           
-                            
-                            <td class="col-md-2" data-id="{{item.id}}" name="monto">{{(item.cantidad * item.preciounitario)|number_format(3, '.', ',')  }}</td>
+                            -->
+                        
                             <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="btn btn-xs btn-danger">Eliminar</a></td>
                         </form>
                     </tr>
@@ -109,10 +102,7 @@
         {
             
             /*Detectar evento click */
-            
             $(".btn.btn-xs.btn-default.actualizaritempedido").click(function(){
-                
-                
 
                     //Armar json
                     var id = $(this).attr("data-id");
@@ -135,7 +125,7 @@
                                     alert("Cantidad Actualizada Correctamente...");
                                     //var msg = $("div[name='alert']");
                                     var monto = $("td[data-id=" + id + "][name='monto']");
-                                    importe = data.data.cantidad * data.data.preciounitario;
+                                    importe = data.data.cantidad;// * data.data.preciounitario;
                                     monto.html(importe);
                                 }
                             },

@@ -79,6 +79,9 @@ class GlobalValue{
                 );
     
     
+            
+            
+            
     
     
     
@@ -240,5 +243,48 @@ class GlobalValue{
     const ERROR_VALIDATEFILE= 99;
     
     const CODE_HELADERIA_ROMA = 1;
+    
+    
+    //MEdida helados
+    const MEDIDA_HELADO_POCO_DESDE = 0;
+    const MEDIDA_HELADO_POCO_HASTA = 50;
+    
+    const MEDIDA_HELADO_EQUILIBRADO_DESDE = 51;
+    const MEDIDA_HELADO_EQUILIBRADO_HASTA = 100;
+    
+    const MEDIDA_HELADO_MUCHO_LIMIT_DESDE = 101;
+    const MEDIDA_HELADO_MUCHO_LIMIT_HASTA = 150;
+    
+    const MEDIDA_HELADO_POCO        = 'POCO';
+    const MEDIDA_HELADO_EQUILIBRADO = 'EQUILIBRADO';
+    const MEDIDA_HELADO_MUCHO       = 'MUCHO';
+    
+    const MEDIDA_HELADO =
+    array(
+        GlobalValue::LUNES_ID => GlobalValue::LUNES_DISPLAY,
+        GlobalValue::MARTES_ID => GlobalValue::MARTES_DISPLAY,
+        GlobalValue::MIERCOLES_ID => GlobalValue::MIERCOLES_DISPLAY,
+        GlobalValue::JUEVES_ID => GlobalValue::JUEVES_DISPLAY,
+        GlobalValue::VIERNES_ID => GlobalValue::VIERNES_DISPLAY,
+        GlobalValue::SABADO_ID => GlobalValue::SABADO_DISPLAY,
+        GlobalValue::DOMINGO_ID => GlobalValue::DOMINGO_DISPLAY
+    );
+    
+    const MEDIDA_HELADO_SELECT =
+    array(
+        GlobalValue::LUNES_DISPLAY => GlobalValue::LUNES_ID  ,
+        GlobalValue::MARTES_DISPLAY => GlobalValue::MARTES_ID ,
+        GlobalValue::MIERCOLES_DISPLAY => GlobalValue::MIERCOLES_ID,
+        GlobalValue::JUEVES_DISPLAY => GlobalValue::JUEVES_ID ,
+        GlobalValue::VIERNES_DISPLAY => GlobalValue::VIERNES_ID ,
+        GlobalValue::SABADO_DISPLAY => GlobalValue::SABADO_ID ,
+        GlobalValue::DOMINGO_DISPLAY => GlobalValue::DOMINGO_ID
+    );
+    
+    
+    //ESTE VALOR ES EL VALOR QUE VA A ESTAR EN EL CAMPO NOMBRE DENTRO DE LA TABLA PARAMETROS
+    const PARAMETRO_PRECIO_KILO         = 'preciokilo';
+    const PARAMETRO_PRECIO_CUCURUCHO    = 'preciocucurucho';
+    
     
 }

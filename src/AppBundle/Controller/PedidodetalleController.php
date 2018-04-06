@@ -60,7 +60,11 @@ class PedidodetalleController extends Controller
         $pedidodetalle = new Pedidodetalle();
         //Obtener Hojaruta y Hojarutadetalles
         $repository = $this->getDoctrine()->getRepository(Pedido::class);
+        
         $pedido = $repository->findOneById($pedido_id);
+        $pedido->setVisto(true);
+        
+        
         $pedidodetalles = $pedido->getPedidodetalles();
         //Fin consulta de datos
         $formchangestatus = $this->createChangeStatusForm($pedido);
@@ -79,6 +83,7 @@ class PedidodetalleController extends Controller
                     ));
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $pedidodetalle->setPedido($pedido);
@@ -92,8 +97,9 @@ class PedidodetalleController extends Controller
             'pedidodetalles' => $pedidodetalles,
             'pedido'=>$pedido,
             'estados'=> GlobalValue::ESTADOS,
-            'preparado' => GlobalValue::PREPARADO_DISPLAY,
-            'preparadoid' => GlobalValue::PREPARADO,
+            'pendiente_id'=>GlobalValue::PENDIENTE,
+            'encamino' => GlobalValue::ENCAMINO_DISPLAY,
+            'encamino_id' => GlobalValue::ENCAMINO,
             'form' => $form->createView(),
             'formchangestatus'=> $formchangestatus->createView()
         ));
@@ -122,7 +128,7 @@ class PedidodetalleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $pedido->setEstadoId(GlobalValue::PREPARADO);
+            $pedido->setEstadoId(GlobalValue::ENCAMINO);
             $em->persist($pedido);
             $em->flush();
         }

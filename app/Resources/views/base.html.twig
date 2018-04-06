@@ -71,9 +71,16 @@
                 <li><a class="dropdown-item" href="{{ url('marcas_index') }}">Marcas</a></li>
                 <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Categorias</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_index') }}">Parametros</a></li>
+                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Usuarios</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('archivo_new') }}">Importar Archivos</a></li>
+                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Precio x Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Precio C/Cucurucho</a></li>
+                <li role="separator" class="divider"></li>
+                {% if is_granted("ROLE_ADMIN") %}   
+                    <li><a class="dropdown-item" href="{{ url('parametro_index') }}">Parametros</a></li>
+                    <li><a class="dropdown-item" href="{{ url('archivo_new') }}">Importar Archivos</a></li>
+                {% endif %}
+                
           </ul>
           
         </li>
@@ -130,13 +137,7 @@
               Cambiar Contraseña
              </a>
             </li>
-            {% if is_granted("ROLE_EMPRESA") %} 
-            <li class="nav-item">
-             <a class="nav-link" href="{{ url('empresa_edit', {'id':app.user.empresa.id}) }}" >
-              Editar Datos Empresa
-             </a>
-            </li>
-            {% endif %}
+          
             
             
             <li class="nav-item">
@@ -172,7 +173,25 @@
           </ul>
         </li>
         </ul>
-          
+         <ul class="nav navbar-nav navbar-right">     
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+             aria-expanded="false">
+             <span class="glyphicon glyphicon-bullhorn success" aria-hidden="true" id="cartelnotificaciones"></span>
+             <span class="label label-success" id="cantidad_pedidos">10</span>
+              </a>
+        
+          <ul class="dropdown-menu">
+                <li>
+                  <a class="nav-link" href="https://play.google.com/store/apps/details?id=adaptivex.pedidoscloud&hl=es"  > 
+                     Ver Nuevos pedidos<i class="fa fa-android" aria-hidden="true"></i></a>
+                </li>
+                
+                
+        
+          </ul>
+        </li>
+        </ul>
         
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

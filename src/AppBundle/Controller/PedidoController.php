@@ -10,7 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use DateTime;
+use DateInterval;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -54,13 +55,21 @@ class PedidoController extends Controller
         
         //Filtros
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
+            $fechadesde = $pedido->getFechadesde();
+            $fechahasta = $pedido->getFechahasta();
+            if ($fechadesde){
+                if ($fechadesde == $fechahasta){
+                    $fechahasta = $fechahasta->add(new DateInterval('P10D'));
+                }
+            }
+            
             if ($pedido->getFechadesde()){
                 $queryBuilder->andWhere('bp.fecha >= :fechadesde')
-                             ->setParameter('fechadesde',  $pedido->getFechadesde());   
+                ->setParameter('fechadesde',  $fechadesde);   
             }
             if ($pedido->getFechahasta()){
                 $queryBuilder->andWhere('bp.fecha <= :fechahasta')
-                             ->setParameter('fechahasta',  $pedido->getFechahasta());   
+                    ->setParameter('fechahasta', $fechahasta );   
             }
             if ($pedido->getEstadoId()){
                 $queryBuilder->andWhere('bp.estadoId = :estadoid')
@@ -71,7 +80,7 @@ class PedidoController extends Controller
 
         $registros = $queryBuilder;
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),8);
+        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),20);
         
         
         return $this->render('pedido/index.html.twig', array(
@@ -81,6 +90,10 @@ class PedidoController extends Controller
             
         ));
     }
+    
+    
+    
+    
     
     /**
      * Lists all pedido entities.
@@ -95,10 +108,11 @@ class PedidoController extends Controller
         // Filtrar por Empresa y por fecha de hoy
         $hoy = date("Y-m-d");
         
+        
         $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('bp');
         $queryBuilder->where('bp.empresa = :empresa')
                      ->setParameter('empresa', $empresa);
-        $queryBuilder->andWhere('bp.fecha = :hoy')
+        $queryBuilder->andWhere('bp.fecha >= :hoy')
                      ->setParameter('hoy', $hoy ); 
         
         
@@ -121,23 +135,20 @@ class PedidoController extends Controller
         $form_filter->handleRequest($request);
         //Filtros
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
-            if ($pedido->getFechadesde()){
-                $queryBuilder->andWhere('bp.fecha >= :fechadesde')
-                             ->setParameter('fechadesde',  $pedido->getFechadesde());   
-            }
-            if ($pedido->getFechahasta()){
-                $queryBuilder->andWhere('bp.fecha <= :fechahasta')
-                             ->setParameter('fechahasta',  $pedido->getFechahasta());   
-            }
              if ($pedido->getEstadoId()){
                 $queryBuilder->andWhere('bp.estadoId = :estadoid')
                              ->setParameter('estadoid',  $pedido->getEstadoId());   
-            }
+             }
+             
+             if ($pedido->getUser()){
+                 $queryBuilder->andWhere('bp.user = :user')
+                 ->setParameter('user',  $pedido->getUser());
+             }
         }
         
         $registros = $queryBuilder;
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),8);
+        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),20);
         
         return $this->render('pedido/pedidos_hoy.html.twig', array(
             'pagination' => $pagination, 
@@ -147,6 +158,9 @@ class PedidoController extends Controller
     }
     
 
+    
+    
+    
     /**
      * Creates a new pedido entity.
      *

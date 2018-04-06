@@ -1,27 +1,35 @@
+WEB
+* OK - web Crear abm de promos y api
+* OK - Web pedidos api procesar nuevo pedido (prueba con insomia)
+* OK - Quitar Precio unitario de pedidodetalle y todos los lugares donde se usa
+* OK - Web FrontEnd mostrar pedido de hoy
+* OK -  Web FrontEnd mostrar listado de pedidos
 
 
-OK - web Crear abm de promos y api
-Android Chequear funcionamiento descarga de promos en la app android
-Android hacer funcion para actualizar las promos en la app desde la web, luego de generar un pedido nuevo
-Android cambiar colores a la app
 
-Web crear campo enabled en productos
-Android agregar campo enabled en productos, crud y api 
-
-
-Crear abm de parametros y api
+* Web crear campo enabled en productos
+* Crear abm de parametros y api
     crear los parametros que necesita la app
     en la app quitar el insert de parametros inicial
     hacer que los parametros se descarguen desde la web
+ 
+* Crear formulario Editar Precio del Kilo, dato donde impata es un update al parametro de Precio Kilo
+Restringir 
+* Formulario cambiar contraseña, arreglar estilo
 
-OK - Web pedidos api procesar nuevo pedido (prueba con insomia)
-Web FrontEnd mostrar pedido de hoy 
-Web FrontEnd mostrar listado de pedidos
+* Crear javascript de notificacion de pedidos
+* Crear formulario editar mis datos
+* Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
 
 
 
--------------------------------------------
-aws
+ANDROID
+Android Chequear funcionamiento descarga de promos en la app android
+Android hacer funcion para actualizar las promos en la app desde la web, luego de generar un pedido nuevo
+Android cambiar colores a la app
+Android agregar campo enabled en productos, crud y api 
+
+
 
 
 -------------------------------------------
@@ -42,6 +50,8 @@ php bin/console cache:clear --no-warmup --env=prod
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:validate
 
+
+php bin/console fos:user:create adminuser --super-admin
 
 
 -----------------------------------------------

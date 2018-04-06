@@ -397,7 +397,8 @@ class User extends BaseUser
     
     public function getTextoCombo()
     {
-        return strval ($this->email );
+        $texto = strval($this->email );
+        return $texto;
     }
     
     

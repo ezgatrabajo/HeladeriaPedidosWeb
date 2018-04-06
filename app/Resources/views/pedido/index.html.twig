@@ -15,7 +15,9 @@
         <div class="panel-body">
             <a href="{{ path('pedido_new') }}" class="btn btn-primary"
                data-toggle="tooltip" data-placement="top" title="Nuevo">
-                <span class="glyphicon  glyphicon-floppy-saved"  aria-hidden="true"></span></a>
+                Nuevo
+            <span class="glyphicon glyphicon-import"  aria-hidden="true"></span>
+                </a>
             <table class="table">
                 <thead>
                 <tr>
@@ -25,21 +27,21 @@
                     <th>Estado</th>
 
                     <th>Monto</th>
-                    <th>Actions</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for pedido in pagination %}
                     <tr>
                         <td><a href="{{ path('pedido_show', { 'id': pedido.id }) }}">{{ pedido.id }}</a></td>
-                        <td>{% if pedido.fecha %}{{ pedido.fecha|date('d/m/Y') }}  {% endif %}</td>
+                        <td>{% if pedido.fecha %}{{ pedido.fecha|date('d/m/Y H:i:s') }}  {% endif %}</td>
                         <td>{{ pedido.user.getTextoCombo}}</td>
                         <td>{{ estados[pedido.estadoId] }}</td>
-                        <td>{{ pedido.monto }}</td>
+                        <td>{{ pedido.montoformat }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('pedidodetalle_new', { 'pedido_id': pedido.id }) }}"
                                class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ver">
-                                <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span></a>
+                                <span class="glyphicon glyphicon-chevron-right"  aria-hidden="true"></span></a>
                         </td>
                         </td>
                     </tr>

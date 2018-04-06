@@ -30,7 +30,7 @@ class Pedido
     /**
      * @var \Datetime
      *
-     * @ORM\Column(name="fecha", type="date")
+     * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
     
@@ -206,6 +206,14 @@ class Pedido
      * @ORM\Column(name="envio_domicilio", type="boolean",  nullable=true)
      */
     private $enviodomicilio;
+    
+    
+    /**
+     * @var BooleanType
+     *
+     * @ORM\Column(name="visto", type="boolean",  nullable=true)
+     */
+    private $visto;
     
     
     
@@ -529,6 +537,10 @@ class Pedido
     {
         return $this->enviodomicilio;
     }
+    public function getVisto($value)
+    {
+        $this->visto=$value;
+    }
     
     
     
@@ -622,8 +634,19 @@ class Pedido
         $this->enviodomicilio=$value;
     }
     
-   
+    public function setVisto($value)
+    {
+        $this->visto=$value;
+    }
     
+   
+    public function getMontoFormat(){
+        $monto ="$ 0.00";
+        if ($this->monto > 0){
+            $monto = "$ $this->monto";
+        }
+        return $monto;
+    }
     
     
 
