@@ -14,10 +14,11 @@ WEB
     hacer que los parametros se descarguen desde la web
  
 * Crear formulario Editar Precio del Kilo, dato donde impata es un update al parametro de Precio Kilo
-Restringir 
 * Formulario cambiar contraseña, arreglar estilo
 
 * Crear javascript de notificacion de pedidos
+	crear consulta api json con cantidad de pedidos visto = false
+	
 * Crear formulario editar mis datos
 * Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
 

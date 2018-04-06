@@ -338,6 +338,35 @@ class PedidoController extends FOSRestController{
     }
     
     /**
+     * @Rest\Get("/api/pedido/notificaciones")
+     */
+    public function postPedidonotificacionesAction(Request $request){
+        //leer json
+        try{
+            $pedido = new Pedido();
+            $code = Response::HTTP_OK;
+            $pd = $this->getDoctrine()->getRepository(Pedido::class)->cantidadNoVisto();
+            
+            
+            $response = array('code'=>$code,
+                'message'=>'Notificaciones',
+                'data'=>$pd
+            );
+            return $response;
+        }catch(Exception $e){
+            $response = array('code'=>Response::HTTP_CONFLICT,
+                'message'=>$e->getMessage(),
+                'data'=>null
+            );
+            return $response;
+        
+        }
+    }
+    
+    
+    
+    
+    /**
     * @Rest\Get("/api/check")
     */
     public function getCheckAction(){
@@ -345,4 +374,7 @@ class PedidoController extends FOSRestController{
         
         return $user;
     }
+    
+    
+    
 }

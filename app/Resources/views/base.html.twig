@@ -178,7 +178,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
              aria-expanded="false">
              <span class="glyphicon glyphicon-bullhorn success" aria-hidden="true" id="cartelnotificaciones"></span>
-             <span class="label label-success" id="cantidad_pedidos">10</span>
+             <span class="label label-success" id="mnu_cantidad_pedidos">0</span>
               </a>
         
           <ul class="dropdown-menu">
@@ -232,6 +232,58 @@
                 {% endblock %}
             </div>
         </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+       
+       
+       <script>
+       jQuery(document).ready(function($)
+       {
+
+    	   function cantidadNotificaciones(){
+    		    
+       			$.ajax({
+                       method: "GET",
+                       url: "/api/pedido/notificaciones",
+                       dataType: 'json',
+                       success: function(data)
+                       {
+                           if(data.hasOwnProperty("code") && data.code === 200)
+                           {
+                               
+                               $("#mnu_cantidad_pedidos").html(data.data);
+                           }
+                       },
+                       error: function(jqXHR, exception)
+                       {
+                           if(jqXHR.status === 405)
+                           {
+                               console.error("METHOD NOT ALLOWED!");
+                           }
+                       }
+               	});
+   
+   			}
+    	   cantidadNotificaciones();
+
+ 			
+           
+               setInterval(function(){ 
+
+            	   cantidadNotificaciones();
+
+            	  
+            	   
+               }, 5000);
+           
+
+ 
+			
+	   });
+	   
+      
+       </script>
+       
+       
     </body>
 </html>

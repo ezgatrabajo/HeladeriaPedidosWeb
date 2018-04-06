@@ -23,5 +23,8 @@ select * from  pedidodetalle;
 select * from fos_user;
 update fos_user set empresa_id = 1 where id in(1,2);
 
+select * from pedido ;
+
+update pedido set visto = false where id > 0;
 
 

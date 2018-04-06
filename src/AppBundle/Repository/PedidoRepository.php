@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class PedidoRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function cantidadNoVisto()
+    {
+        return $this->createQueryBuilder('t')
+        ->andWhere('t.visto = :visto')
+        ->setParameter('visto', false)
+        ->select('COUNT(t.visto) as cantidad')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
 }

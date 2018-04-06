@@ -537,9 +537,9 @@ class Pedido
     {
         return $this->enviodomicilio;
     }
-    public function getVisto($value)
+    public function getVisto()
     {
-        $this->visto=$value;
+        return $this->visto;
     }
     
     

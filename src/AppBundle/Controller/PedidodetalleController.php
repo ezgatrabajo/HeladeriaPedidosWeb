@@ -62,9 +62,14 @@ class PedidodetalleController extends Controller
         $repository = $this->getDoctrine()->getRepository(Pedido::class);
         
         $pedido = $repository->findOneById($pedido_id);
-        $pedido->setVisto(true);
-        
-        
+        //CUANDO SE VISUALIZA EL PEDIDO, SE REALIZA LA ACTUALIZACION
+        if($pedido->getVisto()==false){
+            $pedido->setVisto(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($pedido);
+            $em->flush();
+        }
+                
         $pedidodetalles = $pedido->getPedidodetalles();
         //Fin consulta de datos
         $formchangestatus = $this->createChangeStatusForm($pedido);
