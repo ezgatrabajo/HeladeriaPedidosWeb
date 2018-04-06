@@ -223,6 +223,8 @@ class PedidoController extends FOSRestController{
             $pedido->setCantidadpotes($cantidadpotes);
             $pedido->setEnviodomicilio($enviodomicilio);
             
+            $pedido->setVisto(false);
+            
             
             //$pedido->setEmpleado($empleado);
             $pedido->setAndroid_id($android_id);

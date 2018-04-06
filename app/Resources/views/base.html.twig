@@ -178,7 +178,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
              aria-expanded="false">
              <span class="glyphicon glyphicon-bullhorn success" aria-hidden="true" id="cartelnotificaciones"></span>
-             <span class="label label-success" id="mnu_cantidad_pedidos">0</span>
+             <span class="label label-success" id="mnu_cantidad_pedidos"></span>
               </a>
         
           <ul class="dropdown-menu">
@@ -196,7 +196,10 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-        
+
+<audio id="audio" controls style="display:none">
+	<source type="audio/wav" src="{{ asset('audio/alert.wav') }}">
+</audio>       
         
         
         
@@ -239,42 +242,51 @@
        <script>
        jQuery(document).ready(function($)
        {
+		   var currentnumber=0;
+		   var oldnumber=0;  
+		  
+		  
 
-    	   function cantidadNotificaciones(){
-    		    
-       			$.ajax({
-                       method: "GET",
-                       url: "/api/pedido/notificaciones",
-                       dataType: 'json',
-                       success: function(data)
-                       {
-                           if(data.hasOwnProperty("code") && data.code === 200)
+		   
+        	   function cantidadNotificaciones(){
+        		    
+           			$.ajax({
+                           method: "GET",
+                           url: "/api/pedido/notificaciones",
+                           dataType: 'json',
+                           success: function(data)
                            {
-                               $("#mnu_cantidad_pedidos").html(data.data);
-                           }
-                       },
-                       error: function(jqXHR, exception)
-                       {
-                           if(jqXHR.status === 405)
+                               if(data.hasOwnProperty("code") && data.code === 200)
+                               {
+                                   $("#mnu_cantidad_pedidos").html(data.data);
+                                   currentnumber = data.data;
+                               }
+                           },
+                           error: function(jqXHR, exception)
                            {
-                               console.error("METHOD NOT ALLOWED!");
+                               if(jqXHR.status === 405)
+                               {
+                                   console.error("METHOD NOT ALLOWED!");
+                               }
                            }
-                       }
-               	});
-   
-   			}
+                   	});
+       
+       			}
+  		   //la primera vez no se notifica el sonido, porque es la carga del dato
     	   cantidadNotificaciones();
+    	   oldnumber = currentnumber;
 
- 			
-           
-               setInterval(function(){ 
-
-            	   cantidadNotificaciones();
-
-            	  
-            	   
-               }, 5000);
-           
+    	   var audio = $("#audio");
+           setInterval(function(){ 
+        	   cantidadNotificaciones();
+			   if (currentnumber!=oldnumber){
+				   	//reproducir sonido
+				   audio.load();
+				   audio.play();
+				   oldnumber = currentnumber;
+			   }
+           }, 5000);
+       
 
  
 			
