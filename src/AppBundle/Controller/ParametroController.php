@@ -96,7 +96,7 @@ class ParametroController extends Controller
      */
     public function editAction(Request $request, Parametro $parametro)
     {
-        $deleteForm = $this->createDeleteForm($parametro);
+        
         $editForm = $this->createForm('AppBundle\Form\ParametroType', $parametro);
         $editForm->handleRequest($request);
 
@@ -110,7 +110,6 @@ class ParametroController extends Controller
         return $this->render('parametro/edit.html.twig', array(
             'parametro' => $parametro,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     
@@ -118,25 +117,27 @@ class ParametroController extends Controller
     /**
      * Displays a form to edit an existing parametro entity.
      *
-     * @Route("/{id}/editpreciokilo", name="parametro_edit_precio_kilo")
+     * @Route("/{nombre}/editmoney", name="parametro_edit_money")
      * @Method({"GET", "POST"})
      */
-    public function editpreciokiloAction(Request $request, Parametro $parametro)
+    public function editmoneyAction(Request $request, Parametro $parametro)
     {
+        
         if (!$parametro){
-            $parametro = $this->getDoctrine()->getRepository(Parametro::class)->findPrecioxkilo();
+            $criteria =array('nombre'=>$nombre);
+            $parametro = $this->getDoctrine()->getRepository(Parametro::class)->findBy($criteria);
         }
         
-        $editForm  = $this->createForm('AppBundle\Form\ParametroType', $parametro);
+        $editForm  = $this->createForm('AppBundle\Form\ParametroMoneyType', $parametro);
         $editForm->handleRequest($request);
         
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(  'success','Guardado Correctamente!');
-            return $this->redirectToRoute('parametro_edit_precio_kilo', array('id' => $parametro->getId()));
+            return $this->redirectToRoute('parametro_edit_money', array('nombre' => $parametro->getNombre()));
         }
         
-        return $this->render('parametro/editparametro.html.twig', array(
+        return $this->render('parametro/editmoney.html.twig', array(
             'parametro' => $parametro,
             'edit_form' => $editForm->createView(),
         ));

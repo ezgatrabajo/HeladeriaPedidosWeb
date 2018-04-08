@@ -102,9 +102,8 @@ class PedidodetalleController extends Controller
             'pedidodetalles' => $pedidodetalles,
             'pedido'=>$pedido,
             'estados'=> GlobalValue::ESTADOS,
-            'pendiente_id'=>GlobalValue::PENDIENTE,
-            'encamino' => GlobalValue::ENCAMINO_DISPLAY,
-            'encamino_id' => GlobalValue::ENCAMINO,
+            'ENPREPARACION'=>GlobalValue::ENPREPARACION,
+            'ENCAMINO' => GlobalValue::ENCAMINO,
             'form' => $form->createView(),
             'formchangestatus'=> $formchangestatus->createView()
         ));

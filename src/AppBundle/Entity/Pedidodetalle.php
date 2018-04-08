@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\IntegerType;
 
 /**
  * Pedidodetalle
@@ -28,6 +29,13 @@ class Pedidodetalle
      */
     private $cantidad;
 
+    
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="nropote", type="integer",  nullable=true)
+     */
+    private $nropote;
     
 
     /**
@@ -105,6 +113,33 @@ class Pedidodetalle
     {
         return $this->cantidad;
     }
+    
+    
+    
+    /**
+     * Set nropote
+     *
+     * @param integer $nropote
+     *
+     * @return Integer
+     */
+    public function setNropote($nropote)
+    {
+        $this->nropote = $nropote;
+        
+        return $this;
+    }
+    
+    /**
+     * Get nropote
+     *
+     * @return integer
+     */
+    public function getNropote()
+    {
+        return $this->nropote;
+    }
+    
 
     public function getCantidadString(){
         $texto = "";

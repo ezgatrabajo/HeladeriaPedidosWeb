@@ -159,7 +159,74 @@ class PedidoController extends Controller
     
 
     
-    
+    /**
+     * Lists all pedido entities.
+     *
+     * @Route("/notificaciones", name="pedido_notificaciones")
+     * @Method({"GET","POST"})
+     */
+    public function notificacionesAction(Request $request)
+    {
+        
+        //Obtener empresa
+        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
+        
+        //Crear formulario de filtro
+        $pedido = new Pedido();
+        $form_filter = $this->createForm('AppBundle\Form\PedidoFilterType', $pedido);
+        $form_filter->add('user', EntityType::class, array(
+            'class' => 'AppBundle:User',
+            'required'=>false,
+            'query_builder' => function (EntityRepository $er) {
+            return $er->createQueryBuilder('c')
+            ->where('c.empresa = :empresa')
+            ->orderBy('c.nombre', 'DESC')
+            ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+            },
+            'choice_label' => 'TextoCombo'))
+            ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
+            
+            $form_filter->handleRequest($request);
+            
+            $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->findNotificaciones($empresa);
+            
+            //Filtros
+            if ($form_filter->isSubmitted() && $form_filter->isValid()) {
+                $fechadesde = $pedido->getFechadesde();
+                $fechahasta = $pedido->getFechahasta();
+                if ($fechadesde){
+                    if ($fechadesde == $fechahasta){
+                        $fechahasta = $fechahasta->add(new DateInterval('P10D'));
+                    }
+                }
+                
+                if ($pedido->getFechadesde()){
+                    $queryBuilder->andWhere('t.fecha >= :fechadesde')
+                    ->setParameter('fechadesde',  $fechadesde);
+                }
+                if ($pedido->getFechahasta()){
+                    $queryBuilder->andWhere('t.fecha <= :fechahasta')
+                    ->setParameter('fechahasta', $fechahasta );
+                }
+                if ($pedido->getEstadoId()){
+                    $queryBuilder->andWhere('t.estadoId = :estadoid')
+                    ->setParameter('estadoid',  $pedido->getEstadoId());
+                }
+            }
+            $queryBuilder->orderBy('t.fecha', 'DESC');
+            
+            $registros = $queryBuilder;
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),20);
+            
+            
+            return $this->render('pedido/notificaciones.html.twig', array(
+                'pagination' => $pagination,
+                'form_filter'=>$form_filter->createView(),
+                'estados'=> GlobalValue::ESTADOS
+                
+            ));
+    }
     
     /**
      * Creates a new pedido entity.
@@ -181,17 +248,7 @@ class PedidoController extends Controller
                                 ->orderBy('c.nombre', 'DESC')
                                 ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
                         },
-                        'choice_label' => 'TextoCombo'))
-                ->add('cliente', EntityType::class, array(
-                        'class' => 'AppBundle:Cliente',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.contacto', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
-                        },
-                        'choice_label' => 'textocombo'
-                    ));
+                        'choice_label' => 'TextoCombo'));
                 
                         
         $form->handleRequest($request);

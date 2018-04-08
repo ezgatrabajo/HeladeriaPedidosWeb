@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\DBAL\Types\DecimalType;
 
 /**
  * Producto
@@ -42,12 +43,7 @@ class Producto
      */
     private $descripcion;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="precio", type="decimal", precision=7, scale=2)
-     */
-    private $precio;
+    
     
     /**
      * @var 
@@ -220,29 +216,7 @@ class Producto
         return $this->descripcion;
     }
 
-    /**
-     * Set precio
-     *
-     * @param string $precio
-     *
-     * @return Producto
-     */
-    public function setPrecio($precio)
-    {
-        $this->precio = $precio;
-
-        return $this;
-    }
-
-    /**
-     * Get precio
-     *
-     * @return string
-     */
-    public function getPrecio()
-    {
-        return $this->precio;
-    }
+   
     
     
     
@@ -253,7 +227,7 @@ class Producto
      *
      * @param string 
      *
-     * @return decimal
+     * @return DecimalType
      */
     public function setStock($stock)
     {
@@ -265,7 +239,7 @@ class Producto
     /**
      * Get stock
      *
-     * @return decimal
+     * @return DecimalType
      */
     public function getStock()
     {

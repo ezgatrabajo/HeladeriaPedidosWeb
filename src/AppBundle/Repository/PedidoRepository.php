@@ -20,4 +20,15 @@ class PedidoRepository extends \Doctrine\ORM\EntityRepository
         ->getQuery()
         ->getSingleScalarResult();
     }
+    
+    
+    public function findNotificaciones($empresa)
+    {
+        return $this->createQueryBuilder('t')
+        ->where('t.empresa = :empresa')->setParameter('empresa', $empresa)
+        ->andWhere('t.visto = :visto')->setParameter('visto', false);
+       
+    }
+    
+    
 }

@@ -11,6 +11,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
         
+        <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/es.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
@@ -32,6 +35,7 @@
         <script>
             jQuery(document).ready(function() {
                 $('.js-datepicker').datepicker();
+                $('.datatable').DataTable();
             });
         </script>
         
@@ -73,10 +77,10 @@
                 <li role="separator" class="divider"></li>
                 <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Usuarios</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Precio x Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Precio C/Cucurucho</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio x Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money',{'nombre':'preciocucurucho'}) }}">Precio C/Cucurucho</a></li>
                 <li role="separator" class="divider"></li>
-                {% if is_granted("ROLE_ADMIN") %}   
+                {% if is_granted("ROLE_SUPER_ADMIN") %}   
                     <li><a class="dropdown-item" href="{{ url('parametro_index') }}">Parametros</a></li>
                     <li><a class="dropdown-item" href="{{ url('archivo_new') }}">Importar Archivos</a></li>
                 {% endif %}
@@ -183,8 +187,9 @@
         
           <ul class="dropdown-menu">
                 <li>
-                  <a class="nav-link" href="https://play.google.com/store/apps/details?id=adaptivex.pedidoscloud&hl=es"  > 
-                     Ver Nuevos pedidos<i class="fa fa-android" aria-hidden="true"></i></a>
+                
+                  <a class="nav-link" href="{{ url('pedido_notificaciones') }}"  > 
+                     Ver Notificaciones <i class="fa fa-android" aria-hidden="true"></i></a>
                 </li>
                 
                 
@@ -197,11 +202,6 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<audio id="audio" controls style="display:none">
-	<source type="audio/wav" src="{{ asset('audio/alert.wav') }}">
-</audio>       
-        
-        
         
         
      
@@ -273,20 +273,24 @@
        
        			}
   		   //la primera vez no se notifica el sonido, porque es la carga del dato
+    	   
+    	   
+    	   
     	   cantidadNotificaciones();
     	   oldnumber = currentnumber;
 
-    	   var audio = $("#audio");
+    	   /*
+    	   var mySound = new Audio('{{ asset('audio/notification1.wav') }}');
            setInterval(function(){ 
         	   cantidadNotificaciones();
 			   if (currentnumber!=oldnumber){
 				   	//reproducir sonido
-				   audio.load();
-				   audio.play();
+				   //audio.load();
+				   mySound.play();
 				   oldnumber = currentnumber;
 			   }
-           }, 5000);
-       
+           }, 10000);
+       	*/
 
  
 			

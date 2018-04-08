@@ -181,7 +181,6 @@ class PedidoController extends FOSRestController{
         $cantidadkilos  = $json['pedido']['cantidadkilos'];
         $montohelados   = $json['pedido']['monto_helados'];
         $cantidadpotes  = $json['pedido']['cantidadpotes'];
-        $enviodomicilio = $json['pedido']['enviodomicilio'];
         
         $empresa = $this->getDoctrine()->getRepository(Empresa::class)->find($empresa_id);
         if (!$empresa) {
@@ -235,6 +234,7 @@ class PedidoController extends FOSRestController{
                     $producto_id = $item['producto_id'];
                     $android_id  = $item['android_id'];
                     $cantidad    = $item['cantidad'];
+                    $nropote     = $item['nropote'];
 
                     //Validar que producto pertenezca a la Empresa
                     $producto = new Producto();
@@ -248,7 +248,9 @@ class PedidoController extends FOSRestController{
                     $pd = new Pedidodetalle();
                     $pd->setProducto($producto);
                     $pd->setCantidad($cantidad);
-                    $pedido->addPedidodetalle($pd);     
+                    $pd->setNropote($nropote);
+                    $pedido->addPedidodetalle($pd);   
+                    
                     
                     //Generar movimiento de Stock
                     /*

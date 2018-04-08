@@ -2,97 +2,159 @@
 
 {% block body %}
     <div class="row">
-    <div class="col-xs-12 col-sm-6">
-    <div class="panel panel-default">
-    <div class="panel-heading"> <b>Datos del Pedido</b></div>
-    <div class="panel-body">
+    	<div class="col-xs-12 col-sm-4">
+            <div class="panel panel-default small">
+            <div class="panel-heading"> <b>Pedido</b></div>
+            <div class="panel-body">
             
-                   <table class="table">
+                   <table class="table ">
                        <tr><th>ID:</th><td>{{pedido.id}}</td></tr>
                        <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
-                       <tr><th>Cliente:</th><td>  {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Estado:</th><td>   {{estados[pedido.estadoId]}}</td></tr>
+                       
+                   
+                       
                    </table>
                     
                         
-                    {% if pedido.estadoId == pendiente_id %}
+                    {% if pedido.estadoId == ENPREPARACION %}
                         {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Cambiar estado a EN CAMINO" disabled class="btn btn-flat btn-success">
+                                <input type="submit" value="Cambiar estado a EN CAMINO"  class="btn btn-flat btn-warning">
+                        {{ form_end(formchangestatus) }}
+                    {% endif %}
+                    {% if pedido.estadoId == ENCAMINO %}
+                        {{ form_start(formchangestatus) }}
+                                <input type="submit" value="Cambiar estado a ENTREGADO"  class="btn btn-flat btn-success">
                         {{ form_end(formchangestatus) }}
                     {% endif %}
                </div>
             </div>
         </div>
-    
-    <div class="col-xs-12 col-sm-6">      
-    <div class="panel panel-default">
-    <div class="panel-heading"> <b>Agregar Producto:</b></div>
-    <div class="panel-body">
-        {% form_theme form 'bootstrap_3_layout.html.twig' %}
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input class="btn btn-primary" type="submit" value="Agregar Producto" />
-            <a href="{{ path('pedido_index')}}" class="btn btn-default">Volver al Listado</a>
-        {{ form_end(form) }}
         
-    </div>
-    </div>
-    </div>
+        
+        <div class="col-xs-12 col-sm-4">
+            <div class="panel panel-default small">
+            <div class="panel-heading"> <b>Direccion</b></div>
+            <div class="panel-body">
+            
+                   <table class="table ">
+                     
+                       
+                       <tr><th>Contacto</th><td>   {{pedido.contacto}}</td></tr>
+                       <tr><th>Localidad:</th><td>   {{pedido.localidad}}</td></tr>
+                       <tr><th>Calle:</th><td>   {{pedido.calle}}</td></tr>
+                       <tr><th>Piso:</th><td>   {{pedido.piso}}</td></tr>
+                       <tr><th>Numero:</th><td>   {{pedido.nro}}</td></tr>
+                       <tr><th>Telefono:</th><td>   {{pedido.telefono}}</td></tr>
+                       
+                   </table>
+                    
+                   
+               </div>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-4">
+            <div class="panel panel-default small">
+            <div class="panel-heading"> <b>Cantidades Y Monto</b></div>
+            <div class="panel-body">
+            
+                   <table class="table ">
+                     
+                       <tr><th>Kilos</th><td>   {{pedido.cantidadkilos}}</td></tr>
+                       <tr><th>Potes</th><td>   {{pedido.cantidadpotes}}</td></tr>
+                       
+                       <tr><th>Cucuruchos</th><td>   {{pedido.cucuruchos}}</td></tr>
+                       <tr><th>Cucharitas:</th><td>   {{pedido.cucharitas}}</td></tr>
+                       
+                       <tr><th>Importe Helados:</th><td>    {{pedido.montohelados}}</td></tr>
+                       <tr><th>Importe Cucuruchos:</th><td> {{pedido.montocucuruchos}}</td></tr>
+                       <tr><th>Descuento:</th><td>          {{pedido.montodescuento}}</td></tr>
+                       <tr><th>Envio a Domicilio:</th><td>  {%if pedido.enviodomicilio %} SI {% else %} NO {% endif %}</td></tr>
+                       
+                   </table>
+                    
+                    
+               </div>
+            </div>
+        </div>
+    
+    
     </div>
 
     
    
-    
-    <div class="panel panel-default">
-    <div class="panel-heading"> <b>Listado de Productos en Pedido:</b></div>
-    <div class="panel-body">
     <div class="row">
+    <div class="col-xs-12 col-sm-8">
+    
+            <div class="panel panel-default small">
+            <div class="panel-heading"> <b>Detalle del pedido:</b></div>
+            <div class="panel-body">
             <div class="row">
-               <div class="col-xs-12"> 
-               
-               <div name="alert" class="alert alert-success alert-dismissable" style="display:none">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                       Cantidad Actualizada Correctamente
-               </div>
-               </div>
-            </div>
-               
-               
-            <table class="table">
+                    <div class="row">
+                       <div class="col-xs-12"> 
+                       
+                       <div name="alert" class="alert alert-success alert-dismissable" style="display:none">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                               Cantidad Actualizada Correctamente
+                       </div>
+                       </div>
+                    </div>
+                       
+                       
+                    <table class="datatable">
+                                    
+                        <thead>
+                            <th>Nro Pote</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
                             
-                <thead>
-                    <th>ID</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Actions</th>
-                    
-                </thead>
-                <tbody>
-                    
-                    {% for item in pedidodetalles %}
-                    <tr>
-                        <form>
-                            <td>{{item.id}}</td>
-                            <td >{{item.producto.nombre}}</td>
-                            <td>{{item.cantidadstring }}</td>
-                            <!--
-                            <td class="col-md-2">
-                                <input disabled name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidadstring }}">
-                                <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div> 
-                            </td>
-                            -->
-                        
-                            <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="btn btn-xs btn-danger">Eliminar</a></td>
-                        </form>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        
-     </div>
-     </div>
-     </div>
+                        </thead>
+                        <tbody>
+                            
+                            {% for item in pedidodetalles|sort %}
+                            <tr>
+                                <form>
+                                    <td>{{item.nropote}}</td>
+                                    <td >{{item.producto.nombre}}</td>
+                                    <td>{{item.cantidadstring }}</td>
+                                    <!--
+                                    <td class="col-md-2">
+                                        <input disabled name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidadstring }}">
+                                        <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div> 
+                                    </td>
+                                    -->
+                                
+                                    <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                
+             </div>
+             </div>
+             </div>
+     	</div>
+     	<div class="col-xs-12 col-sm-4">      
+            <div class="panel panel-default small">
+            <div class="panel-heading"> <b>Agregar Producto:</b></div>
+            <div class="panel-body">
+                {% form_theme form 'bootstrap_3_layout.html.twig' %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input class="btn btn-primary" type="submit" value="Agregar Producto" />
+                    <a href="{{ path('pedido_index')}}" class="btn btn-default">Volver al Listado</a>
+                {{ form_end(form) }}
+                
+            </div>
+            </div>
+    	</div>	
+    </div>
+    
+     
 {% endblock %}
 
 

@@ -47,7 +47,10 @@ security:
         
         - { path: ^/empresa/, role: ROLE_EMPRESA }
         - { path: ^/user/, role: ROLE_ADMIN }
-        #- { path: ^/api, roles: ROLE_API }
+        - { path: ^/parametro/new/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/parametro/edit/, role: ROLE_SUPER_ADMIN }
+        - { path: ^/parametro/delete/, role: ROLE_SUPER_ADMIN }
+        
         
     role_hierarchy:
         ROLE_DEPOSITO:

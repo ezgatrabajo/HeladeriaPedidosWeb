@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -50,7 +51,7 @@ class Archivo
    
     
     /**
-     * @var \Date
+     * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="date")
      */

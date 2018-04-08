@@ -4,26 +4,37 @@ WEB
 * OK - Quitar Precio unitario de pedidodetalle y todos los lugares donde se usa
 * OK - Web FrontEnd mostrar pedido de hoy
 * OK -  Web FrontEnd mostrar listado de pedidos
+* OK Crear javascript de notificacion de pedidos
+* OK crear consulta api json con cantidad de pedidos visto = false
+* OK Crear campo enabled en productos ABM modificarlos
+* OK Crear formulario Editar Precio del Kilo, dato donde impacta es un update al parametro de Precio Kilo
 
 
+* Formulario cambiar contraseña, arreglar estilo
+* Crear formulario editar mis datos
+* Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
+* pagina acceso denegado redirigir a una pagina valida de mensaje de error
 
-* Web crear campo enabled en productos
 * Crear abm de parametros y api
     crear los parametros que necesita la app
     en la app quitar el insert de parametros inicial
     hacer que los parametros se descarguen desde la web
  
-* Crear formulario Editar Precio del Kilo, dato donde impata es un update al parametro de Precio Kilo
-* Formulario cambiar contraseña, arreglar estilo
 
-* Crear javascript de notificacion de pedidos
-	crear consulta api json con cantidad de pedidos visto = false
+
+
+
 	
-* Crear formulario editar mis datos
-* Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
 
 
 
+TEST 
+ABM Marcas, Alta Ok, Delete Ok, edit Ok, view Ok, list ok
+ABM Categorias add ok, edit ok, delete  , view ok,  list ok
+ABM Helados    
+ABM Promociones
+
+---------------------------------------------------------------------------
 ANDROID
 Android Chequear funcionamiento descarga de promos en la app android
 Android hacer funcion para actualizar las promos en la app desde la web, luego de generar un pedido nuevo
@@ -34,6 +45,7 @@ Android agregar campo enabled en productos, crud y api
 
 
 -------------------------------------------
+
 cd ../../xampp/htdocs/heladeriapedidosweb
 
 php bin/console server:run 0.0.0.0:8000

@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductoType extends AbstractType
 {
@@ -27,8 +29,12 @@ class ProductoType extends AbstractType
     {
         $builder->add('nombre')
                 ->add('descripcion', TextareaType::class)
+                ->add('enabled', ChoiceType::class, array(
+                        'choices'  => array(
+                            'SI' => true,
+                            'NO' => false,
+                    ),'label'=>'Disponible'))
                 ->add('codigoexterno', null, array('required'=>false))
-                ->add('precio',NumberType::class)
                 ->add('imagen', FileType::class, array('data_class' => null, 'required'=>false));;
     }
     
