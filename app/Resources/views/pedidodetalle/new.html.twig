@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme formpedidoaddress 'bootstrap_3_layout.html.twig' %}
+ {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block body %}
     <div class="row">
+       <input id="nro_pedido" type="hidden" />  
     	<div class="col-xs-12 col-sm-4">
             <div class="panel panel-default small">
             <div class="panel-heading"> <b>Pedido</b></div>
@@ -12,17 +14,21 @@
                        <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
                        <tr><th>Estado:</th><td>   {{estados[pedido.estadoId]}}</td></tr>
-                       
                    
-                       
                    </table>
                     
-                        
+                    {% if pedido.estadoId == PENDIENTE %}
+                        {{ form_start(formchangestatus) }}
+                                <input type="submit" value="Cambiar estado a EN PREPARACION"  class="btn btn-flat btn-warning">
+                        {{ form_end(formchangestatus) }}
+                    {% endif %}
+                    
                     {% if pedido.estadoId == ENPREPARACION %}
                         {{ form_start(formchangestatus) }}
                                 <input type="submit" value="Cambiar estado a EN CAMINO"  class="btn btn-flat btn-warning">
                         {{ form_end(formchangestatus) }}
                     {% endif %}
+                    
                     {% if pedido.estadoId == ENCAMINO %}
                         {{ form_start(formchangestatus) }}
                                 <input type="submit" value="Cambiar estado a ENTREGADO"  class="btn btn-flat btn-success">
@@ -35,20 +41,65 @@
         
         <div class="col-xs-12 col-sm-4">
             <div class="panel panel-default small">
-            <div class="panel-heading"> <b>Direccion</b></div>
+            <div class="panel-heading"> <b>Datos de Entrega</b></div>
             <div class="panel-body">
             
-                   <table class="table ">
+                   
                      
-                       
-                       <tr><th>Contacto</th><td>   {{pedido.contacto}}</td></tr>
-                       <tr><th>Localidad:</th><td>   {{pedido.localidad}}</td></tr>
-                       <tr><th>Calle:</th><td>   {{pedido.calle}}</td></tr>
-                       <tr><th>Piso:</th><td>   {{pedido.piso}}</td></tr>
-                       <tr><th>Numero:</th><td>   {{pedido.nro}}</td></tr>
-                       <tr><th>Telefono:</th><td>   {{pedido.telefono}}</td></tr>
-                       
-                   </table>
+                       {{ form_start(formpedidoaddress) }}
+                         {{ form_widget(formpedidoaddress) }}
+            			 <div id="btn_actualizar_datos_entrega" class="btn btn-flat btn-primary" value="Actualizar Datos de Entrega" />
+                       {{ form_end(formpedidoaddress) }}
+     <script>
+       jQuery(document).ready(function($)
+       {
+
+			$("#btn_actualizar_datos_entrega").click(function(){
+				id  	  = $("#nro_pedido").val();
+				contacto  = $("#appbundle_Pedido_contacto").val();
+	            localidad = $("#appbundle_Pedido_localidad").val();
+	            calle     = $("#appbundle_Pedido_calle").val();
+	            piso      = $("#appbundle_Pedido_piso").val();
+	            nro 	  = $("#appbundle_Pedido_nro").val();
+	        	telefono  = $("#appbundle_Pedido_telefono").val();
+	            var json_data = {'pedido':{
+		            					'id':id,
+	                					'contacto':contacto,
+	                					'localidad':localidad,
+	                					'calle':calle,
+	                					'piso':piso,
+	                					'nro':nro,
+	                					'telefono':telefono
+	                					}
+								};
+	            $.ajax({
+	                   method: "POST",
+	                   url: "/api/pedido/updateaddress",
+	                   dataType: 'json',
+	                   data: json_data,
+	                   success: function(data)
+	                   {
+	                       if(data.hasOwnProperty("code") && data.code === 200)
+	                       {
+	                           $("#mnu_cantidad_pedidos").html(data.data);
+	                           currentnumber = data.data;
+	                       }
+	                   },
+	                   error: function(jqXHR, exception)
+	                   {
+	                       if(jqXHR.status === 405)
+	                       {
+	                           console.error("METHOD NOT ALLOWED!");
+	                       }
+	                   }
+	           	});
+
+				});
+   			
+
+		});
+       </script>
+                   
                     
                    
                </div>
@@ -142,7 +193,7 @@
             <div class="panel panel-default small">
             <div class="panel-heading"> <b>Agregar Producto:</b></div>
             <div class="panel-body">
-                {% form_theme form 'bootstrap_3_layout.html.twig' %}
+               
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
                     <input class="btn btn-primary" type="submit" value="Agregar Producto" />

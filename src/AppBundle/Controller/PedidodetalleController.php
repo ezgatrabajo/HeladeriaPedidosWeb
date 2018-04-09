@@ -74,6 +74,10 @@ class PedidodetalleController extends Controller
         //Fin consulta de datos
         $formchangestatus = $this->createChangeStatusForm($pedido);
         
+        //Crear Formulario para actualizar Datos de direccion
+        $form_pedido_address = $this->createForm('AppBundle\Form\PedidoUpdateAddressType', $pedido);
+        
+        
         
         $form = $this->createForm('AppBundle\Form\PedidodetalleType', $pedidodetalle);
         $form->add('producto', EntityType::class, array(
@@ -102,10 +106,12 @@ class PedidodetalleController extends Controller
             'pedidodetalles' => $pedidodetalles,
             'pedido'=>$pedido,
             'estados'=> GlobalValue::ESTADOS,
+            'PENDIENTE'=>GlobalValue::PENDIENTE,
             'ENPREPARACION'=>GlobalValue::ENPREPARACION,
             'ENCAMINO' => GlobalValue::ENCAMINO,
             'form' => $form->createView(),
-            'formchangestatus'=> $formchangestatus->createView()
+            'formchangestatus'=> $formchangestatus->createView(),
+            'formpedidoaddress'=>$form_pedido_address->createView()
         ));
     }
     
@@ -118,6 +124,8 @@ class PedidodetalleController extends Controller
             ->getForm()
         ;
     }
+    
+    
     
     /**
      * Deletes a pedido entity.
@@ -141,6 +149,9 @@ class PedidodetalleController extends Controller
     }
     
     
+    
+    
+   
     
     
     

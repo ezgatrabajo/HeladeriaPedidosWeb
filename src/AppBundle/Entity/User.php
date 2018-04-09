@@ -231,19 +231,9 @@ class User extends BaseUser
         return $this;
     }
     
-     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=50 ,nullable=true)
-     */
-    private $nombre;
+   
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellido", type="string", length=50, nullable=true)
-     */
-    private $apellido;
+  
 
     /**
      * @var string
@@ -268,54 +258,7 @@ class User extends BaseUser
 
     
     
-    
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     *
-     * @return string
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set apellido
-     *
-     * @param string $apellido
-     *
-     * @return string
-     */
-    public function setApellido($apellido)
-    {
-        $this->apellido = $apellido;
-
-        return $this;
-    }
-
-    /**
-     * Get apellido
-     *
-     * @return string
-     */
-    public function getApellido()
-    {
-        return $this->apellido;
-    }
+   
 
     /**
      * Set ndoc

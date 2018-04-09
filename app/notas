@@ -8,13 +8,15 @@ WEB
 * OK crear consulta api json con cantidad de pedidos visto = false
 * OK Crear campo enabled en productos ABM modificarlos
 * OK Crear formulario Editar Precio del Kilo, dato donde impacta es un update al parametro de Precio Kilo
+* OK Crear formulario editar mis datos
+
+* - Formulario cambiar contraseña, arreglar estilo
 
 
-* Formulario cambiar contraseña, arreglar estilo
-* Crear formulario editar mis datos
+
 * Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
 * pagina acceso denegado redirigir a una pagina valida de mensaje de error
-
+* Editar pedido, permitir modificar  datos de direccion, 
 * Crear abm de parametros y api
     crear los parametros que necesita la app
     en la app quitar el insert de parametros inicial
@@ -22,7 +24,26 @@ WEB
  
 
 
-
+<tr>    
+   <th> {{ form_label(form.contacto) }} </th>
+        {{ form_errors(form.contacto) }}
+   <td>{{ form_widget(form.contacto) }}</td>
+   </tr>
+   <tr>    
+   <th> {{ form_label(form.localidad) }} </th>
+        {{ form_errors(form.localidad) }}
+   <td>{{ form_widget(form.localidad) }}</td>
+   </tr>
+   <tr>    
+   <th> {{ form_label(form.calle) }} </th>
+        {{ form_errors(form.calle) }}
+   <td>{{ form_widget(form.calle) }}</td>
+   </tr>
+    <tr><th>Localidad:</th><td>   {{pedido.localidad}}</td></tr>
+                       <tr><th>Calle:</th><td>   {{pedido.calle}}</td></tr>
+                       <tr><th>Piso:</th><td>   {{pedido.piso}}</td></tr>
+                       <tr><th>Numero:</th><td>   {{pedido.nro}}</td></tr>
+                       <tr><th>Telefono:</th><td>   {{pedido.telefono}}</td></tr>
 
 	
 

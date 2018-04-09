@@ -12,9 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Exception;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use AppBundle\Entity\GlobalValue;
 
@@ -90,9 +92,9 @@ class UserController extends Controller
     
     
     /**
-     * Lists all empleado entities.
+     * Lists all user entities.
      *
-     * @Route("/", name="empleado_index")
+     * @Route("/", name="user_index")
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
@@ -104,7 +106,7 @@ class UserController extends Controller
         
         //Crear formulario de filtro
         $user = new User();
-        $form_filter = $this->createForm('AppBundle\Form\EmpleadoFilterType', $user);
+        $form_filter = $this->createForm('AppBundle\Form\UserFilterType', $user);
         $form_filter->handleRequest($request);
 
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('bp');
@@ -112,13 +114,13 @@ class UserController extends Controller
                   
         
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
-            if ($user->getNombre()){
-                $queryBuilder->andWhere('bp.nombre LIKE :nombre')
-                             ->setParameter('nombre', '%'. $user->getNombre(). '%');   
+            if ($user->getEmail()){
+                $queryBuilder->andWhere('bp.email LIKE :email')
+                             ->setParameter('email', '%'. $user->getEmail(). '%');   
             }
-            if($user->getApellido()){
-                $queryBuilder->andWhere('bp.apellido LIKE :apellido')
-                             ->setParameter('apellido', '%'. $user->getApellido(). '%');
+            if($user->getContacto()){
+                $queryBuilder->andWhere('bp.contacto LIKE :contacto')
+                             ->setParameter('contacto', '%'. $user->getContacto(). '%');
             }
             if($user->getNdoc()){
                 $queryBuilder->andWhere('bp.ndoc = :ndoc')
@@ -130,7 +132,8 @@ class UserController extends Controller
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),10);
         return $this->render('user/index.html.twig', array(
-            'pagination' => $pagination, 'form_filter'=>$form_filter->createView(),
+            'pagination' => $pagination, 
+            'form_filter'=>$form_filter->createView(),
             'roles'=>GlobalValue::ROLES
         ));
     }
@@ -139,15 +142,15 @@ class UserController extends Controller
     
 
     /**
-     * Creates a new empleado entity.
+     * Creates a new user entity.
      *
-     * @Route("/new", name="empleado_new")
+     * @Route("/new", name="user_new")
      * @Method({"GET", "POST"})
      */
-    public function newempleadoAction(Request $request)
+    public function newuserAction(Request $request)
     {
         $userform = new User();
-        $form = $this->createForm('AppBundle\Form\EmpleadoType', $userform);
+        $form = $this->createForm('AppBundle\Form\userType', $userform);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -179,9 +182,9 @@ class UserController extends Controller
                 $em->persist($usernew);
                 $em->flush();
                 $this->addFlash('success', 'Guardado Correctamente!');
-                return $this->redirectToRoute('empleado_show', array('id' => $usernew->getId()));
+                return $this->redirectToRoute('user_show', array('id' => $usernew->getId()));
             }catch (UniqueConstraintViolationException $e) {
-                $this->addFlash('error', 'Error: No se pudo agregar Usuario. Nombre de Usuario o Email ya han sido utilizados, pruebe con otros.' );
+                $this->addFlash('error', 'Error: No se pudo agregar Usuario. email de Usuario o Email ya han sido utilizados, pruebe con otros.' );
             } catch (\Doctrine\DBAL\DBALException $e) {
                 $this->addFlash('error', 'Error: No se pudo agregar Usuario, '. $e->getMessage() );
             } catch (Exception $e) {
@@ -190,23 +193,23 @@ class UserController extends Controller
         }
 
         return $this->render('user/new.html.twig', array(
-            'empleado' => $userform,
+            'user' => $userform,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a empleado entity.
+     * Finds and displays a user entity.
      *
-     * @Route("/{id}", name="empleado_show")
+     * @Route("/{id}", name="user_show")
      * @Method("GET")
      */
-    public function showempleadoAction(User $user)
+    public function showuserAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
 
         return $this->render('user/show.html.twig', array(
-            'empleado' => $user,
+            'user' => $user,
             'delete_form' => $deleteForm->createView(),
             'roles'=>GlobalValue::ROLES
         ));
@@ -222,6 +225,7 @@ class UserController extends Controller
     public function deleteAction(Request $request, User $user)
     {
         try{
+            
             $form = $this->createDeleteForm($user);
             $form->handleRequest($request);
 
@@ -235,7 +239,7 @@ class UserController extends Controller
         }catch(ForeignKeyConstraintViolationException $e){
                 $this->addFlash('error', 'Error: No se puede eliminar el usuario porque hay datos asociados al mismo que antes deben ser eliminados'  );
                 
-        }catch(Excepcion $e){
+        }catch(Exception $e){
             $this->addFlash('error', 'Error: .' . $e->getMessage());
         }
 
@@ -244,15 +248,15 @@ class UserController extends Controller
     
     
     /**
-     * Displays a form to edit an existing empleado entity.
+     * Displays a form to edit an existing user entity.
      *
-     * @Route("/{id}/edit", name="empleado_edit")
+     * @Route("/{id}/edit", name="user_edit")
      * @Method({"GET", "POST"})
      */
-    public function editempleadoAction(Request $request, User $userform)
+    public function edituserAction(Request $request, User $userform)
     {
         $deleteForm = $this->createDeleteForm($userform);
-        $editForm = $this->createForm('AppBundle\Form\EmpleadoType', $userform);
+        $editForm = $this->createForm('AppBundle\Form\UserType', $userform);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -261,9 +265,9 @@ class UserController extends Controller
                 $em->persist($userform);
                 $em->flush();
                 $this->addFlash(  'success','Guardado Correctamente!');
-                return $this->redirectToRoute('empleado_edit', array('id' => $userform->getId()));
+                return $this->redirectToRoute('user_edit', array('id' => $userform->getId()));
             }catch (UniqueConstraintViolationException $e) {
-                $this->addFlash('error', 'Error: No se pudo Editar Usuario. Nombre de Usuario o Email ya han sido utilizados, pruebe con otros.' );
+                $this->addFlash('error', 'Error: No se pudo Editar Usuario. email de Usuario o Email ya han sido utilizados, pruebe con otros.' );
             } catch (\Doctrine\DBAL\DBALException $e) {
                 $this->addFlash('error', 'Error: No se pudo Editar Usuario, error consistencia de datos: '. $e->getMessage() );
             } catch (Exception $e) {
@@ -272,12 +276,48 @@ class UserController extends Controller
         }
 
         return $this->render('user/edit.html.twig', array(
-            'empleado' => $userform,
+            'user' => $userform,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     
+    
+    /**
+     * Displays a form to edit an existing user entity.
+     *
+     * @Route("/editempresa/", name="userempresa_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editempresaAction(Request $request)
+    {
+        if(empty($userform)){
+            $userform = $this->get('security.token_storage')->getToken()->getUser();
+        }
+        $editForm = $this->createForm('AppBundle\Form\UserType', $userform);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            try{
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($userform);
+                $em->flush();
+                $this->addFlash(  'success','Guardado Correctamente!');
+                return $this->redirectToRoute('userempresa_edit');
+            }catch (UniqueConstraintViolationException $e) {
+                $this->addFlash('error', 'Error: No se pudo Editar Usuario. email de Usuario o Email ya han sido utilizados, pruebe con otros.' );
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                $this->addFlash('error', 'Error: No se pudo Editar Usuario, error consistencia de datos: '. $e->getMessage() );
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Error: No se pudo Editar Usuario, error externo: '. $e->getMessage() );
+            }
+        }
+        
+        return $this->render('user/editempresa.html.twig', array(
+            'user' => $userform,
+            'edit_form' => $editForm->createView(),
+        ));
+    }
      /**
    
      *

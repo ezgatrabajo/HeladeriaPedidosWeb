@@ -5,11 +5,12 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Doctrine\DBAL\Types\TextType;
 
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class EmpleadoFilterType extends AbstractType
+class PedidoUpdateAddressType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,11 +18,14 @@ class EmpleadoFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('nombre')
-                ->add('apellido')
-                ->add('ndoc', IntegerType::class)
-                ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
-
+            ->add('contacto')
+            ->add('localidad')
+            ->add('calle')
+            ->add('nro')
+            ->add('piso')
+            ->add('telefono')
+        
+        ;
     }
     
     /**
@@ -30,7 +34,7 @@ class EmpleadoFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\Pedido'
         ));
     }
 
@@ -39,7 +43,7 @@ class EmpleadoFilterType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'appbundle_Pedido';
     }
 
 

@@ -4,18 +4,20 @@
  
 <ol class="breadcrumb">
   <li><a href="{{path('homepage')}}">Inicio</a></li>
-  <li class="active"><a href="{{path('empleado_index')}}">Usuarios</a></li>
+  <li class="active"><a href="{{path('user_index')}}">Usuarios</a></li>
 </ol>
-<p>¡Cada vez que se crea un usuario,  se podra ingresar con el Email y la contraseña 12345678, que se asignan por defecto en el momento de su creacion!</p>
+<p>Cada vez que se crea un usuario,  se podra ingresar con el Email y la contrase�a 12345678, que se asignan por defecto en el momento de su creacion!</p>
 <div class="row">    
     <div class="col-xs-12 col-sm-9 col-lg-9">
     <div class="panel panel-default">
 
         <div class="panel-heading">Listado de Usuarios</div>
         <div class="panel-body">
-            <a href="{{ path('empleado_new') }}" class="btn btn-primary"
+            <a href="{{ path('user_new') }}" class="btn btn-primary btn-xs"
                data-toggle="tooltip" data-placement="top" title="Nuevo">
-                <span class="glyphicon  glyphicon-floppy-saved"  aria-hidden="true"></span>
+                Nuevo
+            	<span class="glyphicon glyphicon-import"  aria-hidden="true"></span>
+                
             </a>
         <table class="table">
         <thead>
@@ -25,37 +27,31 @@
                 <th>Login/Username</th>
                 <th>Email</th>
                 <th>Tipo</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+              
                 <th>Telefono</th>
                 
-                <th>Actions</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
-        {% for empleado in pagination %}
+        {% for user in pagination %}
             <tr>
-                <td><a href="{{ path('empleado_show', { 'id': empleado.id }) }}">{{ empleado.id }}</a></td>
-                <td>{{ empleado.username }}</td>
-                <td>{{ empleado.email }}</td>
+                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
                 <td>
-                    {% for r in empleado.roles %} 
+                    {% for r in user.roles %} 
                        {{ roles[r] }}
                     {% endfor %}
-                </td>
-                
-                <td>{{ empleado.nombre }}</td>
-                <td>{{ empleado.apellido }}</td>
-                
-                <td>{{ empleado.telefono }}</td>
-                
+                </td>  
+                <td>{{ user.telefono }}</td>
                 <td>
                    
-                            <a href="{{ path('empleado_show', { 'id': empleado.id }) }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top" title="Ver">
-                                <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span>
-                       
-                            <a href="{{ path('empleado_edit', { 'id': empleado.id }) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
-                                <span class="glyphicon glyphicon glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-default btn-xs"  data-toggle="tooltip" data-placement="top" title="Ver">
+                    <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span>
+           
+                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Editar">
+                    <span class="glyphicon glyphicon glyphicon glyphicon-pencil"  aria-hidden="true"></span>
                        
                 </td>
             </tr>

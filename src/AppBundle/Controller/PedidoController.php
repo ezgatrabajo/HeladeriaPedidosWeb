@@ -42,7 +42,7 @@ class PedidoController extends Controller
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
                                 ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
+                                ->orderBy('c.email', 'DESC')
                                 ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
                         },
                         'choice_label' => 'TextoCombo'))
@@ -125,7 +125,7 @@ class PedidoController extends Controller
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
                                 ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
+                                ->orderBy('c.email', 'DESC')
                                 ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
                         },
                         'choice_label' => 'TextoCombo'))
@@ -180,7 +180,7 @@ class PedidoController extends Controller
             'query_builder' => function (EntityRepository $er) {
             return $er->createQueryBuilder('c')
             ->where('c.empresa = :empresa')
-            ->orderBy('c.nombre', 'DESC')
+            ->orderBy('c.email', 'DESC')
             ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
             },
             'choice_label' => 'TextoCombo'))
@@ -245,7 +245,7 @@ class PedidoController extends Controller
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
                                 ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
+                                ->orderBy('c.email', 'DESC')
                                 ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
                         },
                         'choice_label' => 'TextoCombo'));

@@ -1,6 +1,19 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="fos_user_user_show">
-    <p>Usuario: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
+
+<div class="row">    
+    <div class="col-sm-offset-3 col-xs-12 col-sm-4 col-lg-4 ">
+    <div class="panel panel-default">
+        <div class="panel-heading">Cambiar Contraseña</div>
+        <div class="panel-body">
+    <table class="table">
+     <tr><th>Usuario:</th><td> {{ user.username }}</td></tr>
+    <tr>
+     <tr><th>Email:</th> <td>{{ user.email }}</td> </tr>
+	</table>
+	<a href="{{ url('admin') }}" >Volver al Menu Principal</a>
+	
+	</div>
+	</div>
+	</div>
 </div>

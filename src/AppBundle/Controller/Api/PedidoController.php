@@ -133,6 +133,49 @@ class PedidoController extends FOSRestController{
     }
     
     
+    /**
+     * @Rest\Post("/api/pedido/updateaddress")
+     */
+    public function postPedidosUpdateAddressAction(Request $request){
+        try{
+            $content = $request->getContent();
+            $json = json_decode($content, true);
+            
+            
+            $pedido = new Pedido();
+            $id            = $json['pedido']['id'];
+            $localidad     = $json['pedido']['localidad'];
+            $calle         = $json['pedido']['calle'];
+            $nro           = $json['pedido']['nro'];
+            $piso          = $json['pedido']['piso'];
+            $telefono      = $json['pedido']['telefono'];
+            $contacto      = $json['pedido']['contacto'];
+            $pedido = $this->getDoctrine()->getRepository(Pedido::class)->find($id);
+            
+            //Campos heladeria
+            $pedido->setLocalidad($localidad);
+            $pedido->setCalle($calle);
+            $pedido->setNro($nro);
+            $pedido->setPiso($piso);
+            $pedido->setContacto($contacto);
+            $pedido->setTelefono($telefono);
+            
+            $em->persist($pedido);
+            $em->flush();
+            
+            $response = array('code'=>$code,
+                'message'=>$message,
+                'data'=>$pedido
+            );
+            return $response;
+        }catch(Exception $e){
+            $response = array('code'=>Response::HTTP_CONFLICT,
+                'message'=>$e->getMessage(),
+                'data'=>null
+            );
+            return $response;
+        }
+    }
     
     
     

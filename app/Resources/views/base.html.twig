@@ -19,19 +19,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
         <link rel="icon" type="image/x-icon" href="{{ asset('helado.png') }}" />
         
-        <!--
-        
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
-        <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}" 
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/select2.min.js') }}"></script>
-        -->
-        
-        
         <script>
             jQuery(document).ready(function() {
                 $('.js-datepicker').datepicker();
@@ -75,7 +62,7 @@
                 <li><a class="dropdown-item" href="{{ url('marcas_index') }}">Marcas</a></li>
                 <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Categorias</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Usuarios</a></li>
+                <li><a class="dropdown-item" href="{{ url('user_index') }}">Usuarios</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio x Kilo</a></li>
                 <li><a class="dropdown-item" href="{{ url('parametro_edit_money',{'nombre':'preciocucurucho'}) }}">Precio C/Cucurucho</a></li>
@@ -128,17 +115,21 @@
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" 
              data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  
-
               Mi Cuenta ({{ app.user.username|trans({'%username%': app.user.username}, 'FOSUserBundle') }}) <span class="caret"></span></a>
           <ul class="dropdown-menu">
            <li class="nav-item">
-             <a class="nav-link" href="#" >
+             <a class="nav-link" href="{{ url('userempresa_edit') }}" >
               Editar Mis Datos
              </a>
             </li>
             <li class="nav-item">
              <a class="nav-link" href="{{url('fos_user_change_password')}}" >
               Cambiar Contraseña
+             </a>
+            </li>
+             <li class="nav-item">
+             <a class="nav-link" href="{{url('fos_user_change_password')}}" >
+              Olvide mi Contraseña
              </a>
             </li>
           

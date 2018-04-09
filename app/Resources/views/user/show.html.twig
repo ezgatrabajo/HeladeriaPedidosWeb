@@ -4,7 +4,7 @@
   
 <ol class="breadcrumb">
   <li><a href="{{path('homepage')}}">Inicio</a></li>
-  <li ><a href="{{path('empleado_index')}}">Usuarios</a></li>
+  <li ><a href="{{path('user_index')}}">Usuarios</a></li>
   <li class="active"><a href="#">Detalle </a></li>
 </ol>
   
@@ -19,46 +19,58 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ empleado.id }}</td>
+                <td>{{ user.id }}</td>
             </tr>
             <tr>
                 <th>Login/Username</th>
-                <td>{{ empleado.username }}</td>
+                <td>{{ user.username }}</td>
             </tr>
            <tr>
                 <th>Email</th>
-                <td>{{ empleado.email }}</td>
+                <td>{{ user.email }}</td>
             </tr>
-            
+            <tr>
+                <th>Ndoc</th>
+                <td>{{ user.ndoc }}</td>
+            </tr>
             <tr>
                 <th>Tipo</th>
                 <td>
-                    {% for r in empleado.roles %} 
+                    {% for r in user.roles %} 
                        {{ roles[r] }}
                     {% endfor %}
                 </td>
             </tr>
             
             <tr>
-                <th>Nombre</th>
-                <td>{{ empleado.nombre }}</td>
+                <th>Contacto</th>
+                <td>{{ user.contacto }}</td>
             </tr>
             <tr>
-                <th>Apellido</th>
-                <td>{{ empleado.apellido }}</td>
+                <th>Localidad</th>
+                <td>{{ user.localidad }}</td>
+            </tr>
+           
+           
+            <tr>
+                <th>Calle</th>
+                <td>{{ user.calle }}</td>
             </tr>
             <tr>
-                <th>Ndoc</th>
-                <td>{{ empleado.ndoc }}</td>
+                <th>Nro</th>
+                <td>{{ user.nro }}</td>
             </tr>
+            
             <tr>
-                <th>Direccion</th>
-                <td>{{ empleado.direccion }}</td>
+                <th>Piso</th>
+                <td>{{ user.piso }}</td>
             </tr>
+            
             <tr>
                 <th>Telefono</th>
-                <td>{{ empleado.telefono }}</td>
+                <td>{{ user.telefono }}</td>
             </tr>
+            
             
              
             
