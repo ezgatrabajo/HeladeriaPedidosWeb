@@ -3,7 +3,7 @@
  {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block body %}
     <div class="row">
-       <input id="nro_pedido" type="hidden" />  
+       <input id="nro_pedido" type="hidden" value="{{pedido.id}}"/>  
     	<div class="col-xs-12 col-sm-4">
             <div class="panel panel-default small">
             <div class="panel-heading"> <b>Pedido</b></div>
@@ -48,60 +48,9 @@
                      
                        {{ form_start(formpedidoaddress) }}
                          {{ form_widget(formpedidoaddress) }}
-            			 <div id="btn_actualizar_datos_entrega" class="btn btn-flat btn-primary" value="Actualizar Datos de Entrega" />
+            			 <div id="btn_actualizar_datos_entrega" class="btn btn-primary" >Actualizar Datos de Entrega </div>
                        {{ form_end(formpedidoaddress) }}
-     <script>
-       jQuery(document).ready(function($)
-       {
-
-			$("#btn_actualizar_datos_entrega").click(function(){
-				id  	  = $("#nro_pedido").val();
-				contacto  = $("#appbundle_Pedido_contacto").val();
-	            localidad = $("#appbundle_Pedido_localidad").val();
-	            calle     = $("#appbundle_Pedido_calle").val();
-	            piso      = $("#appbundle_Pedido_piso").val();
-	            nro 	  = $("#appbundle_Pedido_nro").val();
-	        	telefono  = $("#appbundle_Pedido_telefono").val();
-	            var json_data = {'pedido':{
-		            					'id':id,
-	                					'contacto':contacto,
-	                					'localidad':localidad,
-	                					'calle':calle,
-	                					'piso':piso,
-	                					'nro':nro,
-	                					'telefono':telefono
-	                					}
-								};
-	            $.ajax({
-	                   method: "POST",
-	                   url: "/api/pedido/updateaddress",
-	                   dataType: 'json',
-	                   data: json_data,
-	                   success: function(data)
-	                   {
-	                       if(data.hasOwnProperty("code") && data.code === 200)
-	                       {
-	                           $("#mnu_cantidad_pedidos").html(data.data);
-	                           currentnumber = data.data;
-	                       }
-	                   },
-	                   error: function(jqXHR, exception)
-	                   {
-	                       if(jqXHR.status === 405)
-	                       {
-	                           console.error("METHOD NOT ALLOWED!");
-	                       }
-	                   }
-	           	});
-
-				});
-   			
-
-		});
-       </script>
-                   
-                    
-                   
+     
                </div>
             </div>
         </div>
@@ -205,8 +154,65 @@
     	</div>	
     </div>
     
+    
+    
+    
+    
+    
+    
+    <script>
+       jQuery(document).ready(function($)
+       {
+
+			$("#btn_actualizar_datos_entrega").click(function(){
+				id  	  = $("#nro_pedido").val();
+				contacto  = $("#appbundle_Pedido_contacto").val();
+	            localidad = $("#appbundle_Pedido_localidad").val();
+	            calle     = $("#appbundle_Pedido_calle").val();
+	            piso      = $("#appbundle_Pedido_piso").val();
+	            nro 	  = $("#appbundle_Pedido_nro").val();
+	        	telefono  = $("#appbundle_Pedido_telefono").val();
+	            var json_data = {'pedido':{
+		            					'id':id,
+	                					'contacto':contacto,
+	                					'localidad':localidad,
+	                					'calle':calle,
+	                					'piso':piso,
+	                					'nro':nro,
+	                					'telefono':telefono
+	                					}
+								};
+	            $.ajax({
+	                   method: "POST",
+	                   url: "/api/pedido/updateaddress",
+	                   dataType: 'json',
+	                   data: json_data,
+	                   success: function(data)
+	                   {
+	                       if(data.hasOwnProperty("code") && data.code === 200)
+	                       {
+	                           alert("Actualizado");
+	                           
+	                       }
+	                   },
+	                   error: function(jqXHR, exception)
+	                   {
+	                       if(jqXHR.status === 405)
+	                       {
+	                           console.error("METHOD NOT ALLOWED!");
+	                       }
+	                   }
+	           	});
+
+				});
+   			
+
+		});
+       </script>
      
 {% endblock %}
+
+
 
 
 {% block javascripts %}
