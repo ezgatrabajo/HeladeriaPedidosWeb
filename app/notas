@@ -69,7 +69,7 @@ Android agregar campo enabled en productos, crud y api
 
 cd ../../xampp/htdocs/heladeriapedidosweb
 
-php bin/console server:run 0.0.0.0:8000
+php bin/console server:run 0.0.0.0:7000
 
 php bin/console generate:doctrine:entity
 

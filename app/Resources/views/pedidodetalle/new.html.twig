@@ -38,55 +38,7 @@
             </div>
         </div>
         
-        
-        <div class="col-xs-12 col-sm-4">
-            <div class="panel panel-default small">
-            <div class="panel-heading"> <b>Datos de Entrega</b></div>
-            <div class="panel-body">
-            
-                   
-                     
-                       {{ form_start(formpedidoaddress) }}
-                         {{ form_widget(formpedidoaddress) }}
-            			 <div id="btn_actualizar_datos_entrega" class="btn btn-primary" >Actualizar Datos de Entrega </div>
-                       {{ form_end(formpedidoaddress) }}
-     
-               </div>
-            </div>
-        </div>
-        
-        <div class="col-xs-12 col-sm-4">
-            <div class="panel panel-default small">
-            <div class="panel-heading"> <b>Cantidades Y Monto</b></div>
-            <div class="panel-body">
-            
-                   <table class="table ">
-                     
-                       <tr><th>Kilos</th><td>   {{pedido.cantidadkilos}}</td></tr>
-                       <tr><th>Potes</th><td>   {{pedido.cantidadpotes}}</td></tr>
-                       
-                       <tr><th>Cucuruchos</th><td>   {{pedido.cucuruchos}}</td></tr>
-                       <tr><th>Cucharitas:</th><td>   {{pedido.cucharitas}}</td></tr>
-                       
-                       <tr><th>Importe Helados:</th><td>    {{pedido.montohelados}}</td></tr>
-                       <tr><th>Importe Cucuruchos:</th><td> {{pedido.montocucuruchos}}</td></tr>
-                       <tr><th>Descuento:</th><td>          {{pedido.montodescuento}}</td></tr>
-                       <tr><th>Envio a Domicilio:</th><td>  {%if pedido.enviodomicilio %} SI {% else %} NO {% endif %}</td></tr>
-                       
-                   </table>
-                    
-                    
-               </div>
-            </div>
-        </div>
-    
-    
-    </div>
-
-    
-   
-    <div class="row">
-    <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-8">
     
             <div class="panel panel-default small">
             <div class="panel-heading"> <b>Detalle del pedido:</b></div>
@@ -138,6 +90,49 @@
              </div>
              </div>
      	</div>
+        
+        
+    </div>
+
+    
+   
+    <div class="row">
+    
+    
+    <div class="col-xs-12 col-sm-4">
+  			<img src="{{asset('img/2.gif') }}" style="display:none" id="gif_saving_1" >
+            <div class="panel panel-default small" 
+            	 id="pnl_datos_entrega">
+            <div class="panel-heading"> <b>Datos de Entrega</b></div>
+            <div class="panel-body">
+              			<div class="gif_saving" ></div>
+
+                       {{ form_start(formpedidoaddress) }}
+                         {{ form_widget(formpedidoaddress) }}
+            			 <div id="btn_actualizar_datos_entrega" class="btn btn-info" ><i class="glyphicon glyphicon-refresh"></i> Actualizar Datos de Entrega </div>
+                       {{ form_end(formpedidoaddress) }}
+     
+               </div>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-4">
+	        <img src="{{asset('img/2.gif') }}" style="display:none" id="gif_saving_monto" >
+            <div class="panel panel-default small" id="pnl_datos_montos">
+            <div class="panel-heading"> <b>Cantidades Y Monto</b></div>
+            <div class="panel-body">
+            
+                       {{ form_start(formpedidomontos) }}
+                         {{ form_widget(formpedidomontos) }}
+            			 <div id="btn_actualizar_montos" class="btn btn-info" > <i class="glyphicon glyphicon-refresh"></i> Actualizar </div>
+                       {{ form_end(formpedidomontos) }}
+                    
+               </div>
+            </div>
+        </div>
+        
+        
+    
      	<div class="col-xs-12 col-sm-4">      
             <div class="panel panel-default small">
             <div class="panel-heading"> <b>Agregar Producto:</b></div>
@@ -145,7 +140,7 @@
                
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    <input class="btn btn-primary" type="submit" value="Agregar Producto" />
+                    <input class="btn btn-primary" type="submit" value="Agregar Producto"> </>
                     <a href="{{ path('pedido_index')}}" class="btn btn-default">Volver al Listado</a>
                 {{ form_end(form) }}
                 
@@ -163,8 +158,13 @@
     <script>
        jQuery(document).ready(function($)
        {
+			//ACTUALIZARA DATOS DE ENTREGA DEL PEDIDO
+			var    	   panel     = $("#pnl_datos_entrega");
 
 			$("#btn_actualizar_datos_entrega").click(function(){
+				panel     = $("#pnl_datos_entrega");
+				loader    = $("#gif_saving_1");
+				effectOk(panel,loader);
 				id  	  = $("#nro_pedido").val();
 				contacto  = $("#appbundle_Pedido_contacto").val();
 	            localidad = $("#appbundle_Pedido_localidad").val();
@@ -186,28 +186,88 @@
 	                   method: "POST",
 	                   url: "/api/pedido/updateaddress",
 	                   dataType: 'json',
-	                   data: json_data,
+                       data: JSON.stringify( json_data ),
 	                   success: function(data)
 	                   {
-	                       if(data.hasOwnProperty("code") && data.code === 200)
+	                       if(data.hasOwnProperty("code") )
 	                       {
-	                           alert("Actualizado");
-	                           
+			                    if (data.code==200){
+			                    	
+				                }  
 	                       }
 	                   },
-	                   error: function(jqXHR, exception)
-	                   {
-	                       if(jqXHR.status === 405)
-	                       {
-	                           console.error("METHOD NOT ALLOWED!");
-	                       }
-	                   }
-	           	});
-
+        	            error: function(jqXHR, textStatus, errorThrown )
+                        {
+                            alert(jqXHR.responseText);
+                        }
+	           		});
 				});
+				//FIN ACTUALIZAR DATOS DE ENTREGA
+
+
+    	   
+
+			//ACTUALIZAR DATOS MONTOS
+			panel     = $("#pnl_datos_montos");
+			$("#btn_actualizar_montos").click(function(){
+				loader    = $("#gif_saving_monto");
+				effectOk(panel,loader);
+				
+				id  	  	      = $("#nro_pedido").val();
+				cantidadkilos     = $("#appbundle_Pedido_cantidadkilos").val();
+				cantidadpotes     = $("#appbundle_Pedido_cantidadpotes").val();
+	            cucharitas        = $("#appbundle_Pedido_cucharitas").val();
+	            cucuruchos        = $("#appbundle_Pedido_cucuruchos").val();
+	            montocucuruchos   = $("#appbundle_Pedido_montocucuruchos").val();
+	            montohelados      = $("#appbundle_Pedido_montohelados").val();
+	            montodescuento    = $("#appbundle_Pedido_montodescuento").val();
+	            enviodomicilio    = $("#appbundle_Pedido_enviodomicilio").val();
+	            monto    = $("#appbundle_Pedido_monto").val();
+
+	            var json_data   = {'pedido':{
+		            			 		'id':id,
+	                					'cantidadkilos':cantidadkilos,
+	                					'cantidadpotes':cantidadpotes,
+	                					'cucharitas':cucharitas,
+	                					'cucuruchos':cucuruchos,
+	                					'montocucuruchos':montocucuruchos,
+	                					'montohelados':montohelados,
+	                					'montodescuento':montodescuento,
+	                					'enviodomicilio':enviodomicilio,
+	                					'monto':monto,
+	                					}
+								};
+	            $.ajax({
+	                   method: "POST",
+	                   url: "/api/pedido/updatemontos",
+	                   dataType: 'json',
+                       data: JSON.stringify( json_data ),
+	                   success: function(data)
+	                   {
+	                       if(data.hasOwnProperty("code") )
+	                       {
+			                    if (data.code==200){
+			                    	
+				                }  
+	                       }
+	                   },
+        	            error: function(jqXHR, textStatus, errorThrown )
+                        {
+                            alert(jqXHR.responseText);
+                        }
+	           		});
+				});
+
+
+			
    			
 
+
+
+
+			
 		});
+
        </script>
      
 {% endblock %}

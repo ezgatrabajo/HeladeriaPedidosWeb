@@ -76,6 +76,7 @@ class PedidodetalleController extends Controller
         
         //Crear Formulario para actualizar Datos de direccion
         $form_pedido_address = $this->createForm('AppBundle\Form\PedidoUpdateAddressType', $pedido);
+        $form_pedido_montos  = $this->createForm('AppBundle\Form\PedidoUpdateMontosType', $pedido);
         
         
         
@@ -111,7 +112,8 @@ class PedidodetalleController extends Controller
             'ENCAMINO' => GlobalValue::ENCAMINO,
             'form' => $form->createView(),
             'formchangestatus'=> $formchangestatus->createView(),
-            'formpedidoaddress'=>$form_pedido_address->createView()
+            'formpedidoaddress'=>$form_pedido_address->createView(),
+            'formpedidomontos'=>$form_pedido_montos->createView()
         ));
     }
     

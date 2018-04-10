@@ -10,6 +10,9 @@ use AppBundle\Entity\GlobalValue;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 class UserType extends AbstractType
 {
@@ -18,15 +21,16 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', null, ['label'=>'Login/Username'])
-                ->add('email', EmailType::class )
-                ->add('ndoc',IntegerType::class,array('label'=>'Nro. Documento'))
-                ->add('contacto', null,array('label'=>'Contacto (Nombre y Apellido)'))
-                ->add('localidad')
-                ->add('calle')
-                ->add('nro')
-                ->add('piso')
-                ->add('telefono');
+        $builder
+        ->add('username', null, ['label'=>'Login/Username'])
+        ->add('email', EmailType::class )
+        ->add('ndoc',IntegerType::class,array('label'=>'Nro. Documento'))
+        ->add('contacto', null,array('label'=>'Contacto (Nombre y Apellido)'))
+        ->add('localidad')
+        ->add('calle')
+        ->add('nro')
+        ->add('piso')
+        ->add('telefono');
                 
     }
     

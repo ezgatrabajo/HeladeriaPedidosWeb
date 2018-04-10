@@ -133,13 +133,18 @@ class PedidoController extends FOSRestController{
     }
     
     
+    
+    
+    //SE USA EN PEDIDODETALLE ADD, para actualizar la direccion
     /**
      * @Rest\Post("/api/pedido/updateaddress")
      */
     public function postPedidosUpdateAddressAction(Request $request){
         try{
             $content = $request->getContent();
+            $em = $this->getDoctrine()->getManager();
             $json = json_decode($content, true);
+            $code = Response::HTTP_OK; $message='OK'; 
             
             
             $pedido = new Pedido();
@@ -167,14 +172,73 @@ class PedidoController extends FOSRestController{
                 'message'=>$message,
                 'data'=>$pedido
             );
-            return $response;
+            
+            }catch(Exception $e){
+                $response = array('code'=>Response::HTTP_CONFLICT,
+                    'message'=>$e->getMessage(),
+                    'data'=>''
+                );
+            
+        }
+        return $response;
+    }
+    
+    
+    /**
+     * @Rest\Post("/api/pedido/updatemontos")
+     */
+    public function postPedidosUpdateMontosAction(Request $request){
+        try{
+            $content = $request->getContent();
+            $em = $this->getDoctrine()->getManager();
+            $json = json_decode($content, true);
+            $code = Response::HTTP_OK; $message='OK';
+            
+            
+            $pedido = new Pedido();
+            $id            = $json['pedido']['id'];
+            
+            $cantidadkilos     = $json['pedido']['cantidadkilos'];
+            $cantidadpotes     = $json['pedido']['cantidadpotes'];
+            $cucharitas        = $json['pedido']['cucharitas'];
+            $cucuruchos        = $json['pedido']['cucuruchos'];
+            $montocucuruchos   = $json['pedido']['montocucuruchos'];
+            $montohelados      = $json['pedido']['montohelados'];
+            $montodescuento    = $json['pedido']['montodescuento'];
+            $enviodomicilio    = $json['pedido']['enviodomicilio'];
+            $monto             = $json['pedido']['monto'];
+            
+            $pedido = $this->getDoctrine()->getRepository(Pedido::class)->find($id);
+            
+            //Campos heladeria
+            $pedido->setCantidadkilos($cantidadkilos);
+            $pedido->setCantidadpotes($cantidadpotes);
+            $pedido->setCucharitas($cucharitas);
+            $pedido->setCucuruchos($cucuruchos);
+            $pedido->setMontocucuruchos($montocucuruchos);
+            $pedido->setMontohelados($montohelados);
+            $pedido->setMontodescuento($montodescuento);
+            $pedido->setMonto($monto);
+            $pedido->setEnviodomicilio($enviodomicilio);
+            
+            
+            
+            $em->persist($pedido);
+            $em->flush();
+            
+            $response = array('code'=>$code,
+                'message'=>$message,
+                'data'=>$pedido
+            );
+            
         }catch(Exception $e){
             $response = array('code'=>Response::HTTP_CONFLICT,
                 'message'=>$e->getMessage(),
-                'data'=>null
+                'data'=>''
             );
-            return $response;
+            
         }
+        return $response;
     }
     
     

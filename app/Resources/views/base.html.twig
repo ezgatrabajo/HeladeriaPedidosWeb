@@ -19,20 +19,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
         <link rel="icon" type="image/x-icon" href="{{ asset('helado.png') }}" />
         
+        
+        <script src="{{ asset('js/adaptivetech.js') }}"></script>
         <script>
             jQuery(document).ready(function() {
                 $('.js-datepicker').datepicker();
-                $('.datatable').DataTable();
-            });
-        </script>
-        
-        
-        <script>
-             jQuery(document).ready(function() {
+                $('.datatable').DataTable( {"searching": false, "bPaginate":false} );
                 $('select').select2();
-                
             });
         </script>
+        
+        
+     
+        
+        
     </head>
     <body style="padding-top: 70px" class="bg-dark">
 
@@ -127,11 +127,7 @@
               Cambiar Contraseña
              </a>
             </li>
-             <li class="nav-item">
-             <a class="nav-link" href="{{url('fos_user_change_password')}}" >
-              Olvide mi Contraseña
-             </a>
-            </li>
+         
           
             
             
@@ -270,7 +266,7 @@
     	   cantidadNotificaciones();
     	   oldnumber = currentnumber;
 
-    	   /*
+    	   
     	   var mySound = new Audio('{{ asset('audio/notification1.wav') }}');
            setInterval(function(){ 
         	   cantidadNotificaciones();
@@ -280,8 +276,8 @@
 				   mySound.play();
 				   oldnumber = currentnumber;
 			   }
-           }, 10000);
-       	*/
+           }, 30000);
+       	
 
  
 			
