@@ -21,6 +21,7 @@ class ParametroMoneyType extends AbstractType
                 ->add('valorDecimal', MoneyType::class, ['label'=>'Valor Numero Decimal: ','required'=>false ]);
                 
     }
+    
     /**
      * {@inheritdoc}
      */

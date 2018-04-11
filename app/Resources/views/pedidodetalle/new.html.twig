@@ -5,7 +5,8 @@
     <div class="row">
        <input id="nro_pedido" type="hidden" value="{{pedido.id}}"/>  
     	<div class="col-xs-12 col-sm-4">
-            <div class="panel panel-default small" id="pnl_estado">
+    	
+            <div class="panel panel-default small" >
             <div class="panel-heading"> <b>Pedido</b></div>
             <div class="panel-body">
             
@@ -13,17 +14,20 @@
                        <tr><th>ID:</th><td>{{pedido.id}}</td></tr>
                        <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
-                       <tr><th>Estado:</th><td>   {{estados[pedido.estadoId]}}</td></tr>
+                       
                    
                    </table>
-                    
-                    
-                    
+             		
+             		<img src="{{asset('img/2.gif') }}" style="display:none" id="gif_saving_estado" >
+                    <div class="panel panel-default" id="pnl_estado">
+                    <div class="panel-body">
                       {{ form_start(formchangestatus2) }}
-                      	<img src="{{asset('img/2.gif') }}" style="display:none" id="gif_saving_estado" >
+
                             {{ form_widget(formchangestatus2) }}
                           <div id="btn_actualizar_estado" class="btn btn-info" > <i class="glyphicon glyphicon-refresh"></i> Actualizar </div>
                       {{ form_end(formchangestatus2) }}
+                      </div>
+                      </div>
                </div>
             </div>
         </div>

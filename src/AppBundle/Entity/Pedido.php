@@ -144,12 +144,7 @@ class Pedido
     private $cantidaddescuento;
     
    
-    /**
-     * @var IntegerType
-     *
-     * @ORM\Column(name="tiempo_demora", type="integer",  nullable=true)
-     */
-    private $tiempo_demora;
+   
     
     /**
      * @var IntegerType
@@ -516,7 +511,7 @@ class Pedido
     
     public function getTiempodemora()
     {
-        return $this->tiempo_demora;
+        return $this->tiempodemora;
     } 
     
     public function getCantidadkilos()
