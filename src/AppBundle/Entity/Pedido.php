@@ -216,6 +216,12 @@ class Pedido
     private $visto;
     
     
+    /**
+     * @var IntegerType
+     *
+     * @ORM\Column(name="tiempodemora", type="integer",  nullable=true)
+     */
+    private $tiempodemora;
     
     
     

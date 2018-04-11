@@ -17,7 +17,7 @@ class ParametroMoneyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion',  TextareaType::class,[ 'label'=>'Descripcion: ','disabled'=>'true' ])
+        $builder->add('descripcion',  TextareaType::class,[ 'label'=>'Descripcion: ' ])
                 ->add('valorDecimal', MoneyType::class, ['label'=>'Valor Numero Decimal: ','required'=>false ]);
                 
     }

@@ -64,7 +64,10 @@
                 <li role="separator" class="divider"></li>
                 <li><a class="dropdown-item" href="{{ url('user_index') }}">Usuarios</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio x Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio 1 Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxtrescuartos'}) }}">Precio 3/4 Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxmedio'}) }}">Precio 1/2 Kilo</a></li>
+                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxcuarto'}) }}">Precio 1/4 Kilo</a></li>
                 <li><a class="dropdown-item" href="{{ url('parametro_edit_money',{'nombre':'preciocucurucho'}) }}">Precio C/Cucurucho</a></li>
                 <li role="separator" class="divider"></li>
                 {% if is_granted("ROLE_SUPER_ADMIN") %}   

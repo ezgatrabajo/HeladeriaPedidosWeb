@@ -5,15 +5,15 @@
     <div class="row">
     <div class="col-xs-12 col-sm-6">
     <div class="panel panel-default">
-    <div class="panel-heading"> <b>Nuevo Pedido</b></div>
-    <div class="panel-body">
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Guardar y Agregar Productos" class="btn btn-primary" />
-        <a href="{{ path('pedido_index') }}" class="btn btn-default" >Volver al Listado</a>
-    {{ form_end(form) }}
-    </div>
-    </div>
+        <div class="panel-heading"> <b>Nuevo Pedido</b></div>
+            <div class="panel-body">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Guardar y Agregar Productos" class="btn btn-primary" />
+                <a href="{{ path('pedido_index') }}" class="btn btn-default" >Volver al Listado</a>
+            {{ form_end(form) }}
+            </div>
+        </div>
     </div>
     </div>
    

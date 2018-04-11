@@ -287,4 +287,26 @@ class GlobalValue{
     const PARAMETRO_PRECIO_CUCURUCHO    = 'preciocucurucho';
     
     
+    
+    const TIEMPO_15 = 15;
+    const TIEMPO_30 = 30;
+    const TIEMPO_45 = 45;
+    const TIEMPO_60 = 60;
+    
+    const TIEMPO_15_DISPLAY = '15 Min.';
+    const TIEMPO_30_DISPLAY = '30 Min.';
+    const TIEMPO_45_DISPLAY = '45 Min.';
+    const TIEMPO_60_DISPLAY = '1 Hora';
+   
+    
+    
+    const TIEMPO_DEMORA_SELECT =
+        array(
+            GlobalValue::TIEMPO_15_DISPLAY => GlobalValue::TIEMPO_15  ,
+            GlobalValue::TIEMPO_30_DISPLAY => GlobalValue::TIEMPO_30 ,
+            GlobalValue::TIEMPO_45_DISPLAY => GlobalValue::TIEMPO_45,
+            GlobalValue::TIEMPO_60_DISPLAY => GlobalValue::TIEMPO_60 
+        );
+    
+    
 }

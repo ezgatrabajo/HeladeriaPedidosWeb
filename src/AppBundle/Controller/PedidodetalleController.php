@@ -72,7 +72,9 @@ class PedidodetalleController extends Controller
                 
         $pedidodetalles = $pedido->getPedidodetalles();
         //Fin consulta de datos
-        $formchangestatus = $this->createChangeStatusForm($pedido);
+        
+        $formchangestatus  = $this->createChangeStatusForm($pedido);
+        $formchangestatus2 = $this->createForm('AppBundle\Form\PedidoChangeStatusType', $pedido);
         
         //Crear Formulario para actualizar Datos de direccion
         $form_pedido_address = $this->createForm('AppBundle\Form\PedidoUpdateAddressType', $pedido);
@@ -113,7 +115,8 @@ class PedidodetalleController extends Controller
             'form' => $form->createView(),
             'formchangestatus'=> $formchangestatus->createView(),
             'formpedidoaddress'=>$form_pedido_address->createView(),
-            'formpedidomontos'=>$form_pedido_montos->createView()
+            'formpedidomontos'=>$form_pedido_montos->createView(),
+            'formchangestatus2'=>$formchangestatus2->createView()
         ));
     }
     

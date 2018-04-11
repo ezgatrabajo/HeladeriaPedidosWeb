@@ -5,7 +5,7 @@
     <div class="row">
        <input id="nro_pedido" type="hidden" value="{{pedido.id}}"/>  
     	<div class="col-xs-12 col-sm-4">
-            <div class="panel panel-default small">
+            <div class="panel panel-default small" id="pnl_estado">
             <div class="panel-heading"> <b>Pedido</b></div>
             <div class="panel-body">
             
@@ -17,23 +17,13 @@
                    
                    </table>
                     
-                    {% if pedido.estadoId == PENDIENTE %}
-                        {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Cambiar estado a EN PREPARACION"  class="btn btn-flat btn-warning">
-                        {{ form_end(formchangestatus) }}
-                    {% endif %}
                     
-                    {% if pedido.estadoId == ENPREPARACION %}
-                        {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Cambiar estado a EN CAMINO"  class="btn btn-flat btn-warning">
-                        {{ form_end(formchangestatus) }}
-                    {% endif %}
                     
-                    {% if pedido.estadoId == ENCAMINO %}
-                        {{ form_start(formchangestatus) }}
-                                <input type="submit" value="Cambiar estado a ENTREGADO"  class="btn btn-flat btn-success">
-                        {{ form_end(formchangestatus) }}
-                    {% endif %}
+                      {{ form_start(formchangestatus2) }}
+                      	<img src="{{asset('img/2.gif') }}" style="display:none" id="gif_saving_estado" >
+                            {{ form_widget(formchangestatus2) }}
+                          <div id="btn_actualizar_estado" class="btn btn-info" > <i class="glyphicon glyphicon-refresh"></i> Actualizar </div>
+                      {{ form_end(formchangestatus2) }}
                </div>
             </div>
         </div>
@@ -158,6 +148,51 @@
     <script>
        jQuery(document).ready(function($)
        {
+
+
+           	//ACTUALIZARA DATOS DE ESTADO
+           	//ACTUALIZARA DATOS DE ENTREGA DEL PEDIDO
+			var    panel_estado     = $("#pnl_estado");
+			var    loader_estado    = $("#gif_saving_estado");
+			
+			$("#btn_actualizar_estado").click(function(){
+				effectOk(panel_estado,loader_estado);
+				id  	  = $("#nro_pedido").val();
+				
+				estadoid  = $("#appbundle_Pedido_estadoid").val();
+	            tiempodemora = $("#appbundle_Pedido_tiempodemora").val();
+	            var json_data = {'pedido':{
+		            					'id':id,
+	                					'estadoid':estadoid,
+	                					'tiempodemora':tiempodemora
+	                					}
+								};
+				
+	            $.ajax({
+	                   method: "POST",
+	                   url: "/api/pedido/updateestado",
+	                   dataType: 'json',
+                       data: JSON.stringify( json_data ),
+	                   success: function(data)
+	                   {
+	                       if(data.hasOwnProperty("code") )
+	                       {
+			                    if (data.code==200){
+			                    	console.log("OK")
+				                }  
+	                       }
+	                   },
+        	            error: function(jqXHR, textStatus, errorThrown )
+                        {
+                            alert(jqXHR.responseText);
+                        }
+	           		});
+				});
+				//FIN ACTUALIZAR DATOS DE ESTADO
+				
+				
+           	
+           	
 			//ACTUALIZARA DATOS DE ENTREGA DEL PEDIDO
 			var    panel     = $("#pnl_datos_entrega");
 			var    loader    = $("#gif_saving_1");
@@ -274,54 +309,3 @@
 
 
 
-
-{% block javascripts %}
-    <script>
-        jQuery(document).ready(function($)
-        {
-            
-            /*Detectar evento click */
-            $(".btn.btn-xs.btn-default.actualizaritempedido").click(function(){
-
-                    //Armar json
-                    var id = $(this).attr("data-id");
-                    var select = "input[data-id=" + id + "][name='cantidad']";
-                    var cantidad = $(select).val();
-                    var json_item = {
-                                    "id": id,
-                                    "cantidad": cantidad
-                                    };
-                        
-                        $.ajax({
-                            method: "POST",
-                            url: "/api/pedidodetalle/edit",
-                            dataType: 'json',
-                            data: JSON.stringify( json_item ),
-                            success: function(data)
-                            {
-                                if(data.hasOwnProperty("code") && data.code === 200)
-                                {
-                                    alert("Cantidad Actualizada Correctamente...");
-                                    //var msg = $("div[name='alert']");
-                                    var monto = $("td[data-id=" + id + "][name='monto']");
-                                    importe = data.data.cantidad;// * data.data.preciounitario;
-                                    monto.html(importe);
-                                }
-                            },
-                            error: function(jqXHR, exception)
-                            {
-                                if(jqXHR.status === 405)
-                                {
-                                    console.error("METHOD NOT ALLOWED!");
-                                }
-                            }
-                    });
-
-                        
-                        
-            });
-            
-            
-        });
-    </script>
-{% endblock %}

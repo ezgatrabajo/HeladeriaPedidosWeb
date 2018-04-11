@@ -133,6 +133,50 @@ class PedidoController extends FOSRestController{
     }
     
     
+    //SE USA EN PEDIDODETALLE ADD, para actualizar la direccion
+    /**
+     * @Rest\Post("/api/pedido/updateestado")
+     */
+    public function postPedidosEstadoAction(Request $request){
+        try{
+            $content = $request->getContent();
+            $em = $this->getDoctrine()->getManager();
+            $json = json_decode($content, true);
+            $code = Response::HTTP_OK; $message='OK';
+            
+            
+            $pedido = new Pedido();
+            $id            = $json['pedido']['id'];
+            
+            $tiempodemora    = $json['pedido']['tiempodemora'];
+            $estadoid        = $json['pedido']['estadoid'];
+            
+            $pedido = $this->getDoctrine()->getRepository(Pedido::class)->find($id);
+            
+            //Campos heladeria
+            $pedido->setTiempodemora($tiempodemora);
+            $pedido->setEstadoId($estadoid);
+            
+            $em->persist($pedido);
+            $em->flush();
+            
+            $response = array('code'=>$code,
+                'message'=>$message,
+                'data'=>$pedido
+            );
+            
+        }catch(Exception $e){
+            $response = array('code'=>Response::HTTP_CONFLICT,
+                'message'=>$e->getMessage(),
+                'data'=>''
+            );
+            
+        }
+        return $response;
+    }
+    
+    
+    
     
     
     //SE USA EN PEDIDODETALLE ADD, para actualizar la direccion
