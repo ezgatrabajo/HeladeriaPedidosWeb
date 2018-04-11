@@ -1,7 +1,87 @@
-{% extends 'homepage.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block navbar %}
-   
+   <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{url('admin')}}">Heladeria Roma</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+    <ul class="nav navbar-nav navbar-right">       
+    {% if not(is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+        <li class="nav-item">
+         <a class="nav-link" href="{{ path('fos_user_security_login') }}" id="navbarDropdownMenuLink"  >
+           Ingresar
+         </a>
+        
+       {%else%}
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" 
+             data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  
+              Mi Cuenta ({{ app.user.username|trans({'%username%': app.user.username}, 'FOSUserBundle') }}) <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+           <li class="nav-item">
+             <a class="nav-link" href="{{ url('userempresa_edit') }}" >
+              Editar Mis Datos
+             </a>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link" href="{{url('fos_user_change_password')}}" >
+              Cambiar Contraseña
+             </a>
+            </li>
+         
+          
+            
+            
+            <li class="nav-item">
+             <a class="nav-link" href="{{ path('fos_user_security_logout') }}" >
+              Salir
+             </a>
+            </li>
+        {% endif %}
+            
+            
+            
+            
+          </ul>
+        </li>
+      </ul>
+        
+        
+        
+        
+        <ul class="nav navbar-nav navbar-right">     
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+             aria-expanded="false">Descargar<i class="fa-download" aria-hidden="true"></i> <span class="caret"></span></a>
+        
+          <ul class="dropdown-menu">
+                <li>
+                  <a class="nav-link" href="https://play.google.com/store/apps/details?id=adaptivex.pedidoscloud&hl=es"  > 
+                     Descargar App Mobile<i class="fa fa-android" aria-hidden="true"></i></a>
+                </li>
+                
+                
+        
+          </ul>
+        </li>
+        </ul>
+        
+        
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 {% endblock %}
 {% block body %}
     

@@ -51,52 +51,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      {% if is_granted("ROLE_CARGADATOS") %}   
-        <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de Datos <span class="caret"></span></a>
-          
-          <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ url('producto_index') }}">Helados</a></li>
-                <li><a class="dropdown-item" href="{{ url('promo_index') }}">Promociones</a></li>
-                <li><a class="dropdown-item" href="{{ url('marcas_index') }}">Marcas</a></li>
-                <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Categorias</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('user_index') }}">Usuarios</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio x Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money',{'nombre':'preciocucurucho'}) }}">Precio C/Cucurucho</a></li>
-                <li role="separator" class="divider"></li>
-                {% if is_granted("ROLE_SUPER_ADMIN") %}   
-                    <li><a class="dropdown-item" href="{{ url('parametro_index') }}">Parametros</a></li>
-                    <li><a class="dropdown-item" href="{{ url('archivo_new') }}">Importar Archivos</a></li>
-                {% endif %}
-                
-          </ul>
-          
-        </li>
-      </ul>
-    {% endif %}
-     
-    
-    
-          
-          
-    <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-             role="button" aria-haspopup="true" aria-expanded="false">Pedidos
-              <span class="caret"></span></a>
-         
-          <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ url('pedido_hoy') }}">Pedidos de hoy</a> </li>
-                <li><a class="dropdown-item" href="{{ url('pedido_index') }}">Listado de Pedidos</a></li>
-          </ul>
-        
-        </li>
-      </ul>
-    
-    
+      
     
               
     <ul class="nav navbar-nav navbar-right">       
@@ -106,11 +61,7 @@
            Ingresar
          </a>
         </li>
-         <li class="nav-item">
-         <a class="nav-link" href="/register" id="navbarDropdownMenuLink" >
-           Registrarse
-         </a>
-        </li>
+         
        {%else%}
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" 
@@ -164,26 +115,7 @@
           </ul>
         </li>
         </ul>
-         <ul class="nav navbar-nav navbar-right">     
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
-             aria-expanded="false">
-             <span class="glyphicon glyphicon-bullhorn success" aria-hidden="true" id="cartelnotificaciones"></span>
-             <span class="label label-success" id="mnu_cantidad_pedidos"></span>
-              </a>
-        
-          <ul class="dropdown-menu">
-                <li>
-                
-                  <a class="nav-link" href="{{ url('pedido_notificaciones') }}"  > 
-                     Ver Notificaciones <i class="fa fa-android" aria-hidden="true"></i></a>
-                </li>
-                
-                
-        
-          </ul>
-        </li>
-        </ul>
+         
         
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -222,69 +154,7 @@
                 {% endblock %}
             </div>
         </div>
-        {% block javascripts %}
-        {% endblock %}
-       
-       
-       <script>
-       jQuery(document).ready(function($)
-       {
-		   var currentnumber=0;
-		   var oldnumber=0;  
-		  
-		  
-
-		   
-        	   function cantidadNotificaciones(){
-        		    
-           			$.ajax({
-                           method: "GET",
-                           url: "/api/pedido/notificaciones",
-                           dataType: 'json',
-                           success: function(data)
-                           {
-                               if(data.hasOwnProperty("code") && data.code === 200)
-                               {
-                                   $("#mnu_cantidad_pedidos").html(data.data);
-                                   currentnumber = data.data;
-                               }
-                           },
-                           error: function(jqXHR, exception)
-                           {
-                               if(jqXHR.status === 405)
-                               {
-                                   console.error("METHOD NOT ALLOWED!");
-                               }
-                           }
-                   	});
-       
-       			}
-  		   //la primera vez no se notifica el sonido, porque es la carga del dato
-    	   
-    	   
-    	   
-    	   cantidadNotificaciones();
-    	   oldnumber = currentnumber;
-
-    	   
-    	   var mySound = new Audio('{{ asset('audio/notification1.wav') }}');
-           setInterval(function(){ 
-        	   cantidadNotificaciones();
-			   if (currentnumber!=oldnumber){
-				   	//reproducir sonido
-				   //audio.load();
-				   mySound.play();
-				   oldnumber = currentnumber;
-			   }
-           }, 5000);
-       	
-
- 
-			
-	   });
-	   
-      
-       </script>
+    
        
        
     </body>

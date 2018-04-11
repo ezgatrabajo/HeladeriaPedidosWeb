@@ -17,9 +17,12 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: admin
                 check_path:             /security/login_check
+                failure_path: /security/login
             
-            logout:       true
-            anonymous: true
+            logout:       
+                path: /security/logout
+                target: /security/login
+            anonymous:    true
             json_login:
                 check_path: /api/login
         

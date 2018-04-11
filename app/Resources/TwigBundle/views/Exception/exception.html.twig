@@ -1,5 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout_error.html.twig' %}
 
 {% block body %}
-    <h1>Exception: {{status_code }}: {{status_text }}</h1>
+     <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "{{ status_code }} {{ status_text }} "</h2>
 {% endblock %}
