@@ -1,6 +1,9 @@
 /.web-server-pid
 /app/config/parameters.yml
+/app/config/parameters_prod.yml
+/app/config/parameters_dev.yml
 /var/*
 /var/cache/*
 /var/logs/*
 /var/sessions/*
+/
