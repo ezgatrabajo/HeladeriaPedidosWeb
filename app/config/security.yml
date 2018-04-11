@@ -10,18 +10,16 @@ security:
       
 
     firewalls:
-        #default:
-        #    access_denied_handler: AccessDeniedHandler
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: admin
-            logout:       true
-              
+                check_path:             /security/login_check
             
-            anonymous: ~
+            logout:       true
+            anonymous: true
             json_login:
                 check_path: /api/login
         
