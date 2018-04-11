@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Roma Heladeria</title>
+
+    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/simple-line-icons/css/simple-line-icons.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('device-mockups/device-mockups.min.css') }}">
+    <link href="{{ asset('css/new-age.min.css') }}" rel="stylesheet">
+    
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Roma Heladeria</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Descargar</a>
+            </li>
+             
+           {% if not(is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/login">Ingresar</a>
+                </li>
+               
+            {%else%}
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/admin">Mi Cuenta</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="logout" >
+                     Salir
+                    </a>
+                 </li>
+            {% endif %}
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-3 my-auto">
+            <div class="header-content mx-auto">
+              <h1 class="mb-5"></h1>
+              <a href="/login" class="btn btn-outline btn-xl js-scroll-trigger">Iniciar Sesion</a>
+              
+            </div>
+          </div>
+          <div class="col-lg-3 my-auto">
+            <div class="header-content mx-auto">
+              <h1 class="mb-5"></h1>
+              <a href="/login" class="btn btn-outline btn-xl js-scroll-trigger">Instalar desde PlayStore</a>
+              
+            </div>
+          </div>
+          
+        
+          
+         
+          
+        </div>
+      </div>
+    </header>
+
+    <section class="download bg-primary text-center" id="download">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <h2 class="section-heading">Descargar desde PlayStore!</h2>
+            <p> Descargarla ahora desde Google Play!</p>
+            <div class="badges">
+              <a class="badge-link" href="https://play.google.com/store/apps/details?id=adaptivex.pedidoscloud&hl=es"><img src="img/google-play-badge.svg" alt=""></a>
+              
+            </div>
+          </div>
+            
+            
+        </div>
+      </div>
+    </section>
+
+    
+   
+    
+    <footer>
+      <div class="container">
+        <p>&copy; 2017 Start Bootstrap. All Rights Reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/popper/popper.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{{ asset('js/new-age.min.js') }}"></script>
+
+  </body>
+
+</html>
