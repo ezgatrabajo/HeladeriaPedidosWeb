@@ -159,11 +159,10 @@
        jQuery(document).ready(function($)
        {
 			//ACTUALIZARA DATOS DE ENTREGA DEL PEDIDO
-			var    	   panel     = $("#pnl_datos_entrega");
-
+			var    panel     = $("#pnl_datos_entrega");
+			var    loader    = $("#gif_saving_1");
+			
 			$("#btn_actualizar_datos_entrega").click(function(){
-				panel     = $("#pnl_datos_entrega");
-				loader    = $("#gif_saving_1");
 				effectOk(panel,loader);
 				id  	  = $("#nro_pedido").val();
 				contacto  = $("#appbundle_Pedido_contacto").val();
@@ -208,10 +207,11 @@
     	   
 
 			//ACTUALIZAR DATOS MONTOS
-			panel     = $("#pnl_datos_montos");
+			var panel_monto     = $("#pnl_datos_montos");
+			var loader_monto    = $("#gif_saving_monto");
 			$("#btn_actualizar_montos").click(function(){
-				loader    = $("#gif_saving_monto");
-				effectOk(panel,loader);
+				
+				effectOk(panel_monto, loader_monto);
 				
 				id  	  	      = $("#nro_pedido").val();
 				cantidadkilos     = $("#appbundle_Pedido_cantidadkilos").val();

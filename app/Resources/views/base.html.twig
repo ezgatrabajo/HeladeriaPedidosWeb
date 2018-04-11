@@ -231,6 +231,7 @@
        {
 		   var currentnumber=0;
 		   var oldnumber=0;  
+		   var isFirst = true;
 		  
 		  
 
@@ -270,11 +271,14 @@
     	   var mySound = new Audio('{{ asset('audio/notification1.wav') }}');
            setInterval(function(){ 
         	   cantidadNotificaciones();
+        	   
 			   if (currentnumber!=oldnumber){
 				   	//reproducir sonido
-				   //audio.load();
-				   mySound.play();
-				   oldnumber = currentnumber;
+				   	oldnumber = currentnumber;
+				   if (!isFirst){
+					   mySound.play();
+				   }
+				   isFirst = false;
 			   }
            }, 5000);
        	
