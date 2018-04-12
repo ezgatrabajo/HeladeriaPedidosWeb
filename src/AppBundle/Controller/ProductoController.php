@@ -84,10 +84,10 @@ class ProductoController extends Controller
                              ->setParameter('codigoexterno', '%'.$producto->getCodigoexterno(). '%');
             }
         }
-        $productos = $queryBuilder;
+        $productos = $queryBuilder->orderBy('bp.nombre');
         
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($productos, $request->query->getInt('page', 1),10);
+        $pagination = $paginator->paginate($productos, $request->query->getInt('page', 1),50);
         return $this->render('producto/index.html.twig', array(
             'pagination' => $pagination, 'form_filter'=>$form_filter->createView()
         ));
