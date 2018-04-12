@@ -10,6 +10,31 @@ update fos_user set empresa_id = 1 where id = 16;
 
 select * from fos_user order by id asc;
 
+mensajes 
+user_id
+
+
+usuario
+	envia mensaje
+		a otro usuario
+        
+conversaciones
+	conversacion id
+		user_creator
+		user_receptor
+		fecha
+	
+	
+    
+usuario
+	recibe mensaje 
+		recibe el id de conversacion
+			envia mensaje, crea un mensaje en esa conversacion
+            
+    
+    
+    
+    
 
 
 truncate table pedido;
