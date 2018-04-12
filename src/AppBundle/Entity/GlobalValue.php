@@ -11,12 +11,22 @@ namespace AppBundle\Entity;
 class GlobalValue{
     /*Roles*/
     const ROLE_EMPRESA_ID = 1;
-    const ROLE_ADMIN = 'ROLE_ADMIN';
-    const ROLE_EMPRESA = 'ROLE_EMPRESA';
-    const ROLE_VENDEDOR = 'ROLE_VENDEDOR';
-    const ROLE_CARGADATOS = 'ROLE_CARGADATOS';
-    const ROLE_DEPOSITO = 'ROLE_DEPOSITO';
-    const ROLE_CLIENTE = 'ROLE_CLIENTE';
+    
+    
+    
+    const CODE_SUPER_ADMIN = 1;
+    const CODE_ADMIN = 2;
+    const CODE_EMPRESA = 3;
+    const CODE_CARGADATOS = 4;
+    const CODE_CLIENTE = 5;
+    
+    const ROLE_SUPER_ADMIN  = 'ROLE_SUPER_ADMIN';
+    const ROLE_ADMIN        = 'ROLE_ADMIN';
+    const ROLE_EMPRESA      = 'ROLE_EMPRESA';
+    const ROLE_VENDEDOR     = 'ROLE_VENDEDOR';
+    const ROLE_CARGADATOS   = 'ROLE_CARGADATOS';
+    const ROLE_DEPOSITO     = 'ROLE_DEPOSITO';
+    const ROLE_CLIENTE      = 'ROLE_CLIENTE';
     
     const ROLE_ADMIN_DISPLAY = 'Administrador';
     const ROLE_EMPRESA_DISPLAY = 'Empresa';
@@ -24,19 +34,22 @@ class GlobalValue{
     const ROLE_CARGADATOS_DISPLAY = 'Carga de Datos';
     const ROLE_DEPOSITO_DISPLAY = 'Deposito';
     const ROLE_CLIENTE_DISPLAY = 'Cliente';
+    const ROLE_SUPER_ADMIN_DISPLAY = 'SuperAdmin';
     
     const ROLES = 
             array(
-                    GlobalValue::ROLE_ADMIN => GlobalValue::ROLE_ADMIN_DISPLAY,
-                    GlobalValue::ROLE_EMPRESA => GlobalValue::ROLE_EMPRESA_DISPLAY,
-                    GlobalValue::ROLE_VENDEDOR => GlobalValue::ROLE_VENDEDOR_DISPLAY,
-                    GlobalValue::ROLE_CARGADATOS => GlobalValue::ROLE_CARGADATOS_DISPLAY,
-                    GlobalValue::ROLE_DEPOSITO => GlobalValue::ROLE_DEPOSITO_DISPLAY,
-                    GlobalValue::ROLE_CLIENTE => GlobalValue::ROLE_CLIENTE_DISPLAY
+                GlobalValue::ROLE_SUPER_ADMIN => GlobalValue::ROLE_SUPER_ADMIN_DISPLAY,
+                GlobalValue::ROLE_ADMIN => GlobalValue::ROLE_ADMIN_DISPLAY,
+                GlobalValue::ROLE_EMPRESA => GlobalValue::ROLE_EMPRESA_DISPLAY,
+                GlobalValue::ROLE_CARGADATOS => GlobalValue::ROLE_CARGADATOS_DISPLAY,
+                GlobalValue::ROLE_CLIENTE => GlobalValue::ROLE_CLIENTE_DISPLAY,
                 );
     
     
-    
+    const ROLES_SELECT = array(
+        GlobalValue::ROLE_CLIENTE_DISPLAY => GlobalValue::ROLE_CLIENTE,
+        GlobalValue::ROLE_CARGADATOS_DISPLAY => GlobalValue::ROLE_CARGADATOS
+    );
     
     
     /*DIAS de la Semana*/
@@ -77,13 +90,6 @@ class GlobalValue{
                     GlobalValue::SABADO_DISPLAY => GlobalValue::SABADO_ID ,
                     GlobalValue::DOMINGO_DISPLAY => GlobalValue::DOMINGO_ID 
                 );
-    
-    
-            
-            
-            
-    
-    
     
     /*Estado de pedido*/
     const PENDIENTE = 1;

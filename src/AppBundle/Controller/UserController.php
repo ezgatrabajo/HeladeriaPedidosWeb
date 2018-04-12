@@ -150,7 +150,7 @@ class UserController extends Controller
     public function newuserAction(Request $request)
     {
         $userform = new User();
-        $form = $this->createForm('AppBundle\Form\userType', $userform);
+        $form = $this->createForm('AppBundle\Form\UserType', $userform);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -159,8 +159,8 @@ class UserController extends Controller
 
                 //setear empresa y establecer usuario igual a email
                 $currentuser = $this->get('security.token_storage')->getToken()->getUser();
-                $empresa = $currentuser->getEmpresa();
-                $username = $userform->getEmail();
+                $empresa     = $currentuser->getEmpresa();
+                $username    = $userform->getEmail();
 
                 //Crear usuario
                 $userManager = $this->get('fos_user.user_manager');
@@ -172,7 +172,7 @@ class UserController extends Controller
                 //$user->setApitoken
                 // this method will encrypt the password with the default settings :)
                 $password = 12345678;
-                $userform->setRoles(array($userform->getTipo()));
+                $userform->setRoles(array(GlobalValue::ROLE_CLIENTE));
                 $userform->setPlainPassword($password);
                 $userform->setEmpresa($empresa);
                 $userManager->updateUser($userform);

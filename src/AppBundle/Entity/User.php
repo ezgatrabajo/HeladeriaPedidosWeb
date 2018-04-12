@@ -79,6 +79,7 @@ class User extends BaseUser
     }
     
     
+    
     /**
       * @ORM\Column(name="piso", type="string", length=10, nullable=true)
      */

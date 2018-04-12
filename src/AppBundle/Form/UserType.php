@@ -30,7 +30,9 @@ class UserType extends AbstractType
         ->add('calle')
         ->add('nro')
         ->add('piso')
-        ->add('telefono');
+        ->add('telefono')
+        
+            ;
                 
     }
     
