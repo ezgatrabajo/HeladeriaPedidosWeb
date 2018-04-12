@@ -18,16 +18,18 @@
             	<span class="glyphicon glyphicon-import"  aria-hidden="true"></span>
                
                </a>
-            <table class="datatable">
+            <table class="datatable cell-border">
                 <thead>
                     <tr>
+                    <br>
                         <strong>Total:{{ pagination.getTotalItemCount }}  </strong>
-                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'm.id') }}</th>
+                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Categoria</th>
                         <th>Disponible</th>
                         
                         <th>Acciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
