@@ -23,7 +23,7 @@
                     <tr>
                     <br>
                         <strong>Total:{{ pagination.getTotalItemCount }}  </strong>
-                        <th>Id</th>
+                        <th>Codigo Externo</th>
                         <th>Nombre</th>
                         <th>Categoria</th>
                         <th>Disponible</th>
@@ -35,7 +35,7 @@
                 <tbody>
                  {% for item in pagination %}
                     <tr>
-                        <td><a href="{{ path('producto_show', { 'id': item.id }) }}">{{ item.id }}</a></td>
+                        <td><a href="{{ path('producto_show', { 'id': item.id }) }}">{{ item.codigoexterno }}</a></td>
                         <td>{{ item.nombre }}</td>
                         <td>{{ item.categoria.nombre }}</td>
                         <td>{% if item.enabled %} SI {% else %} NO  {% endif %} </td>
