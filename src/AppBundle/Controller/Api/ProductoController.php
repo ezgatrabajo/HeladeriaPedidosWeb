@@ -21,35 +21,28 @@ class ProductoController extends FOSRestController
 {
     
     
+    
+    
     /**
-    * @Rest\Post("/api/productos")
-    */
-    public function getProductosAction(Request $request){
-        try{
-            
-            $empresa_id = $request->get('empresa_id');
-            $empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
-            $result = $this->getDoctrine()->getRepository('AppBundle:Producto')->findByEmpresa($empresa);
-            if ($result === null) {
-                $respuesta = array('code'=>'500',
-                               'message'=>'No se encontraron registros',
-                               'data'=>$result
-                            );
-            }else{
-                $respuesta = array('code'=>'200',
-                               'message'=>'OK',
-                               'data'=>$result
-                            );
-            
-            }
-            return $respuesta;
-        }catch(Exception $e){
+     * @Rest\Post("/api/productos")
+     */
+    public function getMarcasAction(Request $request){
+        $empresa_id = $request->get('empresa_id');
+        $empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
+        $result = $this->getDoctrine()->getRepository('AppBundle:Producto')->findByEmpresa($empresa);
+        if ($result === null) {
             $respuesta = array('code'=>'500',
-                'message'=>'ERROR',
-                'data'=>$e->getMessage()
+                'message'=>'No se encontraron registros',
+                'data'=>$result
             );
-            return $respuesta;
+        }else{
+            $respuesta = array('code'=>'200',
+                'message'=>'ok',
+                'data'=>$result
+            );
+            
         }
+        return $respuesta;
     }
 
 }
