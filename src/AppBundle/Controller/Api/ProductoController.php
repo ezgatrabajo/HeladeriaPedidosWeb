@@ -14,7 +14,7 @@ class ProductoController extends FOSRestController
     
     
     /**
-     * @Rest\Post("/api/producto")
+     * @Rest\Post("/api/productos")
      */
     public function getProductosAction(Request $request){
         $empresa_id = $request->get('empresa_id');
