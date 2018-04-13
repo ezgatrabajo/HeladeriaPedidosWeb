@@ -7,7 +7,7 @@
  */
 
 namespace AppBundle\Controller\Api;
-use AppBundle\Entity\User;
+
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +15,7 @@ use \FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use \AppBundle\Entity\GlobalValue;
+use Exception;
 
 
 class UserController extends FOSRestController
