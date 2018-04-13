@@ -1,7 +1,7 @@
 <?php 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Producto;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -21,7 +21,7 @@ class ProductoController extends FOSRestController
 {
     
     
-   /**
+    /**
     * @Rest\Post("/api/productos")
     */
     public function getProductosAction(Request $request){
