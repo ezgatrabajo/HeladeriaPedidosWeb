@@ -11,10 +11,9 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Entity\Pedido;
 
 use AppBundle\Entity\Producto;
-use AppBundle\Entity\Cliente;
+
 use AppBundle\Entity\User;
 use AppBundle\Entity\Pedidodetalle;
-use \AppBundle\Entity\Movimientostock;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use \FOS\RestBundle\Controller\FOSRestController;
@@ -76,15 +75,7 @@ class PedidoController extends FOSRestController{
                 $queryBuilder->andWhere('p.user = :user')->setParameter('user',  $user);   
             }
             
-            if (array_key_exists ('cliente_id',$json)){
-                $cliente_id  = $json['cliente_id'];
-                $cliente = $this->getDoctrine()->getRepository(Cliente::class)->find($cliente_id);
-                if (!$cliente) {
-                    $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro cliente', 'data'=>$result);
-                    return $respuesta;
-                }
-                $queryBuilder->andWhere('p.cliente = :cliente')->setParameter('cliente',  $cliente);   
-            }
+            
             
             if (array_key_exists ('fecha_desde', $json)){
                 $fecha_desde = $json['fecha_desde'];

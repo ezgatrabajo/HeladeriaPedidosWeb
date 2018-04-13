@@ -3,9 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Archivo;
-use AppBundle\Entity\ArchivoFilter;
+
 use AppBundle\Entity\Producto;
-use AppBundle\Entity\Cliente;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Exception;
 use AppBundle\Service\FileUploader;
 use AppBundle\Entity\GlobalValue;
-use \AppBundle\Entity\Movimientostock;
+
 /**
  * Archivo controller.
  *
@@ -34,7 +34,7 @@ class ArchivoController extends Controller
         //Obtener empresa
         
         //Crear formulario de filtro
-        $archivo = new ArchivoFilter();
+        $archivo = new Archivo();
         $form_filter = $this->createForm('AppBundle\Form\ArchivoFilterType', $archivo);
         $form_filter->handleRequest($request);
 
@@ -209,7 +209,7 @@ class ArchivoController extends Controller
         {
             if ($fileindex > $header){
 
-                $registro = new Cliente();
+               
                 //validar si existe producto
                 $codext = $record[GlobalValue::CLIENTE_CODIGOEXTERNO];
                 $result = $this->getDoctrine()->getRepository(Cliente::class)
