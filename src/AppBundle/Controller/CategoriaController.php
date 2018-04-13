@@ -26,17 +26,14 @@ class CategoriaController extends Controller
     public function indexAction(Request $request)
     {
         
-        //Obtener empresa
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
-        
+       
         //Crear formulario de filtro
         $categoria = new Categoria();
         $form_filter = $this->createForm('AppBundle\Form\CategoriaFilterType', $categoria);
         $form_filter->handleRequest($request);
 
         $queryBuilder = $this->getDoctrine()->getRepository(Categoria::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')->setParameter('empresa', $empresa);
-                     
+                      
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
             if ($categoria->getNombre()){
                 $queryBuilder->andWhere('bp.nombre LIKE :nombre')
@@ -76,7 +73,6 @@ class CategoriaController extends Controller
                 $categoria->setImagen($fileName);
             }
             //Obtener Empresa
-            $categoria->setEmpresa($this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
             $em = $this->getDoctrine()->getManager();
             $em->persist($categoria);
             $em->flush();

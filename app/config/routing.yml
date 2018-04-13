@@ -7,22 +7,6 @@ app_promo:
     type:     annotation
 
 
-app_movimientostock:
-    resource: "@AppBundle/Controller/MovimientostockController.php"
-    type:     annotation
-
-
-
-app_proveedor:
-    resource: "@AppBundle/Controller/ProveedorController.php"
-    type:     annotation
-
-
-
-app_tipodocumento:
-    resource: "@AppBundle/Controller/TipodocumentoController.php"
-    type:     annotation
-
 app:
     resource: '@AppBundle/Controller'
     type: annotation

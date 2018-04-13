@@ -22,11 +22,10 @@ class PedidoRepository extends \Doctrine\ORM\EntityRepository
     }
     
     
-    public function findNotificaciones($empresa)
+    public function findNotificaciones()
     {
         return $this->createQueryBuilder('t')
-        ->where('t.empresa = :empresa')->setParameter('empresa', $empresa)
-        ->andWhere('t.visto = :visto')->setParameter('visto', false);
+        ->where('t.visto = :visto')->setParameter('visto', false);
        
     }
     

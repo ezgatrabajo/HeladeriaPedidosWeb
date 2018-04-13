@@ -6,11 +6,12 @@ use AppBundle\Entity\Archivo;
 use AppBundle\Entity\ArchivoFilter;
 use AppBundle\Entity\Producto;
 use AppBundle\Entity\Cliente;
-use AppBundle\Entity\Empresa;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Exception;
 use AppBundle\Service\FileUploader;
 use AppBundle\Entity\GlobalValue;
 use \AppBundle\Entity\Movimientostock;
@@ -31,7 +32,6 @@ class ArchivoController extends Controller
     {
         
         //Obtener empresa
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
         
         //Crear formulario de filtro
         $archivo = new ArchivoFilter();
@@ -39,9 +39,7 @@ class ArchivoController extends Controller
         $form_filter->handleRequest($request);
 
         $queryBuilder = $this->getDoctrine()->getRepository(Archivo::class)
-                ->createQueryBuilder('bp')
-                ->where('bp.empresa = :empresa')
-                ->setParameter('empresa', $empresa);
+                ->createQueryBuilder('bp');
                      
          
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
@@ -76,7 +74,7 @@ class ArchivoController extends Controller
     
     
     
-    public function uploadArchivoProductos(Empresa $empresa, Archivo $archivo){
+    public function uploadArchivoProductos( Archivo $archivo){
         
     }
     
@@ -191,7 +189,7 @@ class ArchivoController extends Controller
             }
           
     }
-    public function procesarArchivoClientes(Empresa $empresa, Archivo $archivo)
+    public function procesarArchivoClientes(Archivo $archivo)
     {
 
         $csv = array();
@@ -227,7 +225,7 @@ class ArchivoController extends Controller
                 $registro->setNdoc(utf8_decode($record[GlobalValue::CLIENTE_NRODOC])); 
                 $registro->setTelefono(utf8_decode($record[GlobalValue::CLIENTE_TELEFONO])); 
                 $registro->setContacto(utf8_decode($record[GlobalValue::CLIENTE_CONTACTO])); 
-                $registro->setEmpresa($empresa);
+                
                 $em->persist($registro);
                 $em->flush();
             }
@@ -240,7 +238,7 @@ class ArchivoController extends Controller
     
    
     
-    public function procesarArchivoProductos(Empresa $empresa, Archivo $archivo)
+    public function procesarArchivoProductos( Archivo $archivo)
     {
         $csv = array();
         $lines = file($archivo->getArchivo(), FILE_IGNORE_NEW_LINES);
@@ -298,7 +296,7 @@ class ArchivoController extends Controller
     
     
     
-    public function procesarArchivoStocks(Empresa $empresa, Archivo $archivo)
+    public function procesarArchivoStocks(Archivo $archivo)
     {
 
         $csv = array();
@@ -350,7 +348,7 @@ class ArchivoController extends Controller
     }
     
     
-    public function procesarArchivoListaprecios(Empresa $empresa, Archivo $archivo)
+    public function procesarArchivoListaprecios( Archivo $archivo)
     {
 
         $csv = array();
@@ -490,18 +488,18 @@ class ArchivoController extends Controller
     public function reprocesarAction(Archivo $archivo)
     {   
         $deleteForm = $this->createDeleteForm($archivo);
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
+     
         if ($archivo->getTipo()== GlobalValue::ARCHIVO_PRODUCTOS){
-            $error = $this->procesarArchivoProductos($empresa, $archivo);
+            $error = $this->procesarArchivoProductos( $archivo);
         }
         if ($archivo->getTipo()== GlobalValue::ARCHIVO_CLIENTES){
-            $error = $this->procesarArchivoClientes($empresa, $archivo);
+            $error = $this->procesarArchivoClientes($archivo);
         }
         if ($archivo->getTipo()== GlobalValue::ARCHIVO_LISTAPRECIOS){
-            $error = $this->procesarArchivoListaprecios($empresa, $archivo);
+            $error = $this->procesarArchivoListaprecios( $archivo);
         }
         if ($archivo->getTipo()== GlobalValue::ARCHIVO_STOCK){
-            $error = $this->procesarArchivoStocks($empresa, $archivo);
+            $error = $this->procesarArchivoStocks( $archivo);
         }
         
         if ($error > 0){

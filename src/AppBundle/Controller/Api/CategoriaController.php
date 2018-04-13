@@ -31,9 +31,9 @@ class CategoriaController extends FOSRestController{
     * @Rest\Post("/api/categorias")
     */
     public function postCategoriasAction(Request $request){
-        $empresa_id = $request->get('empresa_id');
-        $empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
-        $result = $this->getDoctrine()->getRepository('AppBundle:Categoria')->findByEmpresa($empresa);
+        
+        
+        $result = $this->getDoctrine()->getRepository('AppBundle:Categoria')->findAll();
         if ($result === null) {
             $respuesta = array('code'=>'500',
                            'message'=>'No se encontraron registros',

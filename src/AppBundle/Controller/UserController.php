@@ -102,7 +102,7 @@ class UserController extends Controller
         
          //Obtener empresa
         $currentuser = $this->get('security.token_storage')->getToken()->getUser();
-        $empresa = $currentuser->getEmpresa();
+       
         
         //Crear formulario de filtro
         $user = new User();
@@ -110,7 +110,7 @@ class UserController extends Controller
         $form_filter->handleRequest($request);
 
         $queryBuilder = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')->setParameter('empresa', $empresa);
+       
                   
         
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {

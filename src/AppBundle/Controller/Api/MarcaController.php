@@ -27,9 +27,8 @@ class MarcaController extends FOSRestController{
     * @Rest\Post("/api/marcas")
     */
     public function getMarcasAction(Request $request){
-        $empresa_id = $request->get('empresa_id');
-        $empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
-        $result = $this->getDoctrine()->getRepository('AppBundle:Marca')->findByEmpresa($empresa);
+        
+        $result = $this->getDoctrine()->getRepository('AppBundle:Marca')->findAll();
         if ($result === null) {
             $respuesta = array('code'=>'500',
                            'message'=>'No se encontraron registros',

@@ -87,9 +87,7 @@ class PedidodetalleController extends Controller
                         'class' => 'AppBundle:Producto',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'textocombo'
                     ));

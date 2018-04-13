@@ -36,7 +36,7 @@ class PedidoUpdateMontosType extends AbstractType
                 'choices'  => array(
                     'SI' => true,
                     'NO' => false,
-                ),'label'=>'Disponible'))
+                ),'label'=>'Envio a Domicilio:'))
             
         
         ;

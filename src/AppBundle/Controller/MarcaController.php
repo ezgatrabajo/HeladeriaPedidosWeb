@@ -22,14 +22,11 @@ class MarcaController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //Obtener empresa
-        $empresa  = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
-         //Crear formulario de filtro
+      //Crear formulario de filtro
         $marca = new Marca();
         $form_filter = $this->createForm('AppBundle\Form\MarcaFilterType', $marca);
         $form_filter->handleRequest($request);
         $queryBuilder = $this->getDoctrine()->getRepository(Marca::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')->setParameter('empresa', $empresa);
                      
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
             if ($marca->getNombre()){
@@ -71,7 +68,6 @@ class MarcaController extends Controller
                     $fileName = $fileUploader->upload($file);
                     $marca->setImagen($fileName);
                 }
-                $marca->setEmpresa($this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
                 $em->persist($marca);
                 $em->flush();
                 $this->addFlash('success', 'Guardado Correctamente');

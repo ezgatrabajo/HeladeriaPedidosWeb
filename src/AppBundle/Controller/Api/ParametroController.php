@@ -29,8 +29,7 @@ class ParametroController extends FOSRestController{
     * @Rest\Post("/api/parametros")
     */
     public function postParametrosAction(Request $request){
-        //$empresa_id = $request->get('empresa_id');
-        //$empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
+        
         $result = $this->getDoctrine()->getRepository('AppBundle:Parametro')->findAll();
         if ($result === null) {
             $respuesta = array('code'=>'500',

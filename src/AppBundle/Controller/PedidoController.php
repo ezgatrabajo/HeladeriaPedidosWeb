@@ -30,8 +30,7 @@ class PedidoController extends Controller
     public function indexAction(Request $request)
     {
        
-        //Obtener empresa
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
+        
        
         //Crear formulario de filtro
         $pedido = new Pedido();
@@ -41,9 +40,7 @@ class PedidoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.email', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.email', 'DESC');
                         },
                         'choice_label' => 'TextoCombo'))
                     ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
@@ -51,7 +48,6 @@ class PedidoController extends Controller
         $form_filter->handleRequest($request);
         
         $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')->setParameter('empresa', $empresa);
         
         //Filtros
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
@@ -103,16 +99,14 @@ class PedidoController extends Controller
      */
     public function hoyAction(Request $request)
     {
-         //Obtener empresa
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
-        // Filtrar por Empresa y por fecha de hoy
+        
+        // Filtrar por  y por fecha de hoy
         $hoy = date("Y-m-d");
         
         
         $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')
-                     ->setParameter('empresa', $empresa);
-        $queryBuilder->andWhere('bp.fecha >= :hoy')
+      
+        $queryBuilder->Where('bp.fecha >= :hoy')
                      ->setParameter('hoy', $hoy ); 
         
         
@@ -123,10 +117,8 @@ class PedidoController extends Controller
                         'class' => 'AppBundle:User', 
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.email', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                            return $er->createQueryBuilder('c')                              
+                                ->orderBy('c.email', 'DESC');
                         },
                         'choice_label' => 'TextoCombo'))
                     ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
@@ -168,27 +160,21 @@ class PedidoController extends Controller
     public function notificacionesAction(Request $request)
     {
         
-        //Obtener empresa
-        $empresa = $this->get('security.token_storage')->getToken()->getUser()->getEmpresa();
-        
+       
         //Crear formulario de filtro
         $pedido = new Pedido();
         $form_filter = $this->createForm('AppBundle\Form\PedidoFilterType', $pedido);
-        $form_filter->add('user', EntityType::class, array(
+        $form_filter
+        ->add('user', EntityType::class, array(
             'class' => 'AppBundle:User',
-            'required'=>false,
-            'query_builder' => function (EntityRepository $er) {
-            return $er->createQueryBuilder('c')
-            ->where('c.empresa = :empresa')
-            ->orderBy('c.email', 'DESC')
-            ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
-            },
-            'choice_label' => 'TextoCombo'))
-            ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
+            'choice_label' => 'TextoCombo',
+            'required'=>false
+        ))
+        ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
             
             $form_filter->handleRequest($request);
             
-            $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->findNotificaciones($empresa);
+            $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->findNotificaciones();
             
             //Filtros
             if ($form_filter->isSubmitted() && $form_filter->isValid()) {
@@ -244,9 +230,7 @@ class PedidoController extends Controller
                         'class' => 'AppBundle:User',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.email', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.email', 'DESC');
                         },
                         'choice_label' => 'TextoCombo'));
                 
@@ -256,7 +240,6 @@ class PedidoController extends Controller
         /* Guardar datos */          
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $pedido->setEmpresa($this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
             $pedido->setEstadoId(GlobalValue::PENDIENTE);
             $em->persist($pedido);
             $em->flush();

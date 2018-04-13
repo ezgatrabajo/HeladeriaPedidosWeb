@@ -9,7 +9,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Pedido;
-use AppBundle\Entity\Empresa;
+
 use AppBundle\Entity\Producto;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\User;
@@ -61,20 +61,9 @@ class PedidoController extends FOSRestController{
              * */
             
             
-            
-            if (array_key_exists ('empresa_id',$json)){
-                $empresa_id  = $json['empresa_id'];
-                $empresa = $this->getDoctrine()->getRepository(Empresa::class)->find($empresa_id);
-                if (!$empresa) {
-                    $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro empresa', 'data'=>$result);
-                    return $respuesta;
-                }   
-            }else{
-                $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'La Empresa es Obligatorio', 'data'=>$result);
-                return $respuesta;
-            }
+           
             $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('p');
-            $queryBuilder->where('p.empresa = :empresa')->setParameter('empresa', $empresa);
+            //$queryBuilder->where('p.empresa = :empresa')->setParameter('empresa', $empresa);
             
             
             if (array_key_exists ('user_id', $json)){
@@ -306,7 +295,6 @@ class PedidoController extends FOSRestController{
         
         //Leer Pedido
         $fecha          = $json['pedido']['fecha']; //recibir fecha y hora
-        $empresa_id     = $json['pedido']['empresa_id'];
         $user_id        = $json['pedido']['user_id'];
         $android_id     = $json['pedido']['android_id'];
         $monto          = $json['pedido']['monto'];
@@ -333,11 +321,7 @@ class PedidoController extends FOSRestController{
         $montohelados   = $json['pedido']['monto_helados'];
         $cantidadpotes  = $json['pedido']['cantidadpotes'];
         
-        $empresa = $this->getDoctrine()->getRepository(Empresa::class)->find($empresa_id);
-        if (!$empresa) {
-            $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'No se encontro empresa', 'data'=>$result);
-            return $respuesta;
-        }
+       
         
         $user = $this->getDoctrine()->getRepository(User::class)->find($user_id);
         if(!$user){
@@ -346,7 +330,7 @@ class PedidoController extends FOSRestController{
         }
        
         if ($code==Response::HTTP_OK){        
-            $pedido->setEmpresa($empresa);
+            
             $pedido->setFecha(new \DateTime($fecha));
             $pedido->setEstadoId(GlobalValue::ENPREPARACION);
             $pedido->setSubtotal($subtotal);

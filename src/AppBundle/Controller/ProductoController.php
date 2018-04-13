@@ -30,9 +30,9 @@ class ProductoController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //Obtener empresa
+        //Obtener 
         $currentuser = $this->get('security.token_storage')->getToken()->getUser();
-        $empresa = $currentuser->getEmpresa();
+        
         
         //Crear formulario de filtro
         $producto = new Producto();
@@ -42,9 +42,7 @@ class ProductoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'nombre'))
                     ->add('marca', EntityType::class, array(
@@ -52,15 +50,14 @@ class ProductoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
                                 ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ;
                         },
                         'choice_label' => 'nombre'));
         $form_filter->handleRequest($request);
 
         $queryBuilder = $this->getDoctrine()->getRepository(Producto::class)->createQueryBuilder('bp');
-        $queryBuilder->where('bp.empresa = :empresa')->setParameter('empresa', $empresa);
+       
                      
         if ($form_filter->isSubmitted() && $form_filter->isValid()) {
             if ($producto->getNombre()){
@@ -108,9 +105,8 @@ class ProductoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                               
+                                ->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'nombre'))
                     ->add('marca', EntityType::class, array(
@@ -118,9 +114,7 @@ class ProductoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'nombre'));
                     
@@ -129,7 +123,7 @@ class ProductoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $producto->setEmpresa($this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+           
             $em->persist($producto);
             $em->flush();
             $this->addFlash(  'success','Guardado Correctamenteeeeee!');
@@ -175,10 +169,7 @@ class ProductoController extends Controller
                         'class' => 'AppBundle:Categoria', 
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                            return $er->createQueryBuilder('c')->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'nombre'))
                     ->add('marca', EntityType::class, array(
@@ -186,9 +177,7 @@ class ProductoController extends Controller
                         'required'=>false,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
-                                ->where('c.empresa = :empresa')
-                                ->orderBy('c.nombre', 'DESC')
-                                ->setParameter('empresa', $this->get('security.token_storage')->getToken()->getUser()->getEmpresa());
+                                ->orderBy('c.nombre', 'DESC');
                         },
                         'choice_label' => 'nombre'))   ;
         $editForm->handleRequest($request);
