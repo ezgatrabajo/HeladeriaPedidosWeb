@@ -43,7 +43,10 @@ update pedido set user_id = 1 where id in(1,2);
 
 
 truncate table  pedidodetalle;
+
 select * from  pedidodetalle;
+
+select * from  producto;
 
 select * from fos_user;
 

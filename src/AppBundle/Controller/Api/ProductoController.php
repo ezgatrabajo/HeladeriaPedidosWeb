@@ -19,11 +19,14 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ProductoController extends FOSRestController
 {
+    
+    
    /**
     * @Rest\Post("/api/productos")
     */
     public function getProductosAction(Request $request){
         try{
+            
             $empresa_id = $request->get('empresa_id');
             $empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
             $result = $this->getDoctrine()->getRepository('AppBundle:Producto')->findByEmpresa($empresa);
@@ -34,7 +37,7 @@ class ProductoController extends FOSRestController
                             );
             }else{
                 $respuesta = array('code'=>'200',
-                               'message'=>'ok',
+                               'message'=>'OK',
                                'data'=>$result
                             );
             
