@@ -518,7 +518,7 @@ class PedidoController extends FOSRestController{
                     'Usuario Inexistente'
                     );
             }
-            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findBy(array('id'=>$id, 'android_id'=>$id_android, 'user'=>$user ));
+            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id, 'android_id'=>$id_android, 'user'=>$user ));
             $response = array(
                         'code'=>$code,
                         'message'=>'Pedido',
