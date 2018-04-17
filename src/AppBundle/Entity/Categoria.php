@@ -75,14 +75,14 @@ class Categoria
     
     protected $file;
 
-    public function setArchivo(File $file = null)
+    public function setFile(File $file = null)
     {
-        $this->archivo = $file;
+        $this->file = $file;
     }
 
-    public function getArchivo()
+    public function getFile()
     {
-        return $this->archivo;
+        return $this->file;
     }
     
 

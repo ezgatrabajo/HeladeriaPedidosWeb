@@ -508,9 +508,9 @@ class PedidoController extends FOSRestController{
             $json = json_decode($content, true);
 
             //Leer Pedido
-            $id         = $json['pedido_id_web'];
-            $id_android = $json['pedido_id_android'];
-            $user_id    = $json['user_id'];
+            $id         = $json['pedido']['id'];
+            $id_android = $json['pedido']['android_id'];
+            $user_id    = $json['pedido']['user_id'];
 
             $user = $this->getDoctrine()->getRepository(User::class)->find($user_id);
             if (!$user) {
