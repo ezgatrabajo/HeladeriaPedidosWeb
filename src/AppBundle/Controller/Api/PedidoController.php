@@ -325,11 +325,11 @@ class PedidoController extends FOSRestController{
         if ($code==Response::HTTP_OK){
             $tiempodemora = GlobalValue::TIEMPO_45;
             //$hoy = date("Y-m-d H:i:s");   
-            $hoy = "06-04-2018";
-            //$time = new DateTime($hoy);
-            //$time->add(new DateInterval('PT' . $tiempodemora . 'M'));
-            $horarecepcion  = $hoy;
-            $horaentrega    = $hoy;
+           
+            $time = new DateTime();
+            $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
+
+            $horaentrega    = $time;
 
             
             
@@ -364,9 +364,9 @@ class PedidoController extends FOSRestController{
             $pedido->setMontohelados($montohelados);
             $pedido->setVisto(false);
             
-            //$pedido->setTiempodemora($tiempodemora);
+            $pedido->setTiempodemora($tiempodemora);
             //$pedido->setHoraRecepcion($horarecepcion);
-            //$pedido->setHoraEntrega($horaentrega);
+            $pedido->setHoraEntrega($horaentrega);
             
             
             
