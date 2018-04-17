@@ -495,6 +495,48 @@ class PedidoController extends FOSRestController{
     
     
     
+    /**
+     * @Rest\Post("/api/pedido/findbyid")
+     */
+    public function postPedidoFindByIdAction(Request $request){
+        //leer json
+        try{
+            $pedido = new Pedido();
+            $code = Response::HTTP_OK;
+
+            $content = $request->getContent();
+            $json = json_decode($content, true);
+
+            //Leer Pedido
+            $id         = $json['pedido_id_web'];
+            $id_android = $json['pedido_id_android'];
+            $user_id    = $json['user_id'];
+
+            $user = $this->getDoctrine()->getRepository(User::class)->find($user_id);
+            if (!$user) {
+                throw $this->createNotFoundException(
+                    'Usuario Inexistente'
+                    );
+            }
+            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findBy(array('id'=>$id, 'android_id'=>$id_android, 'user'=>$user ));
+            $response = array(
+                        'code'=>$code,
+                        'message'=>'Pedido',
+                        'data'=>$pd
+            );
+            return $response;
+        }catch(Exception $e){
+            $response = array('code'=>Response::HTTP_CONFLICT,
+                'message'=>$e->getMessage(),
+                'data'=>null
+            );
+            return $response;
+            
+        }
+    }
+    
+    
+    
     
     /**
     * @Rest\Get("/api/check")

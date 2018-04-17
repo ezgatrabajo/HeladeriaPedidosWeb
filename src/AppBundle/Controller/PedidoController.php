@@ -72,7 +72,7 @@ class PedidoController extends Controller
                              ->setParameter('estadoid',  $pedido->getEstadoId());   
             }
         }
-        $queryBuilder->orderBy('bp.fecha', 'DESC');
+        $queryBuilder->orderBy('bp.id', 'DESC');
 
         $registros = $queryBuilder;
         $paginator  = $this->get('knp_paginator');
@@ -138,7 +138,7 @@ class PedidoController extends Controller
              }
         }
         
-        $registros = $queryBuilder;
+        $registros = $queryBuilder->orderBy("bp.id","DESC");
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),20);
         

@@ -3,14 +3,15 @@ WEB
 * OK - Web pedidos api procesar nuevo pedido (prueba con insomia)
 * OK - Quitar Precio unitario de pedidodetalle y todos los lugares donde se usa
 * OK - Web FrontEnd mostrar pedido de hoy
-* OK -  Web FrontEnd mostrar listado de pedidos
+* OK - Web FrontEnd mostrar listado de pedidos
 * OK Crear javascript de notificacion de pedidos
 * OK crear consulta api json con cantidad de pedidos visto = false
 * OK Crear campo enabled en productos ABM modificarlos
 * OK Crear formulario Editar Precio del Kilo, dato donde impacta es un update al parametro de Precio Kilo
 * OK Crear formulario editar mis datos
 
-* - Formulario cambiar contraseña, arreglar estilo
+* Formulario cambiar contraseña, arreglar estilo
+* ordernar pedidos de hoy por visto
 
 
 
