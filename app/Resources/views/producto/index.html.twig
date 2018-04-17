@@ -12,11 +12,15 @@
     <div class="panel panel-default">
         <div class="panel-heading">Listado de Productos</div>
         <div class="panel-body">
-            <a href="{{ path('producto_new') }}" class="btn btn-primary btn-xs"
-               data-toggle="tooltip" data-placement="top" title="Nuevo">
-                 Nuevo
-            	<span class="glyphicon glyphicon-import"  aria-hidden="true"></span>
-               
+            	<a href="{{ path('producto_new') }}" class="btn btn-primary btn-xs"
+                   data-toggle="tooltip" data-placement="top" title="Nuevo">
+                     Nuevo
+                	<span class="glyphicon glyphicon-import"  aria-hidden="true"></span>
+               </a>
+               <a href="{{ path('export_producto') }}" class="btn btn-default btn-xs"
+                   data-toggle="tooltip" data-placement="top" title="Exportar">
+                     Exportar
+                	<span class="glyphicon glyphicon-export"  aria-hidden="true"></span>
                </a>
             <table class="datatable cell-border">
                 <thead>

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
@@ -88,6 +89,34 @@ class ProductoController extends Controller
         return $this->render('producto/index.html.twig', array(
             'pagination' => $pagination, 'form_filter'=>$form_filter->createView()
         ));
+    }
+    
+    
+    /**
+     * Lists all producto entities.
+     *
+     * @Route("/export", name="export_producto")
+     * @Method({"GET","POST"})
+     */
+    public function exportAction(Request $request)
+    {
+        
+        
+        
+        $productos = $this->getDoctrine()->getRepository(Producto::class)->findAll();
+        $rows = array();
+        foreach ($productos as $item) {
+            $data = array($item->getId(), $item->getNombre(), $item->getDescripcion(), $item->getMarca()->getId(), $item->getCategoria()->getId(), $item->getCodigoexterno());
+            
+            $rows[] = implode(',', $data);
+        }
+        
+        
+        $content = implode("\n", $rows);
+        $response = new Response($content);
+        $response->headers->set('Content-Type', 'text/csv');
+        return $response;
+       
     }
 
     /**

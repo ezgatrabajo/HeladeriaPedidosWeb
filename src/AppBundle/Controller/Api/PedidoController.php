@@ -307,7 +307,7 @@ class PedidoController extends FOSRestController{
         $cantidaddescuento = $json['pedido']['cantidad_descuento'];
 
         $preciokilo     = $json['pedido']['precioxkilo'];
-        $tiempodemora   = $json['pedido']['tiempodemora'];
+
         $cantidadkilos  = $json['pedido']['cantidadkilos'];
         $montohelados   = $json['pedido']['monto_helados'];
         $cantidadpotes  = $json['pedido']['cantidadpotes'];
@@ -320,7 +320,16 @@ class PedidoController extends FOSRestController{
             return $respuesta;
         }
        
-        if ($code==Response::HTTP_OK){        
+        if ($code==Response::HTTP_OK){
+            $tiempodemora = GlobalValue::TIEMPO_45;
+            $hoy = date("Y-m-d H:i:s");       
+            $time = new DateTime($hoy);
+
+            $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
+            $horarecepcion = $hoy;
+            $horaentrega = $time->format('Y-m-d H:i');
+
+            
             
             $pedido->setFecha(new \DateTime($fecha));
             $pedido->setEstadoId(GlobalValue::ENPREPARACION);
@@ -338,20 +347,25 @@ class PedidoController extends FOSRestController{
             
             $pedido->setCucharitas($cucharitas);
             $pedido->setCucuruchos($cucuruchos);
+            $pedido->setCantidaddescuento($cantidaddescuento);
+
+            $pedido->setCantidadkilos($cantidadkilos);
+            $pedido->setCantidadpotes($cantidadpotes);
+            
+            $pedido->setEnviodomicilio($enviodomicilio);
+            
             $pedido->setMontocucuruchos($cucurucho_monto);
             $pedido->setPreciokilo($preciokilo);
             $pedido->setMontodescuento($montodescuento);
-            $pedido->setCantidaddescuento($cantidaddescuento);
-            $pedido->setTiempodemora($tiempodemora);
-            $pedido->setCantidadkilos($cantidadkilos);
             $pedido->setMontohelados($montohelados);
-            $pedido->setCantidadpotes($cantidadpotes);
-            $pedido->setEnviodomicilio($enviodomicilio);
-            
             $pedido->setVisto(false);
             
+            $pedido->setTiempodemora($tiempodemora);
+            $pedido->setHoraRecepcion($horarecepcion);
+            $pedido->setHoraEntrega($horaentrega);
             
-            //$pedido->setEmpleado($empleado);
+            
+            
             $pedido->setAndroid_id($android_id);
         
             if ($json['pedido']['pedidodetalles']){

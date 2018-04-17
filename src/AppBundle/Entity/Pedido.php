@@ -219,6 +219,20 @@ class Pedido
     private $tiempodemora;
     
     
+    /**
+     * @var \Datetime
+     *
+     * @ORM\Column(name="hora_recepcion", type="datetime", nullable=true)
+     */
+    private $horarecepcion;
+   
+    /**
+     * @var \Datetime
+     *
+     * @ORM\Column(name="hora_entrega", type="datetime", nullable=true)
+     */
+    private $horaentrega;
+    
     
     
     
@@ -301,6 +315,78 @@ class Pedido
         return $this->fecha;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     * 
+     */
+    public function setHoraEntrega($horaentrega)
+    {
+        $this->horaentrega = $horaentrega;
+        
+    }
+    
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getHoraEntrega()
+    {
+        return $this->horaentrega;
+    }
+    
+    
+    
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     *
+     */
+    public function setHoraRecepcion($horarecepcion)
+    {
+        $this->horarecepcion = $horarecepcion;
+        
+    }
+    
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getHoraRecepcion()
+    {
+        return $this->horarecepcion;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
