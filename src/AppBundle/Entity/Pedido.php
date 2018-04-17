@@ -30,7 +30,7 @@ class Pedido
     /**
      * @var \Datetime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
     private $fecha;
     
@@ -266,6 +266,8 @@ class Pedido
     public function __construct()
     {
         $this->pedidodetalles = new ArrayCollection();
+        $this->horarecepcion = new \DateTime();
+        $this->fecha = new \DateTime();
     }
     
     public function getPedidodetalles(){
@@ -322,24 +324,14 @@ class Pedido
     
     
     
-    /**
-     * Set fecha
-     *
-     * @param \DateTime $fecha
-     *
-     * 
-     */
+   
     public function setHoraEntrega($horaentrega)
     {
         $this->horaentrega = $horaentrega;
         
     }
     
-    /**
-     * Get fecha
-     *
-     * @return \DateTime
-     */
+   
     public function getHoraEntrega()
     {
         return $this->horaentrega;
@@ -347,24 +339,14 @@ class Pedido
     
     
     
-    /**
-     * Set fecha
-     *
-     * @param \DateTime $fecha
-     *
-     *
-     */
+    
     public function setHoraRecepcion($horarecepcion)
     {
         $this->horarecepcion = $horarecepcion;
         
     }
     
-    /**
-     * Get fecha
-     *
-     * @return \DateTime
-     */
+  
     public function getHoraRecepcion()
     {
         return $this->horarecepcion;

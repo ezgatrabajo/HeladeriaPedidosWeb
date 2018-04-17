@@ -22,6 +22,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\GlobalValue;
+use DateTime;
+use DateInterval;
 
 
 
@@ -274,7 +276,7 @@ class PedidoController extends FOSRestController{
     */
     public function postPedidosAddAction(Request $request){
         //leer json
-        
+        //date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
         $content = $request->getContent();
         $pedido = new Pedido();
         $code = Response::HTTP_OK; 
@@ -285,7 +287,7 @@ class PedidoController extends FOSRestController{
         $em = $this->getDoctrine()->getManager();
         
         //Leer Pedido
-        $fecha          = $json['pedido']['fecha']; //recibir fecha y hora
+        //$fecha          = $json['pedido']['fecha']; //recibir fecha y hora
         $user_id        = $json['pedido']['user_id'];
         $android_id     = $json['pedido']['android_id'];
         $monto          = $json['pedido']['monto'];
@@ -322,16 +324,18 @@ class PedidoController extends FOSRestController{
        
         if ($code==Response::HTTP_OK){
             $tiempodemora = GlobalValue::TIEMPO_45;
-            $hoy = date("Y-m-d H:i:s");       
-            $time = new DateTime($hoy);
-
-            $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
-            $horarecepcion = $hoy;
-            $horaentrega = $time->format('Y-m-d H:i');
+            //$hoy = date("Y-m-d H:i:s");   
+            $hoy = "06-04-2018";
+            //$time = new DateTime($hoy);
+            //$time->add(new DateInterval('PT' . $tiempodemora . 'M'));
+            $horarecepcion  = $hoy;
+            $horaentrega    = $hoy;
 
             
             
-            $pedido->setFecha(new \DateTime($fecha));
+            //$pedido->setFecha($fecha);
+            
+
             $pedido->setEstadoId(GlobalValue::ENPREPARACION);
             $pedido->setSubtotal($subtotal);
             $pedido->setMonto($monto);
@@ -360,9 +364,9 @@ class PedidoController extends FOSRestController{
             $pedido->setMontohelados($montohelados);
             $pedido->setVisto(false);
             
-            $pedido->setTiempodemora($tiempodemora);
-            $pedido->setHoraRecepcion($horarecepcion);
-            $pedido->setHoraEntrega($horaentrega);
+            //$pedido->setTiempodemora($tiempodemora);
+            //$pedido->setHoraRecepcion($horarecepcion);
+            //$pedido->setHoraEntrega($horaentrega);
             
             
             
@@ -391,23 +395,7 @@ class PedidoController extends FOSRestController{
                     $pd->setNropote($nropote);
                     $pedido->addPedidodetalle($pd);   
                     
-                    
-                    //Generar movimiento de Stock
-                    /*
-                    $mv = new Movimientostock();
-                    $mv->setCantidad($cantidad);
-                    $mv->setFecha(new \DateTime($fecha));
-                    $mv->setEmpresa($empresa);
-                    $mv->setNrocomprobante("Nro Android: " . $android_id );
-                    $mv->setProducto($producto);
-                    $mv->setTipomovimiento(GlobalValue::EGRESO);
-                    
-                    //Actualizar cantidad de producto en Maestro de Productos prueba
-                    $stock = $producto->getStock();
-                    $stockactual = $stock - $cantidad;
-                    $producto->setStock($stockactual);
-                    */
-                    
+                 
                     
                 }
             }         
