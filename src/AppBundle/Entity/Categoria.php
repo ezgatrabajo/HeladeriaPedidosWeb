@@ -73,7 +73,7 @@ class Categoria
         //return $this->getDirImagen().'/'. $this->imagen ; 
     }
     
-    protected $archivo;
+    protected $file;
 
     public function setArchivo(File $file = null)
     {
