@@ -14,6 +14,7 @@
                        <tr><th>ID:</th><td>{{pedido.id}}</td></tr>
                        <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
+                       <tr><th>Hora Entrega:</th><td ><div id="hora_entrega"> {{pedido.horaentrega|date('H:i:s')}} </div></td></tr>
                        
                    
                    </table>
@@ -158,13 +159,15 @@
            	//ACTUALIZARA DATOS DE ENTREGA DEL PEDIDO
 			var    panel_estado     = $("#pnl_estado");
 			var    loader_estado    = $("#gif_saving_estado");
+		    var    hora_entrega     = $("#hora_entrega");
+		    
 			
 			$("#btn_actualizar_estado").click(function(){
 				effectOk(panel_estado,loader_estado);
 				id  	  = $("#nro_pedido").val();
 				
-				estadoid  = $("#appbundle_Pedido_estadoid").val();
-	            tiempodemora = $("#appbundle_Pedido_tiempodemora").val();
+				estadoid      = $("#appbundle_Pedido_estadoid").val();
+	            tiempodemora  = $("#appbundle_Pedido_tiempodemora").val();
 	            var json_data = {'pedido':{
 		            					'id':id,
 	                					'estadoid':estadoid,
@@ -182,7 +185,14 @@
 	                       if(data.hasOwnProperty("code") )
 	                       {
 			                    if (data.code==200){
-			                    	console.log("OK")
+
+			                    	var time = new Date(data.data.horaentrega);  
+			                    	
+			                    	var hora = time.getHours() + ":" + time.getMinutes() +":"+ time.getSeconds();
+			                    	hora_entrega.fadeOut(500);
+			                    	hora_entrega.html(hora);
+			                    	hora_entrega.fadeIn(500);
+			                    	
 				                }  
 	                       }
 	                   },

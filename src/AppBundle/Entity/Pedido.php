@@ -663,7 +663,7 @@ class Pedido
     {
         $this->tiempodemora=$value;
         //Actualizar el campo hora de entrega
-        $time = $this->getHoraEntrega();
+        $time = $this->getHoraRecepcion();
         $time->add(new DateInterval('PT' . $value . 'M'));
         $horaentrega = $time;
         $this->setHoraEntrega($horaentrega);
