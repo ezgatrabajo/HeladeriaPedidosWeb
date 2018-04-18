@@ -51,18 +51,7 @@ class PedidoController extends FOSRestController{
             $user='';
             $empresa='';
             //Preparar parametros
-            /*
-             * Fecha desde
-             * Fecha Hasta 
-             * Empresa Id
-             * User Id
-             * Cliente Id
-             * Estado Id
-             *  
-             * */
             
-            
-           
             $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('p');
             //$queryBuilder->where('p.empresa = :empresa')->setParameter('empresa', $empresa);
             
@@ -126,19 +115,16 @@ class PedidoController extends FOSRestController{
             $json = json_decode($content, true);
             $code = Response::HTTP_OK; $message='OK';
             
-            
             $pedido = new Pedido();
-            $id            = $json['pedido']['id'];
-            
+            $id              = $json['pedido']['id'];
             $tiempodemora    = $json['pedido']['tiempodemora'];
             $estadoid        = $json['pedido']['estadoid'];
             
             $pedido = $this->getDoctrine()->getRepository(Pedido::class)->find($id);
             
             //Campos heladeria
-            $pedido->setTiempodemora($tiempodemora);
             $pedido->setEstadoId($estadoid);
-            
+            $pedido->setTiempodemora($tiempodemora);
             $em->persist($pedido);
             $em->flush();
             
@@ -324,17 +310,9 @@ class PedidoController extends FOSRestController{
        
         if ($code==Response::HTTP_OK){
             $tiempodemora = GlobalValue::TIEMPO_45;
-            //$hoy = date("Y-m-d H:i:s");   
-           
             $time = new DateTime();
             $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
-
             $horaentrega    = $time;
-
-            
-            
-            //$pedido->setFecha($fecha);
-            
 
             $pedido->setEstadoId(GlobalValue::ENPREPARACION);
             $pedido->setSubtotal($subtotal);

@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use DateTime;
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\DecimalType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Types\BooleanType;
+
 /**
  * Pedido
  *
@@ -660,6 +662,11 @@ class Pedido
     public function setTiempodemora($value)
     {
         $this->tiempodemora=$value;
+        //Actualizar el campo hora de entrega
+        $time = $this->getHoraEntrega();
+        $time->add(new DateInterval('PT' . $value . 'M'));
+        $horaentrega = $time;
+        $this->setHoraEntrega($horaentrega);
     }
     
     public function setCantidadkilos($value)
