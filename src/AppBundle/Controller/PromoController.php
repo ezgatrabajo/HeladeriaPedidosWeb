@@ -87,7 +87,6 @@ class PromoController extends Controller
     public function showAction(Promo $promo)
     {
         $deleteForm = $this->createDeleteForm($promo);
-        $this->addFlash(  'success','Eliminado Correctamente!');
               
         return $this->render('promo/show.html.twig', array(
             'promo' => $promo,
@@ -133,6 +132,7 @@ class PromoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(  'success','Eliminado Correctamente!');
             $em = $this->getDoctrine()->getManager();
             $em->remove($promo);
             $em->flush();

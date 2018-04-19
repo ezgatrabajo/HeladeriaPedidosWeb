@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Promo;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,15 +23,15 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use \FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
+
+
 class PromoController extends FOSRestController{
     
     /**
     * @Rest\Post("/api/promos")
     */
     public function getPromosAction(Request $request){
-        //$empresa_id = $request->get('empresa_id');
-        //$empresa = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findById($empresa_id);
-        //$result = $this->getDoctrine()->getRepository('AppBundle:Promo')->findByEmpresa($empresa);
+        
         $result = $this->getDoctrine()->getRepository('AppBundle:Promo')->findAll();
         if ($result === null) {
             $respuesta = array('code'=>'500',
