@@ -1,0 +1,60 @@
+{% extends 'torneo.html.twig' %}
+
+{% block body %}
+    <h1>Equipo</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ equipo.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ equipo.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Partidosjugados</th>
+                <td>{{ equipo.partidosjugados }}</td>
+            </tr>
+            <tr>
+                <th>Partidosganados</th>
+                <td>{{ equipo.partidosganados }}</td>
+            </tr>
+            <tr>
+                <th>Partidosempatados</th>
+                <td>{{ equipo.partidosempatados }}</td>
+            </tr>
+            <tr>
+                <th>Partidosperdidos</th>
+                <td>{{ equipo.partidosperdidos }}</td>
+            </tr>
+            <tr>
+                <th>Puntos</th>
+                <td>{{ equipo.puntos }}</td>
+            </tr>
+            <tr>
+                <th>Golesfavor</th>
+                <td>{{ equipo.golesfavor }}</td>
+            </tr>
+            <tr>
+                <th>Golesencontra</th>
+                <td>{{ equipo.golesencontra }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('equipo_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('equipo_edit', { 'id': equipo.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

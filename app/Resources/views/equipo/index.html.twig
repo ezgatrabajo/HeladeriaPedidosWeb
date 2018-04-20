@@ -1,0 +1,62 @@
+{% extends 'torneo.html.twig' %}
+
+{% block body %}
+    
+
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li class="active"><a href="{{path('equipo_index')}}">Equipos</a></li>
+</ol>
+
+<div class="row">    
+    <div class="col-xs-12 col-sm-12 col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">Listado de equipos</div>
+        <div class="panel-body">
+            <a href="{{ path('equipo_new') }}"
+               class="btn btn-primary"
+               data-toggle="tooltip" data-placement="top" title="Nuevo">
+                Agregar Equipo</a>
+            <table class="datatable">
+        <thead>
+            <tr>
+                
+                <th>Nombre</th>
+                <th>Puntos</th>
+                <th>PJ</th>
+                <th>Ganados</th>
+                <th>Empatados</th>
+                <th>Perdidos</th>
+                
+                <th>Goles Favor</th>
+                <th>Goles En Contra</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipo in equipos %}
+            <tr>
+                
+				<td>{{ equipo.nombre }}</td>
+                <td>{{ equipo.puntos }}</td>
+                <td>{{ equipo.partidosjugados }}</td>
+                <td>{{ equipo.partidosganados }}</td>
+                <td>{{ equipo.partidosempatados }}</td>
+                <td>{{ equipo.partidosperdidos }}</td>
+                
+                <td>{{ equipo.golesfavor }}</td>
+                <td>{{ equipo.golesencontra }}</td>
+                <td>
+                    <ul>
+                        
+                        <li>
+                            <a href="{{ path('equipo_edit', { 'id': equipo.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
