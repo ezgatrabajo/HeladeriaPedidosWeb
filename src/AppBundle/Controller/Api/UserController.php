@@ -89,28 +89,32 @@ class UserController extends FOSRestController
             $username  = $request->get('username');
             $password  = $request->get('password');
             $email     = $request->get('email');
-            $telefono  = $request->get('telefono');
+            
             $localidad = $request->get('localidad');
             $calle     = $request->get('calle');
             $nro       = $request->get('nro');
             $piso      = $request->get('piso');
             $contacto  = $request->get('contacto');
+            $telefono  = $request->get('telefono');
 
             //Asignar datos a nuevo usuario
             
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
+            
             $user->setUsername($username);
             $user->setEmail($email);
             $user->setEmailCanonical($email);
             $user->setPlainPassword($password);
+            
             $user->setTelefono($telefono);
             $user->setLocalidad($localidad);
             $user->setCalle($calle);
             $user->setNro($nro);
             $user->setPiso($piso);
             $user->setContacto($contacto);
-              
+            
+            
             $em->persist($user);
             $em->flush();
             $respuesta = array('code'=>Response::HTTP_OK,
