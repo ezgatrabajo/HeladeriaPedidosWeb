@@ -88,6 +88,7 @@ class UserController extends FOSRestController
             //Leer datos desde el JSON
             $username  = $request->get('username');
             $password  = $request->get('password');
+            $email     = $request->get('email');
             $telefono  = $request->get('telefono');
             $localidad = $request->get('localidad');
             $calle     = $request->get('calle');
@@ -100,8 +101,8 @@ class UserController extends FOSRestController
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
             $user->setUsername($username);
-            $user->setEmail($username);
-            $user->setEmailCanonical($username);
+            $user->setEmail($email);
+            $user->setEmailCanonical($email);
             $user->setPlainPassword($password);
             $user->setTelefono($telefono);
             $user->setLocalidad($localidad);
@@ -109,10 +110,7 @@ class UserController extends FOSRestController
             $user->setNro($nro);
             $user->setPiso($piso);
             $user->setContacto($contacto);
-            $empresa = $em->getRepository('AppBundle:Empresa')->find(GlobalValue::CODE_HELADERIA_ROMA);
-            $user->setEmpresa($empresa);
-          
-            
+              
             $em->persist($user);
             $em->flush();
             $respuesta = array('code'=>Response::HTTP_OK,
@@ -133,8 +131,5 @@ class UserController extends FOSRestController
                             ); 
             return $respuesta;
         }
-        
-        
-        
     }
 }
