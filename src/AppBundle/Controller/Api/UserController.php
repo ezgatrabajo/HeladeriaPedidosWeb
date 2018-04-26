@@ -102,17 +102,18 @@ class UserController extends FOSRestController
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
             
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setEmailCanonical($email);
-            $user->setPlainPassword($password);
             
-            $user->setTelefono($telefono);
-            $user->setLocalidad($localidad);
-            $user->setCalle($calle);
-            $user->setNro($nro);
-            $user->setPiso($piso);
-            $user->setContacto($contacto);
+            if ($username) $user->setUsername($username);
+            if ($email)    $user->setEmail($email);
+            if ($email)    $user->setEmailCanonical($email);
+            if ($password) $user->setPlainPassword($password);
+            
+            if ($telefono)  $user->setTelefono($telefono);
+            if ($localidad) $user->setLocalidad($localidad);
+            if ($calle)     $user->setCalle($calle);
+            if ($nro)       $user->setNro($nro);
+            if ($piso)      $user->setPiso($piso);
+            if ($contacto)  $user->setContacto($contacto);
             
             
             $em->persist($user);
