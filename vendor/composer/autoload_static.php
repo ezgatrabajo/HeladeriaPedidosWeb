@@ -73,6 +73,7 @@ class ComposerStaticInit85ae879262964b74a41ad581b7fd8c32
         ),
         'K' => 
         array (
+            'Knp\\Bundle\\SnappyBundle\\' => 24,
             'Knp\\Bundle\\PaginatorBundle\\' => 27,
         ),
         'J' => 
@@ -238,6 +239,10 @@ class ComposerStaticInit85ae879262964b74a41ad581b7fd8c32
         array (
             0 => __DIR__ . '/..' . '/league/csv/src',
         ),
+        'Knp\\Bundle\\SnappyBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy-bundle',
+        ),
         'Knp\\Bundle\\PaginatorBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle',
@@ -339,6 +344,10 @@ class ComposerStaticInit85ae879262964b74a41ad581b7fd8c32
         ),
         'K' => 
         array (
+            'Knp\\Snappy' => 
+            array (
+                0 => __DIR__ . '/..' . '/knplabs/knp-snappy/src',
+            ),
             'Knp\\Component' => 
             array (
                 0 => __DIR__ . '/..' . '/knplabs/knp-components/src',

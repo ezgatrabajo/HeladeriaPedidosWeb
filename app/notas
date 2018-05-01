@@ -71,6 +71,7 @@ Android agregar campo enabled en productos, crud y api
 cd ../../xampp/htdocs/heladeriapedidosweb
 
 php bin/console server:run 0.0.0.0:7001
+php bin/console server:run 0.0.0.0:7001
 
 php bin/console generate:doctrine:entity
 
@@ -87,7 +88,7 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:validate
 
 
-php bin/console fos:user:create egalvan --super-admin
+php bin/console fos:user:create superadmin --super-admin
 
 
 -----------------------------------------------

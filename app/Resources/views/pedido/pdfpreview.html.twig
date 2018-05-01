@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+<div class="row">
+      
+    	<div class="col-xs-12 col-sm-4">
+    	
+            <div class="panel panel-default small" >
+            <div class="panel-body">
+            
+                   <table class="table ">
+                       <tr><th>Nro Pedido:</th><td>{{pedido.id}}</td></tr>
+                       <tr><th>Hora Entrega:</th><td ><div id="hora_entrega"> {{pedido.horaentrega|date('H:i:s')}} </div></td></tr>
+                       <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
+                       <tr><th>Direccion:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
+                       
+                   
+                   </table>
+             
+         			<h1>Detalle del Pedido</h1>
+                  <table class="table">
+                       <tr>
+                       <th>Pote</th>
+                       <th>Sabor</th>
+                       <th>Cantidad</th>
+                       </tr>
+                      {% for item in pedidodetalles %} 
+                      <tr>
+                       	<td> {{ item.cantidad }}</td>
+                       	<td> {{ item.producto.nombre }}</td>
+                       	<td>{{ item.proporcionhelado }}</td> 
+                       </tr>
+                   
+                   </table>
+             		
+               </div>
+            </div>
+        </div>
+{% endblock %}

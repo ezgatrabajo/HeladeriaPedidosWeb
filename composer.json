@@ -24,6 +24,7 @@
         "jms/serializer": "^1.8",
         "jms/serializer-bundle": "^2.1",
         "knplabs/knp-paginator-bundle": "^2.6",
+        "knplabs/knp-snappy-bundle": "^1.4",
         "league/csv": "^8.2",
         "lexik/jwt-authentication-bundle": "^2.4",
         "nelmio/cors-bundle": "^1.5",
@@ -33,7 +34,6 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
-        
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {

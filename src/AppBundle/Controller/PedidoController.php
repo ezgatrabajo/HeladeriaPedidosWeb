@@ -21,6 +21,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class PedidoController extends Controller
 {
+    
+    /**
+     * @Route("/pdf/{id}", name="pedido_pdfpreview")
+     * @Method({"GET","POST"})
+     */
+    public function pdfPreview(Request $request, Pedido $pedido){
+        
+        
+        return $this->render('pedido/pdfpreview.html.twig',
+            array(
+                'pedido'=> $pedido
+            ));
+    }
+    
+    
+        
+
+    
+
     /**
      * Lists all pedido entities.
      *

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use AppBundle\Entity\Empresa;
+
 
 
 
@@ -49,24 +49,8 @@ class RegistrationController extends BaseController
 
                 $userManager->updateUser($user);
                //validar si existe empresa con mismo mail
-                $empresa = new Empresa();
-                $em = $this->getDoctrine()->getManager();
-                
-                $empresa->setDireccion('');
-                $empresa->setNombre('');
-                $empresa->setEmail($user->getEmail());
-                
-                $em->persist($empresa);
-                $em->flush();
-                
-                
-                $user->setRoles(array('ROLE_EMPRESA'));
-                
-                $user->setEmpresa($empresa);
                 $em->persist($user);
                 $em->flush();
-                
-                
                 
                 $this->container->get('logger')->info(
                     sprintf("New user registration: %s", $user)
