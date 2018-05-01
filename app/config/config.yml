@@ -127,3 +127,13 @@ fos_rest:
         formats:
             json: true
 
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf  # for Windows users /usr/local/bin/wkhtmltopdf
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage # /usr/local/bin/wkhtmltoimage for Windows users
+        options:    []
+    temporary_folder: "%kernel.cache_dir%/snappy"

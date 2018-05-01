@@ -71,6 +71,13 @@ class Pedido
     private $monto;
     
     
+    /**
+     * @var DecimalType
+     *
+     * @ORM\Column(name="montoabona", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $montoabona;
+    
     
     
     
@@ -492,19 +499,70 @@ class Pedido
     /**
      * Get monto
      *
-     * @return string
+     * @return DecimalType
      */
     public function getMonto()
     {
+        $ma = 0.00;
+        if(empty($this->monto)){
+            $this->monto = $ma;
+        }
         return $this->monto;
     }
     
-
+    
+    /**
+     * Get monto
+     *
+     * @return String
+     */
+    public function getMontoFormat()
+    {
+        $ma = 0.00;
+        if(empty($this->monto)){
+            $this->monto = $ma;
+        }
+        $ma = "$" . $this->monto;
+        return $ma;
+    }
     
     
+    /**
+     * Set montoabona
+     *
+     * @param DecimalType $montoabona
+     *
+     * @return Pedido
+     */
+    public function setMontoabona($montoabona)
+    {
+        $this->montoabona = $montoabona;
+        return $this;
+    }
     
+    /**
+     * Get montoabona
+     * @return DecimalType
+     */
+    public function getMontoabona()
+    {
+        $ma = 0.00;
+        if(empty($this->montoabona)){
+            $this->montoabona = $ma;
+        }
+        return $this->montoabona;
+    }
     
-    
+    public function getMontoAbonaFormat(){
+        
+        $ma = 0.00;
+        if(empty($this->montoabona)){
+            $this->montoabona = $ma;
+        }
+        $ma = "$" . strval($this->montoabona);
+        
+        return $ma;
+    }
     
     //--------------------------------------------------------------------------
     //Campos para Heladerias
@@ -598,7 +656,10 @@ class Pedido
     }
     
     
-    
+    public function getDireccionFormat(){
+        $_direccion = "$this->calle  $this->nro $this->piso ($this->localidad)";
+        return $_direccion;
+    }
     
     
     //SETTERS -----------------------------------------------------------------
@@ -699,14 +760,6 @@ class Pedido
         $this->visto=$value;
     }
     
-   
-    public function getMontoFormat(){
-        $monto ="$ 0.00";
-        if ($this->monto > 0){
-            $monto = "$ $this->monto";
-        }
-        return $monto;
-    }
     
     
 

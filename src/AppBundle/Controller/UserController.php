@@ -159,7 +159,6 @@ class UserController extends Controller
 
                 //setear empresa y establecer usuario igual a email
                 $currentuser = $this->get('security.token_storage')->getToken()->getUser();
-                $empresa     = $currentuser->getEmpresa();
                 $username    = $userform->getEmail();
 
                 //Crear usuario
@@ -174,7 +173,6 @@ class UserController extends Controller
                 $password = 12345678;
                 $userform->setRoles(array(GlobalValue::ROLE_CLIENTE));
                 $userform->setPlainPassword($password);
-                $userform->setEmpresa($empresa);
                 $userManager->updateUser($userform);
                 
                 $usernew = $userform;

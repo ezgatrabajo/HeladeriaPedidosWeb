@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Knp\Bundle\SnappyBundle\Snappy;
 use AppBundle\Entity\Pedido;
 use AppBundle\Entity\GlobalValue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use DateTime;
 use DateInterval;
 use Doctrine\ORM\EntityRepository;
+
 
 /**
  * Pedido controller.
@@ -35,7 +37,24 @@ class PedidoController extends Controller
             ));
     }
     
-    
+    /**
+     * @Route("/pdfprint/{id}", name="pedido_pdfprint")
+     * @Method({"GET","POST"})
+     */
+    public function pdfAction(Request $request, Pedido $pedido)
+    {
+   
+        
+        
+        return $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->render('pedido/pdfpreview.html.twig', array(
+                'pedido'=> $pedido
+                )
+                ),
+            'file.pdf'
+            );
+        
+    }
         
 
     
@@ -54,15 +73,7 @@ class PedidoController extends Controller
         //Crear formulario de filtro
         $pedido = new Pedido();
         $form_filter = $this->createForm('AppBundle\Form\PedidoFilterType', $pedido);
-        $form_filter->add('user', EntityType::class, array(
-                        'class' => 'AppBundle:User', 
-                        'required'=>false,
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->orderBy('c.email', 'DESC');
-                        },
-                        'choice_label' => 'TextoCombo'))
-                    ->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
+        $form_filter->add('buscar', SubmitType::class, array('label' => 'Buscar', 'attr'=>array('class'=>'btn btn-flat btn-default')));
          
         $form_filter->handleRequest($request);
         

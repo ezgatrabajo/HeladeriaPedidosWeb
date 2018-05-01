@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block navbar %}{% endblock %}
 {% block body %}
    
 <div class="row">
@@ -12,27 +12,39 @@
                    <table class="table ">
                        <tr><th>Nro Pedido:</th><td>{{pedido.id}}</td></tr>
                        <tr><th>Hora Entrega:</th><td ><div id="hora_entrega"> {{pedido.horaentrega|date('H:i:s')}} </div></td></tr>
-                       <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
-                       <tr><th>Direccion:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
+                       <tr><th>Cliente:</th><td> {{pedido.contacto}}</td></tr>
+                       <tr><th>Direccion:</th><td>{{ pedido.getDireccionFormat }}</td>
+                       <tr><th>Telefono:</th><td>{{ pedido.telefono }}</td>
+                       
+                       </tr>
                        
                    
                    </table>
              
-         			<h1>Detalle del Pedido</h1>
+         		<h4>Helados Elegidos</h4>
                   <table class="table">
                        <tr>
                        <th>Pote</th>
                        <th>Sabor</th>
                        <th>Cantidad</th>
                        </tr>
-                      {% for item in pedidodetalles %} 
+                      {% for item in pedido.pedidodetalles %} 
                       <tr>
-                       	<td> {{ item.cantidad }}</td>
+                       	<td> {{ item.medidapote }}</td> 
                        	<td> {{ item.producto.nombre }}</td>
-                       	<td>{{ item.proporcionhelado }}</td> 
+                       	<td> {{ item.getCantidadString }}</td>
+                       	
                        </tr>
+                       {% endfor %}   
+                   </table>
+             <hr>		
+             		<table class="table ">
+                       <tr><th>Total:</th><td>{{pedido.getMontoFormat}}</td></tr>
+                       <tr><th>Abona Con:</th><td >{{pedido.getMontoAbonaFormat}}</td></tr>
+                       
                    
                    </table>
+             
              		
                </div>
             </div>

@@ -24,9 +24,6 @@ use AppBundle\Entity\GlobalValue;
 class PedidodetalleController extends Controller
 {
     
-    
-    
-    
     /**
      * Lists all pedidodetalle entities.
      *

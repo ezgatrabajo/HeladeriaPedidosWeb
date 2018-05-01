@@ -26,6 +26,7 @@
 
                             {{ form_widget(formchangestatus2) }}
                           <div id="btn_actualizar_estado" class="btn btn-info" > <i class="glyphicon glyphicon-refresh"></i> Actualizar </div>
+                          <a href="{{ url('pedido_pdfpreview', {'id':pedido.id}) }}" id="btn_print" class="btn btn-default" > <i class="glyphicon glyphicon-print"></i> Imprimir </a>
                       {{ form_end(formchangestatus2) }}
                       </div>
                       </div>

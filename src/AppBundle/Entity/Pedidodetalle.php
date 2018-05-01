@@ -37,7 +37,21 @@ class Pedidodetalle
      */
     private $nropote;
     
-
+    
+    /**
+     *
+     * @ORM\Column(name="medidapote", type="integer", nullable=true)
+     */
+    private $medidapote;
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
     * @ORM\ManyToOne(targetEntity="Pedido", inversedBy="pedidodetalles")
     * @ORM\JoinColumn(name="pedido_id", referencedColumnName="id")
@@ -140,7 +154,34 @@ class Pedidodetalle
         return $this->nropote;
     }
     
-
+    
+    
+    /**
+     * Set medidapote
+     *
+     * @param integer $medidapote
+     *
+     * @return Integer
+     */
+    public function setMedidapote($medidapote)
+    {
+        $this->medidapote = $medidapote;
+        
+        return $this;
+    }
+    
+    /**
+     * Get medidapote
+     *
+     * @return integer
+     */
+    public function getMedidapote()
+    {
+        return $this->medidapote;
+    }
+    
+    
+    
     public function getCantidadString(){
         $texto = "";
         if ($this->cantidad >= GlobalValue::MEDIDA_HELADO_POCO_DESDE && $this->cantidad <=GlobalValue::MEDIDA_HELADO_POCO_HASTA ){
