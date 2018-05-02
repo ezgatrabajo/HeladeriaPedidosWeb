@@ -40,7 +40,8 @@ Android hacer funcion para actualizar las promos en la app desde la web, luego d
 Android cambiar colores a la app
 Android agregar campo enabled en productos, crud y api 
 
-
+"knplabs/knp-snappy-bundle": "^1.4",
+"whiteoctober/tcpdf-bundle": "^1.0"
 
 
 -------------------------------------------

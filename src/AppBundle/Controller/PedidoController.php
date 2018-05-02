@@ -42,18 +42,7 @@ class PedidoController extends Controller
             ));
     }
     
-    /**
-     * @Route("/pdfprint/{id}", name="pedido_pdfprint")
-     * @Method({"GET","POST"})
-     */
-    public function pdfAction(Request $request, Pedido $pedido)
-    {
-        return $this->get('knp_snappy.pdf')
-                ->generateFromHtml(
-                $this->render('pedido/pdfpreview.html.twig', array('pedido'=> $pedido)),'file5.pdf');
-        
-    }
-
+   
     /**
      * @Route("/pdfprint3/{id}", name="pedido_pdfprint3")
      * @Method({"GET","POST"})
