@@ -76,14 +76,15 @@ class PedidoController extends Controller
         $html = $html .  "<table border='1' cellpadding='2' cellspacing='2'> ";
         $html = $html .  "<hr>";
         $html = $html .  "<tr> ";
-        $html = $html .  "<th><b>Pote</b></th>
+        $html = $html .  "<th><b>Nro Pote</b></th>
+                          <th><b>Kg</b></th>
                           <th><b>Sabor</b></th>
                           <th><b>Cantidad</b></th>" ;
         $html = $html .  "</tr> ";
 
         foreach ($pedidodetalles as $item) { 
             $html = $html ."<tr>";
-
+            $html = $html ."<td>". $item->getNropote(). "</td>" ; 
             $html = $html ."<td>". $item->getMedidaPoteFormat(). "</td>" ; 
             $html = $html ."<td>". $item->getProducto()->getNombre(). "</td>" ; 
             $html = $html ."<td>". $item->getCantidadString(). "</td>" ; 
