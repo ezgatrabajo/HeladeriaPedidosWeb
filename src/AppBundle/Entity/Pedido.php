@@ -661,7 +661,17 @@ class Pedido
         return $_direccion;
     }
     
+ 
     
+
+
+
+
+
+
+
+
+
     //SETTERS -----------------------------------------------------------------
     public function setLocalidad($localidad)
     {

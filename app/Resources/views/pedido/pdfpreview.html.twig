@@ -30,7 +30,7 @@
                        </tr>
                       {% for item in pedido.pedidodetalles %} 
                       <tr>
-                       	<td> {{ item.medidapote }}</td> 
+                       	<td> {{ item.getMedidaPoteFormat }}</td> 
                        	<td> {{ item.producto.nombre }}</td>
                        	<td> {{ item.getCantidadString }}</td>
                        	

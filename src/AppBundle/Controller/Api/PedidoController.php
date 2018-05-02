@@ -219,6 +219,8 @@ class PedidoController extends FOSRestController{
             $montodescuento    = $json['pedido']['montodescuento'];
             $enviodomicilio    = $json['pedido']['enviodomicilio'];
             $monto             = $json['pedido']['monto'];
+            $montoabona        = $json['pedido']['montoabona'];
+            
             
             $pedido = $this->getDoctrine()->getRepository(Pedido::class)->find($id);
             
@@ -232,7 +234,7 @@ class PedidoController extends FOSRestController{
             $pedido->setMontodescuento($montodescuento);
             $pedido->setMonto($monto);
             $pedido->setEnviodomicilio($enviodomicilio);
-            
+            $pedido->setMontoabona($montoabona);
             
             
             $em->persist($pedido);
@@ -278,6 +280,7 @@ class PedidoController extends FOSRestController{
         $android_id     = $json['pedido']['android_id'];
         $monto          = $json['pedido']['monto'];
         $subtotal       = $json['pedido']['subtotal'];
+        $montoabona     = $json['pedido']['montoabona'];
         
         //Datos Heladeria
         $localidad     = $json['pedido']['localidad'];
@@ -318,6 +321,7 @@ class PedidoController extends FOSRestController{
             $pedido->setSubtotal($subtotal);
             $pedido->setMonto($monto);
             $pedido->setUser($user);
+            $pedido->setMontoabona($montoabona);
             
             //Campos heladeria 
             $pedido->setLocalidad($localidad);
@@ -357,7 +361,8 @@ class PedidoController extends FOSRestController{
                     $android_id  = $item['android_id'];
                     $cantidad    = $item['cantidad'];
                     $nropote     = $item['nropote'];
-
+                    $medidapote  = $item['medidapote'];
+                    
                     //Validar que producto pertenezca a la Empresa
                     $producto = new Producto();
                     $producto = $this->getDoctrine()->getRepository(Producto::class)->find($producto_id);
@@ -371,6 +376,8 @@ class PedidoController extends FOSRestController{
                     $pd->setProducto($producto);
                     $pd->setCantidad($cantidad);
                     $pd->setNropote($nropote);
+                    $pd->setMedidapote($medidapote);
+                    
                     $pedido->addPedidodetalle($pd);   
                     
                  

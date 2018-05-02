@@ -130,10 +130,15 @@ fos_rest:
 knp_snappy:
     pdf:
         enabled:    true
+        #binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" #C:\Program Files\wkhtmltopdf\bin #/usr/local/bin/wkhtmltopdf  # for Windows users /usr/local/bin/wkhtmltopdf
         binary:     /usr/local/bin/wkhtmltopdf  # for Windows users /usr/local/bin/wkhtmltopdf
         options:    []
     image:
         enabled:    true
+        #binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" #C:\Program Files\wkhtmltopdf\bin #/usr/local/bin/wkhtmltoimage # /usr/local/bin/wkhtmltoimage for Windows users
         binary:     /usr/local/bin/wkhtmltoimage # /usr/local/bin/wkhtmltoimage for Windows users
+        
         options:    []
-    temporary_folder: "%kernel.cache_dir%/snappy"
+    temporary_folder: "/web/snappy"
+knp_snappy:
+    process_timeout: 20 # In seconds

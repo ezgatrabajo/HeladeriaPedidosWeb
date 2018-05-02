@@ -8,13 +8,16 @@ use AppBundle\Entity\GlobalValue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use DateTime;
 use DateInterval;
 use Doctrine\ORM\EntityRepository;
-
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 
 /**
  * Pedido controller.
@@ -55,7 +58,32 @@ class PedidoController extends Controller
             );
         
     }
+
+
+
+    
+    /**
+     * @Route("/pdfprint2/{id}", name="pedido_pdfprint2")
+     * @Method({"GET","POST"})
+     */
+    public function pdfprint2Action(Request $request, Pedido $pedido)
+    {
+        $filename = 'pedido'. $pedido->getId();
+
+        $snappy  = $this->get('knp_snappy.pdf');
+        $html = $this->render('pedido/pdfpreview.html.twig', array('pedido'=> $pedido));
         
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            array('Content-type'=> 'application/pdf',
+                  'Content-Disposition'=> 'inline; filename="'.$filename . '.pdf"')
+        );
+        
+        
+    }
+
+    
 
     
 

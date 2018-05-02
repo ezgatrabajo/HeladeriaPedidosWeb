@@ -195,7 +195,34 @@ class Pedidodetalle
         }
         return $texto;
     }
-
+    public function getMedidaPoteFormat(){
+        $_medidapote = "";
+        switch ($this->medidapote) {
+            case 1000:
+                # code...
+                $_medidapote = "1 Kg";
+                break;
+            case 750:
+                # code...
+                $_medidapote = "3/4 Kg";
+                break;
+            case 500:
+                # code...
+                $_medidapote = "1/2 Kg";
+                break;
+            case 250:
+                # code...
+                $_medidapote = "1/4 Kg";
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
+        return $_medidapote;
+    }
+ 
 
    
 
