@@ -76,7 +76,9 @@ class PedidoController extends Controller
         $html = $html .  "<table border='1' cellpadding='2' cellspacing='2'> ";
         $html = $html .  "<hr>";
         $html = $html .  "<tr> ";
-        $html = $html .  "<th>Pote</th><th>Sabor</th> <th>Cantidad</th>" ;
+        $html = $html .  "<th><b>Pote</b></th>
+                          <th><b>Sabor</b></th>
+                          <th><b>Cantidad</b></th>" ;
         $html = $html .  "</tr> ";
 
         foreach ($pedidodetalles as $item) { 
@@ -89,15 +91,15 @@ class PedidoController extends Controller
             $html = $html ."</tr>";
         }
 
-        
+        $html = $html ."<hr> <tr>";
+        $html = $html .  "<td><b>Total:</b> " . $pedido->getMontoFormat()."</td>";
+        $html = $html .  "<td><b>Abona con:</b> " . $pedido->getMontoAbonaFormat()."</td>";
+        $html = $html ."</tr>";
         $html = $html .  "</tbody> ";
         $html = $html .  "</table>";
 
-
-        $html = $html .  "<hr>";
-        $html = $html .  "<br>";
-        $html = $html .  "<label>Total:</label> " . $pedido->getMontoFormat()."<br>";
-        $html = $html .  "<label>Abona con:</label> " . $pedido->getMontoAbonaFormat()."<br>";
+      
+       
         
 
         $pdf->writeHTML($html, true, false, true, false, '');
