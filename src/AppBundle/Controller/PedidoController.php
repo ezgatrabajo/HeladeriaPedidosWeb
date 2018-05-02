@@ -48,12 +48,49 @@ class PedidoController extends Controller
      */
     public function pdfAction(Request $request, Pedido $pedido)
     {
-           
         return $this->get('knp_snappy.pdf')
                 ->generateFromHtml(
                 $this->render('pedido/pdfpreview.html.twig', array('pedido'=> $pedido)),'file5.pdf');
         
     }
+
+    /**
+     * @Route("/pdfprint3/{id}", name="pedido_pdfprint")
+     * @Method({"GET","POST"})
+     */
+    public function pdfprint3Action(Request $request, Pedido $pedido)
+    {
+
+        $html = $this->renderView(
+            'Pedido/pdfpreview.html.twig',
+            array(
+                'pedido'=> $pedido
+            )
+       );
+     
+        $this->returnPDFResponseFromHTML($html);
+
+        
+    }
+
+
+    public function returnPDFResponseFromHTML($html){
+        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetAuthor('Our Code World');
+        $pdf->SetTitle(('Our Code World Title'));
+        $pdf->SetSubject('Our Code World Subject');
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('helvetica', '', 11, '', true);
+        //$pdf->SetMargins(20,20,40, true);
+        $pdf->AddPage();
+        $filename = 'ourcodeworld_pdf_demo';
+        
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        $pdf->Output($filename.".pdf",'I'); 
+        }
+    
+
+
 
 
 

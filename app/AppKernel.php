@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle()
+            
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
