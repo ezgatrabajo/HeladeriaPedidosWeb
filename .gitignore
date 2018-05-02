@@ -7,3 +7,4 @@
 /var/logs/*
 /var/sessions/*
 /
+/app/config/config.yml

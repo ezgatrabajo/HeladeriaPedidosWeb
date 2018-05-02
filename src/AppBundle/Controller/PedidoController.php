@@ -18,6 +18,8 @@ use DateTime;
 use DateInterval;
 use Doctrine\ORM\EntityRepository;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 /**
  * Pedido controller.
@@ -46,16 +48,10 @@ class PedidoController extends Controller
      */
     public function pdfAction(Request $request, Pedido $pedido)
     {
-   
-        
-        
-        return $this->get('knp_snappy.pdf')->generateFromHtml(
-            $this->render('pedido/pdfpreview.html.twig', array(
-                'pedido'=> $pedido
-                )
-                ),
-            'file.pdf'
-            );
+           
+        return $this->get('knp_snappy.pdf')
+                ->generateFromHtml(
+                $this->render('pedido/pdfpreview.html.twig', array('pedido'=> $pedido)),'file5.pdf');
         
     }
 
