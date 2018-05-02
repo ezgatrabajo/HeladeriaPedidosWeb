@@ -345,6 +345,11 @@ class Pedido
     {
         return $this->horaentrega;
     }
+    public function getHoraEntregaFormatHMS()
+    {
+        $horaformat =  $this->horaentrega->format('H:i:s');
+        return $horaformat;
+    }
     
     
     

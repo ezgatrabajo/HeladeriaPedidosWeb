@@ -55,39 +55,69 @@ class PedidoController extends Controller
     }
 
     /**
-     * @Route("/pdfprint3/{id}", name="pedido_pdfprint")
+     * @Route("/pdfprint3/{id}", name="pedido_pdfprint3")
      * @Method({"GET","POST"})
      */
     public function pdfprint3Action(Request $request, Pedido $pedido)
     {
+        //$html = $this->render('pedido/pdfpreview.html.twig',array('pedido'=> $pedido));
+        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetAuthor('Heladeria Roma');
+        $pdf->SetTitle(('Pedido'));
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('helvetica', '', 9, '', true);
+        $pdf->AddPage();
+        $filename = 'pedido_'.$pedido->getId();
+    
+        $html ="<h1>Pedido </h1>";
+        
+        $html = $html .  "<table class='datatable'> ";
+                
+        $html = $html .  "<tr><th>Nro:</th>          <td> " . $pedido->getId() ."</td> </tr>" ;
+        $html = $html .  "<tr><th>Hora Entrega</th> <td> " . $pedido->getHoraEntregaFormatHMS()."</td></tr>";
+        $html = $html .  "<tr><th>Cliente</th>      <td> " . $pedido->getContacto()."</td></tr>";
+        $html = $html .  "<tr><th>Direccion</th>    <td> " . $pedido->getDireccionFormat()."</td></tr>";
+        $html = $html .  "<tr><th>Telefono</th>     <td> " . $pedido->getTelefono()."</td></tr>";
+        $html = $html .  "</table>";
+        $html = $html .  "<br>";
 
-        $html = $this->renderView(
-            'Pedido/pdfpreview.html.twig',
-            array(
-                'pedido'=> $pedido
-            )
-       );
-     
-        $this->returnPDFResponseFromHTML($html);
 
+        $pedidodetalles = $pedido->getPedidodetalles();
+        
+        $html = $html .  "<table border='1' cellpadding='2' cellspacing='2'> ";
+        $html = $html .  "<hr>";
+        $html = $html .  "<tr> ";
+        $html = $html .  "<th>Pote</th><th>Sabor</th> <th>Cantidad</th>" ;
+        $html = $html .  "</tr> ";
+
+        foreach ($pedidodetalles as $item) { 
+            $html = $html ."<tr>";
+
+            $html = $html ."<td>". $item->getMedidaPoteFormat(). "</td>" ; 
+            $html = $html ."<td>". $item->getProducto()->getNombre(). "</td>" ; 
+            $html = $html ."<td>". $item->getCantidadString(). "</td>" ; 
+
+            $html = $html ."</tr>";
+        }
+
+        
+        $html = $html .  "</tbody> ";
+        $html = $html .  "</table>";
+
+
+        $html = $html .  "<hr>";
+        $html = $html .  "<br>";
+        $html = $html .  "<label>Total:</label> " . $pedido->getMontoFormat()."<br>";
+        $html = $html .  "<label>Abona con:</label> " . $pedido->getMontoAbonaFormat()."<br>";
+        
+
+        $pdf->writeHTML($html, true, false, true, false, '');
+        
+        $pdf->Output($filename.".pdf",'I'); 
         
     }
 
 
-    public function returnPDFResponseFromHTML($html){
-        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->SetAuthor('Our Code World');
-        $pdf->SetTitle(('Our Code World Title'));
-        $pdf->SetSubject('Our Code World Subject');
-        $pdf->setFontSubsetting(true);
-        $pdf->SetFont('helvetica', '', 11, '', true);
-        //$pdf->SetMargins(20,20,40, true);
-        $pdf->AddPage();
-        $filename = 'ourcodeworld_pdf_demo';
-        
-        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->Output($filename.".pdf",'I'); 
-        }
     
 
 
@@ -112,7 +142,6 @@ class PedidoController extends Controller
             array('Content-type'=> 'application/pdf',
                   'Content-Disposition'=> 'inline; filename="'.$filename . '.pdf"')
         );
-        
         
     }
 
