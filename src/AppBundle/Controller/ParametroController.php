@@ -35,7 +35,7 @@ class ParametroController extends Controller
         }
         $registros = $queryBuilder;
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),8);
+        $pagination = $paginator->paginate($registros, $request->query->getInt('page', 1),20);
 
         return $this->render('parametro/index.html.twig', array(
             'pagination' => $pagination,
