@@ -31,8 +31,31 @@ class ParametroController extends FOSRestController{
     * @Rest\Post("/api/parametros")
     */
     public function postParametrosAction(Request $request){
+        $OPTION_ALL = 1;
         
-        $result = $this->getDoctrine()->getRepository('AppBundle:Parametro')->findAll();
+        $OPTION_ONLY_PRICE = 2;
+        
+        $content = $request->getContent();
+        $code = Response::HTTP_OK; 
+        $message='OK'; 
+        $result = "";
+        $json = json_decode($content, true);
+        $OPTION_CURRENT  = $json['option'];
+        
+        switch ($OPTION_CURRENT) {
+            case $OPTION_ALL:
+                $result = $this->getDoctrine()->getRepository('AppBundle:Parametro')->findAll();
+                break;
+            case $OPTION_ONLY_PRICE:
+                $result = $this->getDoctrine()->getRepository('AppBundle:Parametro')->findAll();
+                break;
+            
+            default:
+                $result = $this->getDoctrine()->getRepository('AppBundle:Parametro')->findAll();
+                break;
+        }
+        
+
         if ($result === null) {
             $respuesta = array('code'=>'500',
                            'message'=>'No se encontraron registros',
