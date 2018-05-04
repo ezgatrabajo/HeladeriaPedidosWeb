@@ -40,7 +40,7 @@ class ParametroController extends FOSRestController{
         $message='OK'; 
         $result = "";
         $json = json_decode($content, true);
-        $OPTION_CURRENT  = $json['option'];
+        $OPTION_CURRENT  = $OPTION_ALL;
         
         switch ($OPTION_CURRENT) {
             case $OPTION_ALL:
