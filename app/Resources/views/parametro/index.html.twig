@@ -44,13 +44,16 @@
                 <td>{{ parametro.valorDecimal }}</td>
                 <td>{% if parametro.valorFecha %}{{ parametro.valorFecha|date('Y-m-d') }}{% endif %}</td>
                 <td>                                               
-                    <a href="{{ path('parametro_show', { 'id': parametro.id }) }}" class="btn btn-default"
+                    <a href="{{ path('parametro_show', { 'id': parametro.id }) }}" class="btn btn-xs btn-default"
                        data-toggle="tooltip" data-placement="top" title="Ver">
                         <span class="glyphicon glyphicon glyphicon glyphicon-search"  aria-hidden="true"></span>
 
-                    <a href="{{ path('parametro_edit', { 'id': parametro.id }) }}" class="btn btn-primary"
+                    <a href="{{ path('parametro_edit', { 'id': parametro.id }) }}" class="btn btn-xs btn-primary"
                          data-toggle="tooltip" data-placement="top" title="Editar">
                         <span class="glyphicon glyphicon-chevron-right"  aria-hidden="true"></span>
+                    <a href="{{ path('parametro_delete', { 'id': parametro.id }) }}" class="btn btn-xs btn-danger"
+                        data-toggle="tooltip" data-placement="top" title="Eliminar">
+                    <span class="glyphicon glyphicon-chevron-right"  aria-hidden="true"></span>
                 </td>
             </tr>
         {% endfor %}
