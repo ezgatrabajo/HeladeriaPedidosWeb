@@ -272,7 +272,8 @@
 	            montocucuruchos   = $("#appbundle_Pedido_montocucuruchos").val();
 	            montohelados      = $("#appbundle_Pedido_montohelados").val();
 	            montodescuento    = $("#appbundle_Pedido_montodescuento").val();
-	            enviodomicilio    = $("#appbundle_Pedido_enviodomicilio").val();
+				montodescuento    = $("#appbundle_Pedido_montodescuento").val();
+	            montoabona        = $("#appbundle_Pedido_montoabona").val();
 	            monto    = $("#appbundle_Pedido_monto").val();
 
 	            var json_data   = {'pedido':{
@@ -286,6 +287,7 @@
 	                					'montodescuento':montodescuento,
 	                					'enviodomicilio':enviodomicilio,
 	                					'monto':monto,
+										'montoabona':montoabona,
 	                					}
 								};
 	            $.ajax({

@@ -32,6 +32,7 @@ class PedidoUpdateMontosType extends AbstractType
             ->add('montohelados',MoneyType::class,array('label'=>'Monto Helados: '))
             ->add('montodescuento',MoneyType::class,array('label'=>'Monto Descuento: '))
             ->add('monto',MoneyType::class,array('label'=>'Monto Total: '))
+            ->add('montoabona',MoneyType::class,array('label'=>'Abona Con: '))
             ->add('enviodomicilio', ChoiceType::class, array(
                 'choices'  => array(
                     'SI' => true,
