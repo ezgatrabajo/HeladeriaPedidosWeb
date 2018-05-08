@@ -551,19 +551,13 @@ class Pedido
      */
     public function getMontoabona()
     {
-        $ma = 0.00;
-        if(empty($this->montoabona)){
-            $this->montoabona = $ma;
-        }
+        
         return $this->montoabona;
     }
     
     public function getMontoAbonaFormat(){
         
-        $ma = 0.00;
-        if(empty($this->montoabona)){
-            $this->montoabona = $ma;
-        }
+       
         $ma = "$" . strval($this->montoabona);
         
         return $ma;
