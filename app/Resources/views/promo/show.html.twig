@@ -33,17 +33,22 @@
                 <th>Enabled</th>
                 <td>{% if promo.enabled %}Yes{% else %}No{% endif %}</td>
             </tr>
+           
             <tr>
-                <th>Fecha desde</th>
-                <td>{% if promo.fechadesde %}{{ promo.fechadesde|date('Y-m-d') }}{% endif %}</td>
+                <th>Cantidad Pote 1/4 kg</th>
+                <td>{{ promo.cantidadpotecuarto }}</td>
             </tr>
-            <tr>
-                <th>Fecha hasta</th>
-                <td>{% if promo.fechahasta %}{{ promo.fechahasta|date('Y-m-d') }}{% endif %}</td>
+             <tr>
+                <th>Cantidad Pote 1/2 kg</th>
+                <td>{{ promo.cantidadpotemedio }}</td>
             </tr>
-            <tr>
-                <th>Cantidad kilos</th>
-                <td>{{ promo.cantidadkilos }}</td>
+             <tr>
+                <th>Cantidad Pote 3/4 kg</th>
+                <td>{{ promo.cantidadpotecuarto }}</td>
+            </tr>
+             <tr>
+                <th>Cantidad Pote 1 kg</th>
+                <td>{{ promo.cantidadpotekilo }}</td>
             </tr>
             <tr>
                 <th>Importe descuento</th>

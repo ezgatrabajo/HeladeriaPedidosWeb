@@ -85,6 +85,42 @@ class Promo
     private $precioanterior;
 
 
+
+
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cantidadpotecuarto", type="integer", nullable=true)
+     */
+    private $cantidadpotecuarto;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cantidadpotemedio", type="integer", nullable=true)
+     */
+    private $cantidadpotemedio;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cantidadpotetrescuarto", type="integer", nullable=true)
+     */
+    private $cantidadpotetrescuarto;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cantidadpotekilo", type="integer", nullable=true)
+     */
+    private $cantidadpotekilo;
+
+
+
+
     /**
      * Get id
      *
@@ -310,5 +346,120 @@ class Promo
     {
         return $this->precioanterior;
     }
+
+
+
+
+
+
+
+
+
+
+     /**
+     * Set cantidadpotecuarto
+     *
+     * @param integer $cantidadpotecuarto
+     *
+     * @return int
+     */
+    public function setCantidadpotecuarto($cantidadpotecuarto)
+    {
+        $this->cantidadpotecuarto = $cantidadpotecuarto;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadpotecuarto
+     *
+     * @return int
+     */
+    public function getCantidadpotecuarto()
+    {
+        return $this->cantidadpotecuarto;
+    }
+
+
+
+    /**
+     * Set cantidadpotemedio
+     *
+     * @param integer $cantidadpotemedio
+     *
+     * @return int
+     */
+    public function setCantidadpotemedio($cantidadpotemedio)
+    {
+        $this->cantidadpotemedio = $cantidadpotemedio;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadpotemedio
+     *
+     * @return int
+     */
+    public function getCantidadpotemedio()
+    {
+        return $this->cantidadpotemedio;
+    }
+
+
+
+    /**
+     * Set cantidadpotekilo
+     *
+     * @param integer $cantidadpotekilo
+     *
+     * @return int
+     */
+    public function setCantidadpotekilo($cantidadpotekilo)
+    {
+        $this->cantidadpotekilo = $cantidadpotekilo;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadpotekilo
+     *
+     * @return int
+     */
+    public function getCantidadpotekilo()
+    {
+        return $this->cantidadpotekilo;
+    }
+
+
+
+     /**
+     * Set cantidadpotetrescuarto
+     *
+     * @param integer $cantidadpotetrescuarto
+     *
+     * @return int
+     */
+    public function setCantidadpotetrescuarto($cantidadpotetrescuarto)
+    {
+        $this->cantidadpotetrescuarto = $cantidadpotetrescuarto;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadpotetrescuarto
+     *
+     * @return int
+     */
+    public function getCantidadpotetrescuarto()
+    {
+        return $this->cantidadpotetrescuarto;
+    }
+
+
+
+
 }
 

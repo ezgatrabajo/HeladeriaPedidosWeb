@@ -24,7 +24,10 @@
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Activado</th>
-                <th>Cantidad Kilos</th>
+                <th>1/4 kg</th>
+                <th>1/2 kg</th>
+                <th>3/4 kg</th>
+                <th>1 kg</th>
                 <th>Precio Promo</th>
                 <th>Acciones</th>
             </tr>
@@ -35,8 +38,13 @@
                 <td><a href="{{ path('promo_show', { 'id': promo.id }) }}">{{ promo.id }}</a></td>
                 <td>{{ promo.nombre }}</td>
                 <td>{{ promo.descripcion }}</td>
-                <td>{% if promo.enabled %}Yes{% else %}No{% endif %}</td>
-                <td>{{ promo.cantidadkilos }}</td>
+                <td>{% if promo.enabled %}SI{% else %}NO{% endif %}</td>
+                
+                <td>{{ promo.cantidadpotecuarto }}</td>
+                <td>{{ promo.cantidadpotemedio }}</td>
+                <td>{{ promo.cantidadpotetrescuarto }}</td>
+                <td>{{ promo.cantidadpotekilo }}</td>
+                
                 <td>{{ promo.preciopromo }}</td>
                 <td>
                     <a href="{{ path('promo_show', { 'id': promo.id }) }}" 
