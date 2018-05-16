@@ -85,11 +85,10 @@ class PedidoController extends FOSRestController{
                 $queryBuilder->andWhere('p.estadoId = :estadoid')->setParameter('estadoid',  $estado_id);   
             }
             
-            
             $registros = $queryBuilder->getQuery();
             $respuesta = array('code'=>$code,
                                'message'=>$message,
-                               'pedidos'=>$registros->execute(),
+                               'data'=>$registros->execute(),
                                'response' => 'success',
                             );
             

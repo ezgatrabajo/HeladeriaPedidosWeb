@@ -1,0 +1,3 @@
+adaptive_tech_delivery_tracker_homepage:
+    path:     /
+    defaults: { _controller: AdaptiveTechDeliveryTrackerBundle:Default:index }

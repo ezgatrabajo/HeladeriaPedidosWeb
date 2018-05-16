@@ -1,0 +1,4 @@
+services:
+#    adaptive_tech_delivery_tracker.example:
+#        class: AdaptiveTech\DeliveryTrackerBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
