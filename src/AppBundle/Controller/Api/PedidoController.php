@@ -88,7 +88,7 @@ class PedidoController extends FOSRestController{
             $registros = $queryBuilder->getQuery();
             $respuesta = array('code'=>$code,
                                'message'=>$message,
-                               'data'=>$registros->execute(),
+                               'data'=>array('pedidos'=>$registros->execute() ),
                                'response' => 'success',
                             );
             
