@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
-            new AdaptiveTech\DeliveryTrackerBundle\AdaptiveTechDeliveryTrackerBundle(),
+            //new AdaptiveTech\DeliveryTrackerBundle\AdaptiveTechDeliveryTrackerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
