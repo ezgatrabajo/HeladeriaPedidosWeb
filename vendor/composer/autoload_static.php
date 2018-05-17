@@ -111,6 +111,7 @@ class ComposerStaticInit85ae879262964b74a41ad581b7fd8c32
         'A' => 
         array (
             'AppBundle\\' => 10,
+            'AdaptiveTech\\DeliveryTrackerBundle\\' => 35,
         ),
     );
 
@@ -306,6 +307,10 @@ class ComposerStaticInit85ae879262964b74a41ad581b7fd8c32
         'AppBundle\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/AppBundle',
+        ),
+        'AdaptiveTech\\DeliveryTrackerBundle\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/AdaptiveTech/DeliveryTrackerBundle',
         ),
     );
 

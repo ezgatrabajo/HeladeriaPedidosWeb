@@ -5,7 +5,9 @@
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
         "psr-4": {
+            "AdaptiveTech\\DeliveryTrackerBundle\\": "src/AdaptiveTech/DeliveryTrackerBundle",
             "AppBundle\\": "src/AppBundle"
+            
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
@@ -36,6 +38,7 @@
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
         "whiteoctober/tcpdf-bundle": "^1.0"
+        
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

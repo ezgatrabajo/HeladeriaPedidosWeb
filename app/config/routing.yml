@@ -1,6 +1,6 @@
 adaptive_tech_delivery_tracker:
     resource: "@AdaptiveTechDeliveryTrackerBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /deliverytracker
 
 app_equipo:
     resource: "@AppBundle/Controller/EquipoController.php"

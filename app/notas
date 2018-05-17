@@ -43,7 +43,7 @@ Android agregar campo enabled en productos, crud y api
 "knplabs/knp-snappy-bundle": "^1.4",
 "whiteoctober/tcpdf-bundle": "^1.0"
 
-
+//"AdaptiveTech\\DeliveryTrackerBundle\\": "src/AdaptiveTech/DeliveryTrackerBundle",  
 -------------------------------------------
 
 cd ../../xampp/htdocs/heladeriapedidosweb
