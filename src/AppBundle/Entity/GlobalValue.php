@@ -92,10 +92,10 @@ class GlobalValue{
                 );
     
     /*Estado de pedido*/
-    const PENDIENTE = 0;
+    const PENDIENTE     = 0;
     const ENPREPARACION = 1;
-    const ENCAMINO = 2;
-    const ENTREGADO = 3;
+    const ENCAMINO      = 2;
+    const ENTREGADO     = 3;
     
     const PENDIENTE_DISPLAY     = 'PENDIENTE';
     const ENPREPARACION_DISPLAY = 'EN PREPARACION';
