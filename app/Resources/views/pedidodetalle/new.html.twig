@@ -188,9 +188,24 @@
 	                       {
 			                    if (data.code==200){
 
-			                    	var time = new Date(data.data.horaentrega);  
+			                    	var time    = new Date(data.data.horaentrega);  
 			                    	
-			                    	var hora = time.getHours() + ":" + time.getMinutes() +":"+ time.getSeconds();
+									var hour    = time.getHours();
+									
+									if (hour < 10 ){ hour = "0"+ hour; }
+									
+									var minutes = time.getMinutes();
+									
+									if (minutes < 10 ){ minutes = "0"+minutes; }
+									
+									var seconds = time.getSeconds();	
+									
+									if (seconds < 10 ){ seconds = "0"+seconds; }
+			                    	
+									var hora    = hour + ":" + minutes +":"+ seconds;
+
+
+									//var hora = dateFormat(time, "dd/mm/yyyy hh:MM:ss GMT-0300");	
 			                    	hora_entrega.fadeOut(500);
 			                    	hora_entrega.html(hora);
 			                    	hora_entrega.fadeIn(500);
