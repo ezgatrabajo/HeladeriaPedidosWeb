@@ -21,6 +21,10 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\CapabilityProfile;
 /**
  * Pedido controller.
  *
@@ -109,6 +113,136 @@ class PedidoController extends Controller
         
     }
 
+    /**
+     * @Route("/pdfprint4/{id}", name="pedido_pdfprint4")
+     * @Method({"GET","POST"})
+     */
+    public function pdfprint4Action(Request $request, Pedido $pedido)
+    {
+        try {
+            $id = $pedido->getId();
+            $connector = new WindowsPrintConnector("smb://62597-NOTE/POS58");  
+            
+            $printer = new Printer($connector);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->setEmphasis(true);
+            $printer->text("Roma Helados \n");
+            $printer->text("\n");
+            
+            $printer->setEmphasis(false);
+            $printer->setJustification(Printer::JUSTIFY_LEFT);
+            
+            $printer->text("Pedido Nro: $id \n");
+            $hora = $pedido->getHoraEntregaFormatHMS();
+            $printer->text("Hora de Entrega: $hora \n");
+            
+            $cliente = $pedido->getContacto();
+            $printer->text("Cliente: $cliente \n");
+            
+            $texto = $pedido->getDireccionFormat();
+            $printer->text("Direccion: $texto \n");
+            
+            $texto = $pedido->getTelefono();
+            $printer->text("Telefono: $texto \n");
+            
+            $printer->setEmphasis(true);
+            
+            $printer->text("\n");
+            $printer->text("Helados Elegidos \n");
+            $titulo = str_pad("Pote", 7) . str_pad("Sabor", 16) . str_pad("Cantidad", 10); 
+            $printer->text($titulo);
+            $printer->text("\n");
+            $printer->setEmphasis(false);
+            //DEtalle del pedido
+            foreach ($pedido->getPedidodetalles() as $item) { 
+
+                $pote = str_pad($item->getMedidaPoteFormat(), 7);
+                $printer->text($pote);
+
+                $producto = str_pad($item->getProducto()->getNombre(),16);
+                $printer->text($producto);
+                
+                $cantidad = str_pad($item->getCantidadString(),10);
+                $printer->text($cantidad);
+    
+                $printer->text("\n");
+            
+            }
+            $printer->setJustification(Printer::JUSTIFY_RIGHT);
+            $printer->setEmphasis(true);
+            $texto = $pedido->getMontoFormat();
+            $printer->text("Total: $texto \n");
+  
+            $texto =  $pedido->getMontoAbonaFormat();
+            $printer->text("Monto Abona: $texto \n");
+            $printer->text("\n");
+            $printer->text("\n");
+            $printer->text("\n");
+            $printer->text("\n");
+            $printer->text("\n");
+            
+            $printer->cut();
+            $printer->close();
+
+            return $this->render('pedido/pdfpreview.html.twig',
+            array(
+                'pedido'=> $pedido
+            ));
+
+
+
+
+
+/*
+
+        $html ="Pedido </h1>";
+        
+        $html = $html .  "<table class='datatable'> ";
+                
+        $html = $html .  "<tr><th>Nro:</th>          <td> " . $pedido->getId() ."</td> </tr>" ;
+        $html = $html .  "<tr><th>Hora Entrega</th> <td> " . $pedido->getHoraEntregaFormatHMS()."</td></tr>";
+        $html = $html .  "<tr><th>Cliente</th>      <td> " . $pedido->getContacto()."</td></tr>";
+        $html = $html .  "<tr><th>Direccion</th>    <td> " . $pedido->getDireccionFormat()."</td></tr>";
+        $html = $html .  "<tr><th>Telefono</th>     <td> " . $pedido->getTelefono()."</td></tr>";
+        $html = $html .  "</table>";
+        $html = $html .  "<br>";
+
+
+        $pedidodetalles = $pedido->getPedidodetalles();
+        
+        $html = $html .  "<table border='1' cellpadding='2' cellspacing='2'> ";
+        $html = $html .  "<hr>";
+        $html = $html .  "<tr> ";
+        $html = $html .  "<th><b>Nro Pote</b></th>
+                          <th><b>Kg</b></th>
+                          <th><b>Sabor</b></th>
+                          <th><b>Cantidad</b></th>" ;
+        $html = $html .  "</tr> ";
+
+        foreach ($pedidodetalles as $item) { 
+            $html = $html ."<tr>";
+            $html = $html ."<td>". $item->getNropote(). "</td>" ; 
+            $html = $html ."<td>". $item->getMedidaPoteFormat(). "</td>" ; 
+            $html = $html ."<td>". $item->getProducto()->getNombre(). "</td>" ; 
+            $html = $html ."<td>". $item->getCantidadString(). "</td>" ; 
+
+            $html = $html ."</tr>";
+        }
+
+        $html = $html ."<hr> <tr>";
+        $html = $html .  "<td><b>Total:</b> " . $pedido->getMontoFormat()."</td>";
+        $html = $html .  "<td><b>Abona con:</b> " . $pedido->getMontoAbonaFormat()."</td>";
+        $html = $html ."</tr>";
+        $html = $html .  "</tbody> ";
+        $html = $html .  "</table>";
+*/
+
+        } catch(Exception $e) {
+            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+        }
+               
+
+    }
 
     
 
