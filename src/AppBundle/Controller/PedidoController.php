@@ -149,32 +149,39 @@ class PedidoController extends Controller
             
             $printer->text("\n");
             $printer->text("Helados Elegidos \n");
-            $titulo = str_pad("Pote", 7) . str_pad("Sabor", 16) . str_pad("Cantidad", 10); 
+            $titulo = str_pad("N°", 2) . str_pad("Pote", 7) . str_pad("Sabor", 15) . str_pad("Cantidad", 8); 
             $printer->text($titulo);
-            $printer->text("\n");
+            
             $printer->setEmphasis(false);
             //DEtalle del pedido
+
             foreach ($pedido->getPedidodetalles() as $item) { 
+
+                $printer->text("\n");
+                $pote = str_pad($item->getNropote(), 2);
+                $printer->text($pote);
 
                 $pote = str_pad($item->getMedidaPoteFormat(), 7);
                 $printer->text($pote);
 
-                $producto = str_pad($item->getProducto()->getNombre(),16);
+                $producto = str_pad($item->getProducto()->getNombre(),15);
                 $printer->text($producto);
                 
-                $cantidad = str_pad($item->getCantidadString(),10);
+                $cantidad = str_pad($item->getCantidadString(),8);
                 $printer->text($cantidad);
     
-                $printer->text("\n");
-            
+                
             }
+            
+            $printer->text("\n");
+            $printer->text("\n");
             $printer->setJustification(Printer::JUSTIFY_RIGHT);
             $printer->setEmphasis(true);
             $texto = $pedido->getMontoFormat();
             $printer->text("Total: $texto \n");
   
             $texto =  $pedido->getMontoAbonaFormat();
-            $printer->text("Monto Abona: $texto \n");
+            $printer->text("Abona Con: $texto \n");
             $printer->text("\n");
             $printer->text("\n");
             $printer->text("\n");
