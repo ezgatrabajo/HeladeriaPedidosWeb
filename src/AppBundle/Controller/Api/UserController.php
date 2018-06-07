@@ -80,16 +80,12 @@ class UserController extends FOSRestController
             
             //SI viene el ID, Significa que el usuario esta editando sus datos
             $id  = $request->get('id');
-            if($id > 0){
-                //BUSCAR EL ID
-                $user = $em->getRepository('AppBundle:User')->find($id);
-            }
+            
             
             //Leer datos desde el JSON
             $username  = $request->get('username');
             $password  = $request->get('password');
             $email     = $request->get('email');
-            
             $localidad = $request->get('localidad');
             $calle     = $request->get('calle');
             $nro       = $request->get('nro');
@@ -97,16 +93,19 @@ class UserController extends FOSRestController
             $contacto  = $request->get('contacto');
             $telefono  = $request->get('telefono');
 
-            //Asignar datos a nuevo usuario
             
+            if($id > 0){
+                //BUSCAR EL ID
+                $user = $em->getRepository('AppBundle:User')->find($id);
+            }
+            //Asignar datos a nuevo usuario
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
-            
-            
-            if ($username) $user->setUsername($username);
-            if ($email)    $user->setEmail($email);
-            if ($email)    $user->setEmailCanonical($email);
-            if ($password) $user->setPlainPassword($password);
+
+            if (!empty($username)) $user->setUsername($username);
+            if (!empty($email))    $user->setEmail($email);
+            if (!empty($email))    $user->setEmailCanonical($email);
+            if (!empty($password)) $user->setPlainPassword($password);
             
             if ($telefono)  $user->setTelefono($telefono);
             if ($localidad) $user->setLocalidad($localidad);
