@@ -76,15 +76,78 @@ class UserController extends FOSRestController
             $message='OK'; 
             $em = $this->getDoctrine()->getManager();
             $userManager = $this->get('fos_user.user_manager');
-            $user = $userManager->createUser();
+            
             
             //SI viene el ID, Significa que el usuario esta editando sus datos
             $id  = $request->get('id');
             
-            
             //Leer datos desde el JSON
             $username  = $request->get('username');
             $password  = $request->get('password');
+            $email     = $request->get('email');
+            $localidad = $request->get('localidad');
+            $calle     = $request->get('calle');
+            $nro       = $request->get('nro');
+            $piso      = $request->get('piso');
+            $contacto  = $request->get('contacto');
+            $telefono  = $request->get('telefono');
+            // REGISTER USER
+            $user = $userManager->createUser();
+        
+            //Asignar datos a nuevo usuario
+            $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
+            $user->setEnabled(1);
+
+            if (!empty($username)) $user->setUsername($username);
+            if (!empty($email))    $user->setEmail($email);
+            if (!empty($email))    $user->setEmailCanonical($email);
+            if (!empty($password)) $user->setPlainPassword($password);
+            if (!empty($telefono))  $user->setTelefono($telefono);
+            if (!empty($localidad)) $user->setLocalidad($localidad);
+            if (!empty($calle))     $user->setCalle($calle);
+            if (!empty($nro))       $user->setNro($nro);
+            if (!empty($piso))      $user->setPiso($piso);
+            if (!empty($contacto))  $user->setContacto($contacto);
+            
+            $em->persist($user);
+            $em->flush();
+            $respuesta = array('code'=>Response::HTTP_OK,
+                                   'message'=>$message,
+                                   'data'=>$user
+                                );
+            return $respuesta;
+        }catch (UniqueConstraintViolationException $e) {
+            $respuesta = array('code'=>Response::HTTP_UNAUTHORIZED,
+                               'message'=>'El Usuario ya Existe en la base de datos ',
+                               'data'=>$user
+                            ); 
+            return $respuesta;
+        } catch (Exception $e) {
+            $respuesta = array('code'=>Response::HTTP_UNAUTHORIZED,
+                               'message'=>'Error Al Crear el Usuario '. $e->getMessage(),
+                               'data'=>$user
+                            ); 
+            return $respuesta;
+        }
+    }
+
+
+
+    /**
+  * @Rest\Post("/api/user/update")
+  */
+  public function updateJson(Request $request)
+  { 
+      try{
+            //Registracion del usuario via App Android
+            $message='OK'; 
+            $em = $this->getDoctrine()->getManager();
+            
+            //SI viene el ID, Significa que el usuario esta editando sus datos
+            $id  = $request->get('id');
+            
+            //Leer datos desde el JSON
+            $username  = $request->get('username');
             $email     = $request->get('email');
             $localidad = $request->get('localidad');
             $calle     = $request->get('calle');
@@ -97,24 +160,20 @@ class UserController extends FOSRestController
             if($id > 0){
                 //BUSCAR EL ID, UPDATE USER
                 $user = $em->getRepository('AppBundle:User')->find($id);
-            }else{
-                // REGISTER USER
-                if (!empty($password)) $user->setPlainPassword($password);
             }
             //Asignar datos a nuevo usuario
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
             $user->setEnabled(1);
 
-            if (!empty($username)) $user->setUsername($username);
-            if (!empty($email))    $user->setEmail($email);
-            if (!empty($email))    $user->setEmailCanonical($email);
-            
-            if ($telefono)  $user->setTelefono($telefono);
-            if ($localidad) $user->setLocalidad($localidad);
-            if ($calle)     $user->setCalle($calle);
-            if ($nro)       $user->setNro($nro);
-            if ($piso)      $user->setPiso($piso);
-            if ($contacto)  $user->setContacto($contacto);
+            if (!empty($username))  $user->setUsername($username);
+            if (!empty($email))     $user->setEmail($email);
+            if (!empty($email))     $user->setEmailCanonical($email);
+            if (!empty($telefono))  $user->setTelefono($telefono);
+            if (!empty($localidad)) $user->setLocalidad($localidad);
+            if (!empty($calle))     $user->setCalle($calle);
+            if (!empty($nro))       $user->setNro($nro);
+            if (!empty($piso))      $user->setPiso($piso);
+            if (!empty($contacto))  $user->setContacto($contacto);
             
             
             $em->persist($user);
