@@ -133,7 +133,7 @@ class UserController extends FOSRestController
 
 
 
-    /**
+ /**
   * @Rest\Post("/api/user/update")
   */
   public function updateJson(Request $request)
