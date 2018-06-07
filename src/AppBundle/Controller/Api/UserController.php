@@ -95,8 +95,11 @@ class UserController extends FOSRestController
 
             
             if($id > 0){
-                //BUSCAR EL ID
+                //BUSCAR EL ID, UPDATE USER
                 $user = $em->getRepository('AppBundle:User')->find($id);
+            }else{
+                // REGISTER USER
+                if (!empty($password)) $user->setPlainPassword($password);
             }
             //Asignar datos a nuevo usuario
             $user->setRoles(array(GlobalValue::ROLE_CLIENTE));
@@ -105,7 +108,6 @@ class UserController extends FOSRestController
             if (!empty($username)) $user->setUsername($username);
             if (!empty($email))    $user->setEmail($email);
             if (!empty($email))    $user->setEmailCanonical($email);
-            if (!empty($password)) $user->setPlainPassword($password);
             
             if ($telefono)  $user->setTelefono($telefono);
             if ($localidad) $user->setLocalidad($localidad);
