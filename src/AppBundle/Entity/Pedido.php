@@ -219,6 +219,13 @@ class Pedido
      */
     private $visto;
     
+
+     /**
+     * @var BooleanType
+     *
+     * @ORM\Column(name="impreso", type="boolean",  nullable=true)
+     */
+    private $impreso;
     
     /**
      * @var IntegerType
@@ -340,11 +347,11 @@ class Pedido
         
     }
     
-   
     public function getHoraEntrega()
     {
         return $this->horaentrega;
     }
+
     public function getHoraEntregaFormatHMS()
     {
         $horaformat =  $this->horaentrega->format('H:i:s');
@@ -649,6 +656,8 @@ class Pedido
     {
         return $this->enviodomicilio;
     }
+    
+
     public function getVisto()
     {
         return $this->visto;
@@ -772,6 +781,16 @@ class Pedido
     
     
 
+    public function getImpreso()
+    {
+        return $this->impreso;
+    }
+
+    
+    public function setImpreso($impreso)
+    {
+        $this->impreso=$impreso;
+    }
     
     
     

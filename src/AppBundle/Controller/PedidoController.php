@@ -190,59 +190,15 @@ class PedidoController extends Controller
             
             $printer->cut();
             $printer->close();
-
-            return $this->render('pedido/pdfpreview.html.twig',
-            array(
-                'pedido'=> $pedido
-            ));
-
-
-
-
-
-/*
-
-        $html ="Pedido </h1>";
-        
-        $html = $html .  "<table class='datatable'> ";
-                
-        $html = $html .  "<tr><th>Nro:</th>          <td> " . $pedido->getId() ."</td> </tr>" ;
-        $html = $html .  "<tr><th>Hora Entrega</th> <td> " . $pedido->getHoraEntregaFormatHMS()."</td></tr>";
-        $html = $html .  "<tr><th>Cliente</th>      <td> " . $pedido->getContacto()."</td></tr>";
-        $html = $html .  "<tr><th>Direccion</th>    <td> " . $pedido->getDireccionFormat()."</td></tr>";
-        $html = $html .  "<tr><th>Telefono</th>     <td> " . $pedido->getTelefono()."</td></tr>";
-        $html = $html .  "</table>";
-        $html = $html .  "<br>";
-
-
-        $pedidodetalles = $pedido->getPedidodetalles();
-        
-        $html = $html .  "<table border='1' cellpadding='2' cellspacing='2'> ";
-        $html = $html .  "<hr>";
-        $html = $html .  "<tr> ";
-        $html = $html .  "<th><b>Nro Pote</b></th>
-                          <th><b>Kg</b></th>
-                          <th><b>Sabor</b></th>
-                          <th><b>Cantidad</b></th>" ;
-        $html = $html .  "</tr> ";
-
-        foreach ($pedidodetalles as $item) { 
-            $html = $html ."<tr>";
-            $html = $html ."<td>". $item->getNropote(). "</td>" ; 
-            $html = $html ."<td>". $item->getMedidaPoteFormat(). "</td>" ; 
-            $html = $html ."<td>". $item->getProducto()->getNombre(). "</td>" ; 
-            $html = $html ."<td>". $item->getCantidadString(). "</td>" ; 
-
-            $html = $html ."</tr>";
-        }
-
-        $html = $html ."<hr> <tr>";
-        $html = $html .  "<td><b>Total:</b> " . $pedido->getMontoFormat()."</td>";
-        $html = $html .  "<td><b>Abona con:</b> " . $pedido->getMontoAbonaFormat()."</td>";
-        $html = $html ."</tr>";
-        $html = $html .  "</tbody> ";
-        $html = $html .  "</table>";
-*/
+            
+            /* Actualizar flag Impreso en Pedido*/ 
+            $em = $this->getDoctrine()->getManager();
+            $pedido->setImpreso(true);
+            $em->persist($pedido);
+            $em->flush();
+            $this->addFlash( 'success','Imprimiendo...');
+            /* Actualizar flag Impreso en Pedido*/ 
+            return $this->redirectToRoute('pedidodetalle_new',array('pedido_id'=> $pedido->getId()));
 
         } catch(Exception $e) {
             echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
@@ -494,6 +450,16 @@ class PedidoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $pedido->setEstadoId(GlobalValue::PENDIENTE);
+            $pedido->getHoraEntrega();
+            $tiempodemora = GlobalValue::TIEMPO_45;
+            $time         = new DateTime();
+            $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
+            $horaentrega    = $time;
+
+            $pedido->setTiempodemora($tiempodemora);
+            $pedido->setHoraEntrega($horaentrega);
+
+
             $em->persist($pedido);
             $em->flush();
             $this->addFlash(  'success','Guardado Correctamente!');
@@ -583,18 +549,5 @@ class PedidoController extends Controller
             ->getForm()
         ;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
 }

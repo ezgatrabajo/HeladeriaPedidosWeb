@@ -15,7 +15,11 @@ class PedidodetalleType extends AbstractType
     {
         $builder
         ->add('producto')
-        ->add('cantidad' );
+        
+        ->add('nropote' )
+        ->add('medidapote' )
+        
+        ;
     }
     
     /**

@@ -26,12 +26,19 @@
 
                             {{ form_widget(formchangestatus2) }}
                           <div id="btn_actualizar_estado" class="btn btn-info" > <i class="glyphicon glyphicon-refresh"></i> Actualizar </div>
-                          <a href="{{ url('pedido_pdfprint3', {'id':pedido.id}) }}" id="btn_print" class="btn btn-default" > 
-						  <i class="glyphicon glyphicon-print"></i> Imprimir </a>
+                          
+						  {% if pedido.impreso == true %}
+						  	<div disabled href="{{ url('pedido_pdfprint4', {'id':pedido.id}) }}" id="btn_print" class="btn btn-default" > 
+							  <i class="glyphicon glyphicon-print" ></i> 
+							  Pedido Fue Impreso 
+							  </div>
+						  {% else %}
+						  	<a href="{{ url('pedido_pdfprint4', {'id':pedido.id}) }}" id="btn_print" class="btn btn-default" > <i class="glyphicon glyphicon-print"></i> Imprimir </a>
+						  {% endif %}
+						  
 
 
-						  <a href="{{ url('pedido_pdfprint4', {'id':pedido.id}) }}" id="btn_print" class="btn btn-success" > 
-						  <i class="glyphicon glyphicon-print"></i> Imprimir POS</a>
+						  
                       {{ form_end(formchangestatus2) }}
                       </div>
                       </div>
