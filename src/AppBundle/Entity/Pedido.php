@@ -282,8 +282,7 @@ class Pedido
     public function __construct()
     {
         $this->pedidodetalles = new ArrayCollection();
-        $this->horarecepcion = new \DateTime();
-        $this->fecha = new \DateTime();
+      
     }
     
     public function getPedidodetalles(){

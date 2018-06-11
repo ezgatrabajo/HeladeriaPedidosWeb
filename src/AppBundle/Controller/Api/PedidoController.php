@@ -313,8 +313,9 @@ class PedidoController extends FOSRestController{
         if ($code==Response::HTTP_OK){
             $tiempodemora   = GlobalValue::TIEMPO_45;
             $time           = new DateTime();
-            $hoy = date("Y-m-d H:i:s");
+            $hoy            = new DateTime();
             $pedido->setFecha($hoy);
+            $pedido->setHoraRecepcion($hoy);
             $hoy            = $time;
             $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
             $horaentrega    = $time;
