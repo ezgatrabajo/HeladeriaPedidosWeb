@@ -124,6 +124,10 @@ class PedidoController extends FOSRestController{
             //Campos heladeria
             $pedido->setEstadoId($estadoid);
             $pedido->setTiempodemora($tiempodemora);
+            
+            $time = new DateTime($pedido->getFecha()->format('Y-m-d H:i:s'));
+            
+            $pedido->setHoraEntrega($time->add(new DateInterval('PT' . $tiempodemora . 'M')));
             $em->persist($pedido);
             $em->flush();
             
@@ -263,7 +267,7 @@ class PedidoController extends FOSRestController{
     */
     public function postPedidosAddAction(Request $request){
         //leer json
-        //date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
+        date_default_timezone_set ( "America/Argentina/Buenos_Aires" );
         $content = $request->getContent();
         $pedido = new Pedido();
         $code = Response::HTTP_OK; 
@@ -315,11 +319,8 @@ class PedidoController extends FOSRestController{
             $time           = new DateTime();
             $hoy            = new DateTime();
             $pedido->setFecha($hoy);
-            $pedido->setHoraRecepcion($hoy);
-            $hoy            = $time;
-            $time->add(new DateInterval('PT' . $tiempodemora . 'M'));
-            $horaentrega    = $time;
-
+            $pedido->setTiempodemora($tiempodemora);
+            $pedido->setHoraEntrega($time->add(new DateInterval('PT' . $tiempodemora . 'M')));
             
 
             $pedido->setEstadoId(GlobalValue::ENPREPARACION);
@@ -351,9 +352,8 @@ class PedidoController extends FOSRestController{
             $pedido->setMontohelados($montohelados);
             $pedido->setVisto(false);
             
-            $pedido->setTiempodemora($tiempodemora);
             
-            $pedido->setHoraEntrega($horaentrega);
+            
             
             
             

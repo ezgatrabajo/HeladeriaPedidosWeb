@@ -741,10 +741,8 @@ class Pedido
     {
         $this->tiempodemora=$value;
         //Actualizar el campo hora de entrega
-        $time = $this->getFecha();
-        $time->add(new DateInterval('PT' . $value . 'M'));
-        $horaentrega = $time;
-        $this->setHoraEntrega($horaentrega);
+        
+       // $this->setHoraEntrega($this->getFecha()->add(new DateInterval('PT' . $value . 'M')));
     }
     
     public function setCantidadkilos($value)
