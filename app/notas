@@ -45,8 +45,12 @@ Android agregar campo enabled en productos, crud y api
 
 //"AdaptiveTech\\DeliveryTrackerBundle\\": "src/AdaptiveTech/DeliveryTrackerBundle",  
 ------------------------------------------------------------------------------------------------------------------------------------------------------
+IMPRESION 
+composer require mike42/escpos-php
+
 $connector = new WindowsPrintConnector("smb://62597-NOTE/POS58");
-  
+
+
 cd ../../xampp/htdocs/heladeriapedidosweb
 
 php bin/console server:run 0.0.0.0:7001

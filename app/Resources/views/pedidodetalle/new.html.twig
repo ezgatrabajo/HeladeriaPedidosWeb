@@ -15,7 +15,7 @@
                        <tr><th>Usuario/Cliente:</th><td> {{pedido.user.textocombo}}</td></tr>
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
                        <tr><th>Hora Entrega:</th><td ><div id="hora_entrega"> {{pedido.horaentrega|date('H:i:s')}} </div></td></tr>
-                       
+                       <input type="hidden" id="json_pedido" value="{{ json_pedido }}" />
                    
                    </table>
              		
@@ -35,6 +35,12 @@
 						  {% else %}
 						  	<a href="{{ url('pedido_pdfprint4', {'id':pedido.id}) }}" id="btn_print" class="btn btn-default" > <i class="glyphicon glyphicon-print"></i> Imprimir </a>
 						  {% endif %}
+
+						   
+						<div id="btn_imprimir_pos" class="btn btn-success" > 
+							<i class="glyphicon glyphicon-print"></i> Imprimir POS
+						</div>
+						  
 						  
 
 
@@ -339,14 +345,38 @@
 				});
 
 
+			//IMPRIMIR TICKECT
+			$("#btn_imprimir_pos").click(function(){
+				effectOk(panel_estado,loader_estado);
+				
+	            var json_data = $("#json_pedido").val();
+
+				//Obtener json 
+	            $.ajax({
+	                   method: "POST",
+	                   url: "http://localhost/adaptivetech/components/printer/pedido",
+	                   dataType: 'json',
+                       data: JSON.stringify( json_data ),
+	                   success: function(data)
+	                   {
+	                       if(data.hasOwnProperty("code") )
+	                       {
+			                    if (data.code==200){
+									
+			                    	
+				                }  
+	                       }
+	                   },
+        	            error: function(jqXHR, textStatus, errorThrown )
+                        {
+                            alert(jqXHR.responseText);
+                        }
+	           		});
+				});
+				//FIN ACTUALIZAR DATOS DE ESTADO
+				
 			
-   			
-
-
-
-
-			
-		});
+		});//FIN JAVASCRIPT
 
        </script>
      

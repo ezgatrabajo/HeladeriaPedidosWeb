@@ -15,6 +15,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\GlobalValue;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+
 
 /**
  * Pedidodetalle controller.
@@ -100,6 +104,10 @@ class PedidodetalleController extends Controller
             return $this->redirectToRoute('pedidodetalle_new', array('pedido_id' => $pedido->getId()));
         }
 
+
+        
+        $json = json_encode($pedido);
+
         return $this->render('pedidodetalle/new.html.twig', array(
             'pedidodetalles' => $pedidodetalles,
             'pedido'=>$pedido,
@@ -111,7 +119,8 @@ class PedidodetalleController extends Controller
             'formchangestatus'=> $formchangestatus->createView(),
             'formpedidoaddress'=>$form_pedido_address->createView(),
             'formpedidomontos'=>$form_pedido_montos->createView(),
-            'formchangestatus2'=>$formchangestatus2->createView()
+            'formchangestatus2'=>$formchangestatus2->createView(),
+            'json_pedido'=>$json
         ));
     }
     

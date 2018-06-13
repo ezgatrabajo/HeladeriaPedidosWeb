@@ -10,14 +10,14 @@ use Doctrine\DBAL\Types\DecimalType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Types\BooleanType;
-
+use JsonSerializable;
 /**
  * Pedido
  *
  * @ORM\Table(name="pedido")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PedidoRepository")
  */
-class Pedido
+class Pedido  implements JsonSerializable
 {
     /**
      * @var int
@@ -330,6 +330,18 @@ class Pedido
     public function getFecha()
     {
         return $this->fecha;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFechaFormatDMY()
+    {
+
+        $fecha = $this->fecha->format('d-m-Y');
+        return $fecha;
     }
 
     
@@ -789,7 +801,18 @@ class Pedido
         $this->impreso=$impreso;
     }
     
-    
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'contacto'=> $this->contacto,
+            'horaentrega'=>$this->getHoraEntregaFormatHMS(),
+            'fecha'=>$this->getFechaFormatDMY(),
+            'direccion'=>$this->getDireccionFormat(),
+            'montoabona'=>$this->getMontoAbonaFormat(),
+            'monto'=>$this->getMontoFormat(),
+        );
+    }
     
 }
 

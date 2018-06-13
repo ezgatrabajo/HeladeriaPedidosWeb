@@ -501,21 +501,22 @@ class PedidoController extends FOSRestController{
 
             //Leer Pedido
             $id         = $json['pedido']['id'];
-            $id_android = $json['pedido']['android_id'];
-            $user_id    = $json['pedido']['user_id'];
-
-            $user = $this->getDoctrine()->getRepository(User::class)->find($user_id);
-            if (!$user) {
-                throw $this->createNotFoundException(
-                    'Usuario Inexistente'
-                    );
+           
+            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id ));
+            if (!empty($pd)){
+                $response = array(
+                    'code'=>$code,
+                    'message'=>'Pedido',
+                    'data'=>$pd
+                );
+            }else{
+                $response = array(
+                    'code'=>Response::HTTP_CONFLICT,
+                    'message'=>'No se Encontro pedido',
+                    'data'=>$pd
+                );
             }
-            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id, 'android_id'=>$id_android, 'user'=>$user ));
-            $response = array(
-                        'code'=>$code,
-                        'message'=>'Pedido',
-                        'data'=>$pd
-            );
+            
             return $response;
         }catch(Exception $e){
             $response = array('code'=>Response::HTTP_CONFLICT,
