@@ -29,10 +29,6 @@ use DateInterval;
 
 class PedidoController extends FOSRestController{
     
-    
-    
-    
-    
     /**
      * @Rest\Post("/api/pedidos")
     */
@@ -45,16 +41,14 @@ class PedidoController extends FOSRestController{
             $result = "";
             $pedido = new Pedido();
             $json = json_decode($content, true);
-            $fecha_desde='';
+            $fecha_desde ='';
             $fecha_hasta ='';
             $cliente='';
             $user='';
             $empresa='';
+
             //Preparar parametros
-            
             $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('p');
-            //$queryBuilder->where('p.empresa = :empresa')->setParameter('empresa', $empresa);
-            
             
             if (array_key_exists ('user_id', $json)){
                 $user_id     = $json['user_id'];
@@ -65,8 +59,6 @@ class PedidoController extends FOSRestController{
                 }
                 $queryBuilder->andWhere('p.user = :user')->setParameter('user',  $user);   
             }
-            
-            
             
             if (array_key_exists ('fecha_desde', $json)){
                 $fecha_desde = $json['fecha_desde'];
@@ -91,13 +83,11 @@ class PedidoController extends FOSRestController{
                                'data'=>$registros->execute() ,
                                'response' => 'success',
                             );
-            
-            
-            
 
             return $respuesta;
             
         }catch(Exception $e){
+            $respuesta = array('code'=>Response::HTTP_PRECONDITION_REQUIRED,  'message'=>'Error', 'data'=>$e->getMessage());
             return $respuesta;
         }
     }
