@@ -53,7 +53,7 @@ class PedidoController extends Controller
      */
     public function pdfprint3Action(Request $request, Pedido $pedido)
     {
-        //$html = $this->render('pedido/pdfpreview.html.twig',array('pedido'=> $pedido));
+        
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor('Heladeria Roma');
         $pdf->SetTitle(('Pedido'));
@@ -207,39 +207,7 @@ class PedidoController extends Controller
 
     }
 
-    /**
-     * @Route("/pdfprint5/{id}", name="pedido_pdfprint5")
-     * @Method({"GET","POST"})
-     */
-    public function pdfprint5Action(Request $request, Pedido $pedido)
-    {
-        
-        //Recibir json con el pedido y el detalle
-
-        try {
-            $id = $pedido->getId();
-            //$connector = new WindowsPrintConnector("smb://62597-NOTE/POS58");  
-            $connector = new WindowsPrintConnector("smb://127.0.0.1:7001/POS58");  
-            $printer = new Printer($connector);
-            $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->setEmphasis(true);
-            $printer->text("Roma Helados \n");
-            $printer->text("\n");
-            $printer->cut();
-            $printer->close();
-            
-
-            
-            /* Actualizar flag Impreso en Pedido*/ 
-            //return $this->redirectToRoute('pedidodetalle_new',array('pedido_id'=> $pedido->getId()));
-            return $this->redirect('http://localhost/components/printer/imprimirpedido.php');
-
-        } catch(Exception $e) {
-            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
-        }
-               
-
-    }
+   
 
 
 

@@ -350,20 +350,23 @@
 				effectOk(panel_estado,loader_estado);
 				
 	            var json_data = $("#json_pedido").val();
-
+				var json 	  = JSON.parse(json_data); 
+				alert(json_data);
+				alert(json);
 				//Obtener json 
 	            $.ajax({
 	                   method: "POST",
-	                   url: "http://localhost/adaptivetech/components/printer/pedido",
+	                   url: "http://127.0.0.1:8000/printer/ticket/",
 	                   dataType: 'json',
-                       data: JSON.stringify( json_data ),
+                       data: JSON.stringify( json ),
+					   //data: json_data ,
 	                   success: function(data)
 	                   {
 	                       if(data.hasOwnProperty("code") )
 	                       {
 			                    if (data.code==200){
 									
-			                    	
+			                    	alert(data.data);
 				                }  
 	                       }
 	                   },

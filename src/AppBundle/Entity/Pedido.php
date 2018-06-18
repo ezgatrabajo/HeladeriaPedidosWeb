@@ -804,13 +804,16 @@ class Pedido  implements JsonSerializable
     public function jsonSerialize()
     {
         return array(
-            'id' => $this->id,
-            'contacto'=> $this->contacto,
-            'horaentrega'=>$this->getHoraEntregaFormatHMS(),
-            'fecha'=>$this->getFechaFormatDMY(),
-            'direccion'=>$this->getDireccionFormat(),
-            'montoabona'=>$this->getMontoAbonaFormat(),
-            'monto'=>$this->getMontoFormat(),
+            'pedido'=>array(
+                'id' => $this->id,
+                'user_id'=>$this->getUser()->getId(),
+                'contacto'=> $this->contacto,
+                'horaentrega'=>$this->getHoraEntregaFormatHMS(),
+                'fecha'=>$this->getFechaFormatDMY(),
+                'direccion'=>$this->getDireccionFormat(),
+                'montoabona'=>$this->getMontoAbonaFormat(),
+                'monto'=>$this->getMontoFormat()
+                )
         );
     }
     
