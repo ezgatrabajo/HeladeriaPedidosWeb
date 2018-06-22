@@ -160,4 +160,25 @@ class MarcaController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Displays a form to edit an existing marca entity.
+     *
+     * @Route("/marcas_list", name="marcas_list")
+     * @Method({"GET", "POST"})
+     */
+    public function marcasListAction(Request $request)
+    {
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+       
+
+        
+    }
+
+
+
 }

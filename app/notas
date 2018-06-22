@@ -13,7 +13,6 @@ WEB
 * OK ordernar pedidos de hoy por visto
 
 
-
 * Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
 * pagina acceso denegado redirigir a una pagina valida de mensaje de error
 * Editar pedido, permitir modificar  datos de direccion, 
@@ -33,7 +32,7 @@ ABM Categorias add ok, edit ok, delete  , view ok,  list ok
 ABM Helados    
 ABM Promociones
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 ANDROID
 Android Chequear funcionamiento descarga de promos en la app android
 Android hacer funcion para actualizar las promos en la app desde la web, luego de generar un pedido nuevo

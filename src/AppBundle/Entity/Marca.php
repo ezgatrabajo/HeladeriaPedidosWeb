@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JsonSerializable;
 
 /**
  * Marca
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="marca")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MarcaRepository")
  */
-class Marca
+class Marca implements JsonSerializable
 {
     /**
      * @var int
@@ -130,6 +131,17 @@ class Marca
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+
+    public function jsonSerialize()
+    {
+        return array(
+            'marca'=>array(
+                'id' => $this->getId(),
+                'nombre'=>$this->getNombre()
+                )
+        );
     }
 }
 
