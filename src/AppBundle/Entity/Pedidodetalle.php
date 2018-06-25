@@ -195,6 +195,7 @@ class Pedidodetalle  implements JsonSerializable
         }
         return $texto;
     }
+    
     public function getMedidaPoteFormat(){
         $_medidapote = "";
         switch ($this->medidapote) {
