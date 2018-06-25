@@ -106,7 +106,8 @@ class PedidodetalleController extends Controller
 
 
         
-        $json = json_encode($pedido);
+        $json_pedido          = json_encode($pedido);
+        //$json_pedido_detalles = json_encode($pedidodetalles);
 
         return $this->render('pedidodetalle/new.html.twig', array(
             'pedidodetalles' => $pedidodetalles,
@@ -120,7 +121,9 @@ class PedidodetalleController extends Controller
             'formpedidoaddress'=>$form_pedido_address->createView(),
             'formpedidomontos'=>$form_pedido_montos->createView(),
             'formchangestatus2'=>$formchangestatus2->createView(),
-            'json_pedido'=>$json
+            'json_pedido'=>$json_pedido,
+            'json_pedido_detalles'=>$json_pedido_detalles,
+
         ));
     }
     

@@ -16,6 +16,7 @@
                        <tr><th>Fecha:</th><td>    {{pedido.fecha|date('d/m/Y H:i:s')}}</td></tr>
                        <tr><th>Hora Entrega:</th><td ><div id="hora_entrega"> {{pedido.horaentrega|date('H:i:s')}} </div></td></tr>
                        <input type="hidden" id="json_pedido" value="{{ json_pedido }}" />
+					   
                    
                    </table>
              		
@@ -183,8 +184,7 @@
 			
 			$("#btn_actualizar_estado").click(function(){
 				effectOk(panel_estado,loader_estado);
-				id  	  = $("#nro_pedido").val();
-				
+				id  	  	  = $("#nro_pedido").val();
 				estadoid      = $("#appbundle_Pedido_estadoid").val();
 	            tiempodemora  = $("#appbundle_Pedido_tiempodemora").val();
 	            var json_data = {'pedido':{
@@ -204,26 +204,14 @@
 	                       if(data.hasOwnProperty("code") )
 	                       {
 			                    if (data.code==200){
-
 			                    	var time    = new Date(data.data.horaentrega);  
-			                    	
 									var hour    = time.getHours();
-									
 									if (hour < 10 ){ hour = "0"+ hour; }
-									
-									
 									var minutes = time.getMinutes();
-									
 									if (minutes < 10 ){ minutes = "0"+minutes; }
-									
 									var seconds = time.getSeconds();	
-									
 									if (seconds < 10 ){ seconds = "0"+seconds; }
-			                    	
 									var hora    = hour + ":" + minutes +":"+ seconds;
-
-
-									//var hora = dateFormat(time, "dd/mm/yyyy hh:MM:ss GMT-0300");	
 			                    	hora_entrega.fadeOut(500);
 			                    	hora_entrega.html(hora);
 			                    	hora_entrega.fadeIn(500);
@@ -307,7 +295,7 @@
 	            montodescuento    = $("#appbundle_Pedido_montodescuento").val();
 				enviodomicilio    = $("#appbundle_Pedido_enviodomicilio").val();
 	            montoabona        = $("#appbundle_Pedido_montoabona").val();
-	            monto    = $("#appbundle_Pedido_monto").val();
+	            monto             = $("#appbundle_Pedido_monto").val();
 
 	            var json_data   = {'pedido':{
 		            			 		'id':id,
@@ -356,7 +344,7 @@
 				//Obtener json 
 	            $.ajax({
 	                   method: "POST",
-	                   url: "http://127.0.0.1:8000/printer/ticket/",
+	                   url: "http://127.0.0.1:7001/printer/ticket/",
 	                   dataType: 'json',
                        data: JSON.stringify( json ),
 					   //data: json_data ,

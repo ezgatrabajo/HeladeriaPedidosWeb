@@ -36,16 +36,16 @@ class PedidoController extends FOSRestController{
         try{
             
             $content = $request->getContent();
-            $code = Response::HTTP_OK; 
-            $message='OK'; 
-            $result = "";
-            $pedido = new Pedido();
-            $json = json_decode($content, true);
-            $fecha_desde ='';
-            $fecha_hasta ='';
-            $cliente='';
-            $user='';
-            $empresa='';
+            $code    = Response::HTTP_OK; 
+            $message ='OK'; 
+            $result  = "";
+            $pedido  = new Pedido();
+            $json    = json_decode($content, true);
+            $fecha_desde = '';
+            $fecha_hasta = '';
+            $cliente     = '';
+            $user        = '';
+            $empresa     = '';
 
             //Preparar parametros
             $queryBuilder = $this->getDoctrine()->getRepository(Pedido::class)->createQueryBuilder('p');

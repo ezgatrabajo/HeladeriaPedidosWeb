@@ -803,14 +803,23 @@ class Pedido  implements JsonSerializable
     
     public function jsonSerialize()
     {
+        /*
+        $detalles = array();
+        foreach ($this->getPedidodetalles() as $item){
+            $detalles->add
+
+        }
+        */
+
         return array(
             'pedido'=>array(
-                'id' => $this->id,
-                'user_id'=>$this->getUser()->getId(),
-                'contacto'=> $this->contacto,
-                'horaentrega'=>$this->getHoraEntregaFormatHMS(),
-                'fecha'=>$this->getFechaFormatDMY(),
-                'direccion'=>$this->getDireccionFormat(),
+                'id'             => $this->id,
+                'fecha'          => $this->getFechaFormatDMY(),
+                'horaentrega'    => $this->getHoraEntregaFormatHMS(),
+                'contacto'       => $this->getContacto(),
+                'direccion'      => $this->getDireccionFormat(),
+                'telefono'       => $this->getTelefono(),
+                'pedidodetalles' => $this->pedidodetalles,
                 'montoabona'=>$this->getMontoAbonaFormat(),
                 'monto'=>$this->getMontoFormat()
                 )

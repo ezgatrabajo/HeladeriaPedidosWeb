@@ -4,14 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\IntegerType;
-
+use JsonSerializable;
 /**
  * Pedidodetalle
  *
  * @ORM\Table(name="pedidodetalle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PedidodetalleRepository")
  */
-class Pedidodetalle
+class Pedidodetalle  implements JsonSerializable
 {
     /**
      * @var int
@@ -224,7 +224,24 @@ class Pedidodetalle
     }
  
 
-   
+    public function jsonSerialize()
+    {
+        
+
+        return array(
+            'pedidodetalle'=>array(
+                'id'             => $this->id,
+                
+                'producto_id'        => $this->getProducto()->getId(),
+                'producto_nombre'    => $this->getProducto()->getNombre(),
+                'nropote'            => $this->getNropote(),
+                'medidapoteformat'   => $this->getMedidaPoteFormat(),
+                'cantidad'           => $this->getCantidadString(),
+               
+
+                )
+        );
+    }
 
     
 }
