@@ -365,7 +365,10 @@ class Pedido  implements JsonSerializable
 
     public function getHoraEntregaFormatHMS()
     {
-        $horaformat =  $this->horaentrega->format('H:i:s');
+        $horaformat = '';
+        if (!empty($this->horaentrega)){
+            $horaformat =  $this->horaentrega->format('H:i:s');
+        }
         return $horaformat;
     }
     
