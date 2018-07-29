@@ -339,8 +339,8 @@
 				
 	            var json_data = $("#json_pedido").val();
 				var json 	  = JSON.parse(json_data); 
-				alert(json_data);
-				alert(json);
+				//alert(json_data);
+				//alert(json);
 				//Obtener json 
 	            $.ajax({
 	                   method: "POST",
@@ -354,7 +354,7 @@
 	                       {
 			                    if (data.code==200){
 									
-			                    	alert(data.data);
+			                    	//alert(data.data);
 				                }  
 	                       }
 	                   },
