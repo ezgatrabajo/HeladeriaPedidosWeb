@@ -24,7 +24,7 @@ WEB
 
 	
 
-
+-----------------------------------------------------------------------------------------------------------
 
 TEST 
 ABM Marcas, Alta Ok, Delete Ok, edit Ok, view Ok, list ok
@@ -81,4 +81,4 @@ php bin/console fos:user:create superadmin --super-admin
     estado no puede ser null
     Pedido detalle formato de campos money y cantidad
 
------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
