@@ -484,19 +484,31 @@ class PedidoController extends FOSRestController{
 
             //Leer Pedido
             $id         = $json['pedido']['id'];
-           
-            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id ));
-            if (!empty($pd)){
+            $em = $this->getDoctrine()->getManager();
+            $pedido = new Pedido();
+            $pedido = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id ));
+            
+//            $pd = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array('id'=>$id ));
+
+
+            if (!empty($pedido)){
+                //actualizar estado del pedido a impreso
+                $pedido->setEstadoId(GlobalValue::ENCAMINO);
+                $pedido->setImpreso(true);
+                
+                $em->persist($pedido);
+                $em->flush();
+
                 $response = array(
                     'code'=>$code,
                     'message'=>'Pedido',
-                    'data'=>$pd
+                    'data'=>$pedido
                 );
             }else{
                 $response = array(
                     'code'=>Response::HTTP_CONFLICT,
                     'message'=>'No se Encontro pedido',
-                    'data'=>$pd
+                    'data'=>$pedido
                 );
             }
             
