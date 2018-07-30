@@ -493,7 +493,7 @@ class PedidoController extends FOSRestController{
 
             if (!empty($pedido)){
                 //actualizar estado del pedido a impreso
-                $pedido->setEstadoId(GlobalValue::ENCAMINO);
+                //$pedido->setEstadoId(GlobalValue::ENCAMINO);
                 $pedido->setImpreso(true);
                 
                 $em->persist($pedido);
