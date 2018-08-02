@@ -1,16 +1,4 @@
 WEB
-* OK - web Crear abm de promos y api
-* OK - Web pedidos api procesar nuevo pedido (prueba con insomia)
-* OK - Quitar Precio unitario de pedidodetalle y todos los lugares donde se usa
-* OK - Web FrontEnd mostrar pedido de hoy
-* OK - Web FrontEnd mostrar listado de pedidos
-* OK Crear javascript de notificacion de pedidos
-* OK crear consulta api json con cantidad de pedidos visto = false
-* OK Crear campo enabled en productos ABM modificarlos
-* OK Crear formulario Editar Precio del Kilo, dato donde impacta es un update al parametro de Precio Kilo
-* OK Crear formulario editar mis datos
-* OK Formulario cambiar contrase�a, arreglar estilo
-* OK ordernar pedidos de hoy por visto
 
 
 * Crear Select2 para seleccionar cantidad, en nuevo detalle pedido
@@ -70,7 +58,9 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:validate
 
 
-php bin/console fos:user:create superadmin --super-admin
+php bin/console fos:user:create roma --super-admin
+
+php bin/console fos:user:promote heladosroma ROLE_ADMIN
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
