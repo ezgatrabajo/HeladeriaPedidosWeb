@@ -116,7 +116,7 @@ class GlobalValue{
                             GlobalValue::ENCAMINO_DISPLAY       => GlobalValue::ENCAMINO ,
                             GlobalValue::ENTREGADO_DISPLAY      => GlobalValue::ENTREGADO
                         );
-    
+
     
     //CONDICION IVA 
     const CONDICION_RESPONSABLEINSCRIPTO = 1;
@@ -265,28 +265,26 @@ class GlobalValue{
     const MEDIDA_HELADO_EQUILIBRADO = 'EQUILIBRADO';
     const MEDIDA_HELADO_MUCHO       = 'MUCHO';
     
-    const MEDIDA_HELADO =
-    array(
-        GlobalValue::LUNES_ID => GlobalValue::LUNES_DISPLAY,
-        GlobalValue::MARTES_ID => GlobalValue::MARTES_DISPLAY,
-        GlobalValue::MIERCOLES_ID => GlobalValue::MIERCOLES_DISPLAY,
-        GlobalValue::JUEVES_ID => GlobalValue::JUEVES_DISPLAY,
-        GlobalValue::VIERNES_ID => GlobalValue::VIERNES_DISPLAY,
-        GlobalValue::SABADO_ID => GlobalValue::SABADO_DISPLAY,
-        GlobalValue::DOMINGO_ID => GlobalValue::DOMINGO_DISPLAY
-    );
-    
+
+
     const MEDIDA_HELADO_SELECT =
     array(
-        GlobalValue::LUNES_DISPLAY => GlobalValue::LUNES_ID  ,
-        GlobalValue::MARTES_DISPLAY => GlobalValue::MARTES_ID ,
-        GlobalValue::MIERCOLES_DISPLAY => GlobalValue::MIERCOLES_ID,
-        GlobalValue::JUEVES_DISPLAY => GlobalValue::JUEVES_ID ,
-        GlobalValue::VIERNES_DISPLAY => GlobalValue::VIERNES_ID ,
-        GlobalValue::SABADO_DISPLAY => GlobalValue::SABADO_ID ,
-        GlobalValue::DOMINGO_DISPLAY => GlobalValue::DOMINGO_ID
+        GlobalValue::MEDIDA_HELADO_POCO => GlobalValue::MEDIDA_HELADO_POCO_HASTA,
+        GlobalValue::MEDIDA_HELADO_EQUILIBRADO => GlobalValue::MEDIDA_HELADO_EQUILIBRADO_DESDE,
+        GlobalValue::MEDIDA_HELADO_MUCHO => GlobalValue::MEDIDA_HELADO_MUCHO_LIMIT_DESDE
     );
+
+    const MEDIDA_HELADO =
+    array(
+            GlobalValue::MEDIDA_HELADO_POCO_HASTA =>  GlobalValue::MEDIDA_HELADO_POCO,
+            GlobalValue::MEDIDA_HELADO_EQUILIBRADO_DESDE =>  GlobalValue::MEDIDA_HELADO_EQUILIBRADO,
+            GlobalValue::MEDIDA_HELADO_MUCHO_LIMIT_DESDE => GlobalValue::MEDIDA_HELADO_MUCHO  
+    );    
     
+   
+    
+
+
     
     //ESTE VALOR ES EL VALOR QUE VA A ESTAR EN EL CAMPO NOMBRE DENTRO DE LA TABLA PARAMETROS
     const PARAMETRO_PRECIO_KILO         = 'preciokilo';
@@ -312,6 +310,33 @@ class GlobalValue{
             GlobalValue::TIEMPO_30_DISPLAY => GlobalValue::TIEMPO_30 ,
             GlobalValue::TIEMPO_45_DISPLAY => GlobalValue::TIEMPO_45,
             GlobalValue::TIEMPO_60_DISPLAY => GlobalValue::TIEMPO_60 
+        );
+    
+    
+        const KILO         = 1000;
+        const TRES_CUARTOS = 750;
+        const MEDIO        = 500;
+        const CUARTO       = 250;
+
+        const KILO_DISPLAY         = "1 Kg.";
+        const TRES_CUARTOS_DISPLAY = "3/4 Kg.";
+        const MEDIO_DISPLAY        = "1/2 Kg.";
+        const CUARTO_DISPLAY       = "1/4 Kg.";
+
+        const MEDIDA_POTE_SELECT =
+        array(
+            GlobalValue::KILO_DISPLAY => GlobalValue::KILO,
+            GlobalValue::TRES_CUARTOS_DISPLAY => GlobalValue::TRES_CUARTOS,
+            GlobalValue::MEDIO_DISPLAY => GlobalValue::MEDIO,
+            GlobalValue::CUARTO_DISPLAY => GlobalValue::CUARTO
+        );
+    
+        const MEDIDA_POTE =
+        array(
+                GlobalValue::KILO =>  GlobalValue::KILO_DISPLAY,
+                GlobalValue::TRES_CUARTOS =>  GlobalValue::TRES_CUARTOS_DISPLAY,
+                GlobalValue::MEDIO => GlobalValue::MEDIO_DISPLAY  ,
+                GlobalValue::CUARTO => GlobalValue::CUARTO_DISPLAY 
         );
     
     

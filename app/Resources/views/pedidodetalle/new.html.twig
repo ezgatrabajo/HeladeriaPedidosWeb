@@ -80,12 +80,17 @@
                        </div>
                     </div>
                        
-                       
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#exampleModal">
+					Agregar Helado <i class="glyphicon glyphicon-ice-lolly"></i>
+					</button>
                     <table class="datatable cell-border">
                                     
                         <thead>
                             <th>Nro Pote</th>
-                            <th>Producto</th>
+							<th>Medida Pote</th>
+							
+                            <th>Sabor</th>
                             <th>Cantidad</th>
                             <th>Acciones</th>
                             
@@ -96,14 +101,10 @@
                             <tr>
                                 <form>
                                     <td>{{item.nropote}}</td>
+									<td>{{item.MedidaPoteFormat}}</td>
                                     <td >{{item.producto.nombre}}</td>
                                     <td>{{item.cantidadstring }}</td>
-                                    <!--
-                                    <td class="col-md-2">
-                                        <input disabled name="cantidad" class="form-control" data-id="{{item.id}}" value="{{item.cantidadstring }}">
-                                        <div class="btn btn-xs btn-default actualizaritempedido" data-id="{{item.id}}">Actualizar </div> 
-                                    </td>
-                                    -->
+                                   
                                 
                                     <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
                                 </form>
@@ -158,21 +159,36 @@
         </div>
         
         
-    
-     	<div class="col-xs-12 col-sm-4">      
-            <div class="panel panel-default small">
-            <div class="panel-heading"> <b>Agregar Producto:</b></div>
-            <div class="panel-body">
-               
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <input class="btn btn-primary" type="submit" value="Agregar Producto"> </>
-                    <a href="{{ path('pedido_index')}}" class="btn btn-default">Volver al Listado</a>
-                {{ form_end(form) }}
-                
-            </div>
-            </div>
-    	</div>	
+		<!-- formulario para agregar el pote -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			{{ form_start(form) }}
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Agregar Helado</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+					{{ form_widget(form) }}
+					
+					
+			</div>
+			<div class="modal-footer">
+					<input class="btn btn-primary" type="submit" value="Agregar Producto"> </>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					{{ form_end(form) }}			
+				
+			</div>
+			</div>
+		</div>
+		</div>
+		<!-- formulario para agregar el pote -->
+
+
+
     </div>
     
     
