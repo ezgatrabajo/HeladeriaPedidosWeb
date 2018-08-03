@@ -1,3 +1,4 @@
+
 <?php
 
 /* 
@@ -5,8 +6,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 namespace AppBundle\Controller\Api;
+
 
 use Mercadopago\MP;
 
@@ -41,7 +42,7 @@ class MercadoPagoController extends FOSRestController{
             $nombre      = $json['marca']['nombre'];
             $descripcion = $json['marca']['descripcion'];
             
-            $mp = new Mercadopago("2207797945420831", "lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IE");
+            $mp = new MP("2207797945420831", "lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IE");
             $preference_data = array (
                 "items" => array (
                     array (
