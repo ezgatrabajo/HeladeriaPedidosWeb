@@ -29,6 +29,7 @@
         "knplabs/knp-snappy-bundle": "^1.4",
         "league/csv": "^8.2",
         "lexik/jwt-authentication-bundle": "^2.4",
+        "mercadopago/sdk": "0.5.2",
         "mike42/escpos-php": "^2.0",
         "nelmio/cors-bundle": "^1.5",
         "sensio/distribution-bundle": "^5.0.19",

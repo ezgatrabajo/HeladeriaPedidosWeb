@@ -14,9 +14,7 @@ parameters:
     archivos_categorias_path: '%kernel.project_dir%/web/uploads/archivos/categorias/'
     images: '%kernel.project_dir%/web/uploads/images/'
     
-    
-    
-    
+
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
@@ -142,3 +140,5 @@ knp_snappy:
     temporary_folder: "/web/snappy"
 knp_snappy:
     process_timeout: 20 # In seconds
+
+
