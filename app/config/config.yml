@@ -15,6 +15,8 @@ parameters:
     images: '%kernel.project_dir%/web/uploads/images/'
     
 
+
+    
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }

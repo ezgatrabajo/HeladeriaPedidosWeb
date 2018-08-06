@@ -3,15 +3,15 @@
 /**
  * MercadoPago Integration Library
  * Access MercadoPago for payments integration
- *
+ * 
  * @author hcasatti
  *
  */
 $GLOBALS["LIB_LOCATION"] = dirname(__FILE__);
 
-class Mercadopago {
+class MP {
 
-    const version = "0.5.3";
+    const version = "0.5.2";
 
     private $client_id;
     private $client_secret;
@@ -20,7 +20,7 @@ class Mercadopago {
     private $sandbox = FALSE;
 
     function __construct() {
-        $i = func_num_args();
+        $i = func_num_args(); 
 
         if ($i > 2 || $i < 1) {
             throw new MercadoPagoException("Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN");
@@ -82,9 +82,9 @@ class Mercadopago {
      */
     public function get_payment($id) {
         $uri_prefix = $this->sandbox ? "/sandbox" : "";
-
+            
         $request = array(
-            "uri" => "/v1/payments/{$id}",
+            "uri" => $uri_prefix."/collections/notifications/{$id}",
             "params" => array(
                 "access_token" => $this->get_access_token()
             )
@@ -101,7 +101,7 @@ class Mercadopago {
      * Get information for specific authorized payment
      * @param id
      * @return array(json)
-    */
+    */    
     public function get_authorized_payment($id) {
         $request = array(
             "uri" => "/authorized_payments/{$id}",
@@ -121,15 +121,16 @@ class Mercadopago {
      */
     public function refund_payment($id) {
         $request = array(
-            "uri" => "/v1/payments/{$id}/refunds",
+            "uri" => "/collections/{$id}",
             "params" => array(
                 "access_token" => $this->get_access_token()
             ),
             "data" => array(
+                "status" => "refunded"
             )
         );
 
-        $response = MPRestClient::post($request);
+        $response = MPRestClient::put($request);
         return $response;
     }
 
@@ -140,7 +141,7 @@ class Mercadopago {
      */
     public function cancel_payment($id) {
         $request = array(
-            "uri" => "/v1/payments/{$id}",
+            "uri" => "/collections/{$id}",
             "params" => array(
                 "access_token" => $this->get_access_token()
             ),
@@ -185,9 +186,9 @@ class Mercadopago {
         $filters["limit"] = $limit;
 
         $uri_prefix = $this->sandbox ? "/sandbox" : "";
-
+            
         $request = array(
-            "uri" => "/v1/payments/search",
+            "uri" => $uri_prefix."/collections/search",
             "params" => array_merge ($filters, array(
                 "access_token" => $this->get_access_token()
             ))
@@ -290,8 +291,8 @@ class Mercadopago {
      * Update a preapproval payment
      * @param string $preapproval_payment, $id
      * @return array(json)
-     */
-
+     */ 
+    
     public function update_preapproval_payment($id, $preapproval_payment) {
         $request = array(
             "uri" => "/preapproval/{$id}",
@@ -453,12 +454,10 @@ class MPRestClient {
             array_push($headers, "content-type: application/json");
         }
 
-        array_push($headers, "x-product-id: BC32A7VTRPP001U8NHK0");
-
         // Build $connect
         $connect = curl_init();
 
-        curl_setopt($connect, CURLOPT_USERAGENT, "MercadoPago PHP SDK /v" . MercadoPago::version);
+        curl_setopt($connect, CURLOPT_USERAGENT, "MercadoPago PHP SDK v" . MP::version);
         curl_setopt($connect, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($connect, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($connect, CURLOPT_CAINFO, $GLOBALS["LIB_LOCATION"] . "/cacert.pem");
@@ -520,15 +519,9 @@ class MPRestClient {
                 if (isset ($response['response']['cause']['code']) && isset ($response['response']['cause']['description'])) {
                     $message .= " - ".$response['response']['cause']['code'].': '.$response['response']['cause']['description'];
                 } else if (is_array ($response['response']['cause'])) {
-                    foreach ($response['response']['cause'] as $causes) {
-                          if(is_array($causes)) {
-                            foreach ($causes as $cause) {
-                              $message .= " - ".$cause['code'].': '.$cause['description'];
-                            }
-                          } else {
-                            $message .= " - ".$causes['code'].': '.$causes['description'];
-                          }
-                      }
+                    foreach ($response['response']['cause'] as $cause) {
+                        $message .= " - ".$cause['code'].': '.$cause['description'];
+                    }
                 }
             }
 

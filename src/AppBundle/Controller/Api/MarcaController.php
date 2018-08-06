@@ -8,10 +8,13 @@
 
 namespace AppBundle\Controller\Api;
 
+
+
 use Symfony\Component\HttpFoundation\Request;
 use \FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Entity\Marca;
+
 
 class MarcaController extends FOSRestController{
     
@@ -19,6 +22,8 @@ class MarcaController extends FOSRestController{
     * @Rest\Post("/api/marcas")
     */
     public function getMarcasAction(Request $request){
+        
+
         
         $result = $this->getDoctrine()->getRepository('AppBundle:Marca')->findAll();
         if ($result === null) {
@@ -36,6 +41,32 @@ class MarcaController extends FOSRestController{
         return $respuesta;
     }
     
+    /**
+    * @Rest\Post("/api/marcas/create_preference")
+    */
+    public function getCreatepreferenceAction(Request $request){
+        
+        
+      
+       
+        
+        $result = $mp;
+        if ($result === null) {
+            $respuesta = array('code'=>'500',
+                           'message'=>'No se encontraron registros',
+                           'data'=>$result
+                        );
+        }else{
+            $respuesta = array('code'=>'200',
+                           'message'=>'ok',
+                           'data'=>$result
+                        );
+        
+        }
+        return $respuesta;
+    }
+    
+
     /**
     * @Rest\Post("/api/marcas/add")
     */
