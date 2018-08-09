@@ -84,35 +84,42 @@
 					<button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#exampleModal">
 					Agregar Helado <i class="glyphicon glyphicon-ice-lolly"></i>
 					</button>
-                    <table class="datatable cell-border">
-                                    
-                        <thead>
-                            <th>Nro Pote</th>
-							<th>Medida Pote</th>
+                    <br>
+					<br>
+					 {% set newpote = 0 %}
+					 {% set actualpote = 0 %}
+					 {% for item in pedidodetalles|sort %}
+						{% set newpote = item.nropote %}
+						{% if newpote != actualpote %}
+							{% if actualpote != 0 %}
+								</tbody>
+								</table>
+							{% endif %}	
+								<br>			
+								<label>Nro Pote: {{ item.nropote }}</label>
+								<br>
+								<label>Medida Pote: {{ item.MedidaPoteFormat }}</label>
+								{% set actualpote = item.nropote %}
+								<table class="table cell-border">					
+									<thead>
+										<th>Sabor</th>
+										<th>Cantidad</th>
+										<th>Acciones</th>
+									</thead>
+									<tbody>	
+									<form>
+									<tr>	
+						{% endif %}
+						
+						<td>{{item.producto.nombre}}</td>
+						<td>{{item.cantidadstring }}</td>			
+						<td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+						</form>
+						</tr>			
+						{% endfor %}
+						</tbody>
+					</table>
 							
-                            <th>Sabor</th>
-                            <th>Cantidad</th>
-                            <th>Acciones</th>
-                            
-                        </thead>
-                        <tbody>
-                            
-                            {% for item in pedidodetalles|sort %}
-                            <tr>
-                                <form>
-                                    <td>{{item.nropote}}</td>
-									<td>{{item.MedidaPoteFormat}}</td>
-                                    <td >{{item.producto.nombre}}</td>
-                                    <td>{{item.cantidadstring }}</td>
-                                   
-                                
-                                    <td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                </form>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                
              </div>
              </div>
              </div>

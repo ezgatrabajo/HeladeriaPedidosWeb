@@ -80,7 +80,7 @@ knp_paginator:
         sort_direction_name: direction  # sort direction query parameter name
         distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
         filter_field_name: filterField  # filter field query parameter name
-        filter_value_name: filterValue  # filter value query paameter name
+        filter_value_name: filterValue  # filter value query parameter name
     template:                                        
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template                                    
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
@@ -94,6 +94,8 @@ There are a few additional pagination templates, that could be used out of the b
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
+* `@KnpPaginator/Pagination/bulma_pagination.html.twig`
+* `@KnpPaginator/Pagination/semantic_ui_pagination.html.twig`
 
 
 ## Usage examples:
@@ -224,6 +226,24 @@ For more information about lazy services, consult the [Symfony documentation on 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
+
+## Troubleshooting
+
+- Make sure the translator is activated in your symfony config :
+ 
+```yaml
+framework:
+    translator: { fallbacks: ['%locale%'] }
+```
+
+- If your locale is not available, create your own translation file in
+`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
+. Then add these lines:
+
+```yaml
+label_next: Next
+label_previous: Previous
+```
 
 ## Maintainers
 

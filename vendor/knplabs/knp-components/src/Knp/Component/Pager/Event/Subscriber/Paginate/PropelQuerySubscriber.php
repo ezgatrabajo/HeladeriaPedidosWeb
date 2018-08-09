@@ -6,6 +6,7 @@ use ModelCriteria;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Knp\Component\Pager\Event\ItemsEvent;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PropelQuerySubscriber implements EventSubscriberInterface
 {
@@ -18,7 +19,7 @@ class PropelQuerySubscriber implements EventSubscriberInterface
                 ->limit(0)
                 ->offset(0)
             ;
-            if ($event->options['distinct']) {
+            if ($event->options[PaginatorInterface::DISTINCT]) {
                 $countQuery->distinct();
             }
             $event->count = intval($countQuery->count());
@@ -26,7 +27,7 @@ class PropelQuerySubscriber implements EventSubscriberInterface
             $result = null;
             if ($event->count) {
                 $resultQuery = clone $event->target;
-                if ($event->options['distinct']) {
+                if ($event->options[PaginatorInterface::DISTINCT]) {
                     $resultQuery->distinct();
                 }
                 $resultQuery

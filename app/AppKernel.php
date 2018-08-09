@@ -22,9 +22,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
-            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
-            new AdaptiveTech\DeliveryTrackerBundle\AdaptiveTechDeliveryTrackerBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle()
             
         ];
 

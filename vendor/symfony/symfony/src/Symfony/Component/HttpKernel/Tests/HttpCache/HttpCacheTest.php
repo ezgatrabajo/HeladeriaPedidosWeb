@@ -530,8 +530,8 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->request('GET', '/');
         $this->assertHttpKernelIsNotCalled();
         $this->assertEquals(200, $this->response->getStatusCode());
-        $this->assertTrue(strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')) < 2);
-        $this->assertTrue($this->response->headers->get('Age') > 0);
+        $this->assertLessThan(2, strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')));
+        $this->assertGreaterThan(0, $this->response->headers->get('Age'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
         $this->assertTraceContains('fresh');
         $this->assertTraceNotContains('store');
@@ -554,8 +554,8 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->request('GET', '/');
         $this->assertHttpKernelIsNotCalled();
         $this->assertEquals(200, $this->response->getStatusCode());
-        $this->assertTrue(strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')) < 2);
-        $this->assertTrue($this->response->headers->get('Age') > 0);
+        $this->assertLessThan(2, strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')));
+        $this->assertGreaterThan(0, $this->response->headers->get('Age'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
         $this->assertTraceContains('fresh');
         $this->assertTraceNotContains('store');
@@ -618,8 +618,8 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->request('GET', '/');
         $this->assertHttpKernelIsNotCalled();
         $this->assertEquals(200, $this->response->getStatusCode());
-        $this->assertTrue(strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')) < 2);
-        $this->assertTrue($this->response->headers->get('Age') > 0);
+        $this->assertLessThan(2, strtotime($this->responses[0]->headers->get('Date')) - strtotime($this->response->headers->get('Date')));
+        $this->assertGreaterThan(0, $this->response->headers->get('Age'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
         $this->assertTraceContains('fresh');
         $this->assertTraceNotContains('store');
@@ -793,7 +793,7 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->request('GET', '/');
         $this->assertHttpKernelIsCalled();
         $this->assertEquals(200, $this->response->getStatusCode());
-        $this->assertTrue($this->response->headers->get('Age') <= 1);
+        $this->assertLessThanOrEqual(1, $this->response->headers->get('Age'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
         $this->assertTraceContains('stale');
         $this->assertTraceNotContains('fresh');
@@ -831,7 +831,7 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->assertEquals(200, $this->response->getStatusCode());
         $this->assertNotNull($this->response->headers->get('Last-Modified'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
-        $this->assertTrue($this->response->headers->get('Age') <= 1);
+        $this->assertLessThanOrEqual(1, $this->response->headers->get('Age'));
         $this->assertEquals('Hello World', $this->response->getContent());
         $this->assertTraceContains('stale');
         $this->assertTraceContains('valid');
@@ -881,7 +881,7 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->assertEquals(200, $this->response->getStatusCode());
         $this->assertNotNull($this->response->headers->get('ETag'));
         $this->assertNotNull($this->response->headers->get('X-Content-Digest'));
-        $this->assertTrue($this->response->headers->get('Age') <= 1);
+        $this->assertLessThanOrEqual(1, $this->response->headers->get('Age'));
         $this->assertEquals('Hello World', $this->response->getContent());
         $this->assertTraceContains('stale');
         $this->assertTraceContains('valid');
@@ -1336,62 +1336,67 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->setNextResponse();
         $this->request('GET', '/', array('REMOTE_ADDR' => '10.0.0.1'));
 
-        $this->assertEquals('127.0.0.1', $this->kernel->getBackendRequest()->server->get('REMOTE_ADDR'));
+        $this->kernel->assert(function ($backendRequest) {
+            $this->assertSame('127.0.0.1', $backendRequest->server->get('REMOTE_ADDR'));
+        });
     }
 
     /**
      * @dataProvider getTrustedProxyData
      */
-    public function testHttpCacheIsSetAsATrustedProxy(array $existing, array $expected)
+    public function testHttpCacheIsSetAsATrustedProxy(array $existing)
     {
         Request::setTrustedProxies($existing, Request::HEADER_X_FORWARDED_ALL);
 
         $this->setNextResponse();
         $this->request('GET', '/', array('REMOTE_ADDR' => '10.0.0.1'));
+        $this->assertSame($existing, Request::getTrustedProxies());
 
-        $this->assertEquals($expected, Request::getTrustedProxies());
+        $existing = array_unique(array_merge($existing, array('127.0.0.1')));
+        $this->kernel->assert(function ($backendRequest) use ($existing) {
+            $this->assertSame($existing, Request::getTrustedProxies());
+            $this->assertsame('10.0.0.1', $backendRequest->getClientIp());
+        });
+
+        Request::setTrustedProxies(array(), -1);
     }
 
     public function getTrustedProxyData()
     {
         return array(
-            array(array(), array('127.0.0.1')),
-            array(array('10.0.0.2'), array('10.0.0.2', '127.0.0.1')),
-            array(array('10.0.0.2', '127.0.0.1'), array('10.0.0.2', '127.0.0.1')),
+            array(array()),
+            array(array('10.0.0.2')),
+            array(array('10.0.0.2', '127.0.0.1')),
         );
     }
 
     /**
-     * @dataProvider getXForwardedForData
+     * @dataProvider getForwardedData
      */
-    public function testXForwarderForHeaderForForwardedRequests($xForwardedFor, $expected)
+    public function testForwarderHeaderForForwardedRequests($forwarded, $expected)
     {
         $this->setNextResponse();
         $server = array('REMOTE_ADDR' => '10.0.0.1');
-        if (false !== $xForwardedFor) {
-            $server['HTTP_X_FORWARDED_FOR'] = $xForwardedFor;
+        if (null !== $forwarded) {
+            Request::setTrustedProxies($server, -1);
+            $server['HTTP_FORWARDED'] = $forwarded;
         }
         $this->request('GET', '/', $server);
 
-        $this->assertEquals($expected, $this->kernel->getBackendRequest()->headers->get('X-Forwarded-For'));
+        $this->kernel->assert(function ($backendRequest) use ($expected) {
+            $this->assertSame($expected, $backendRequest->headers->get('Forwarded'));
+        });
+
+        Request::setTrustedProxies(array(), -1);
     }
 
-    public function getXForwardedForData()
+    public function getForwardedData()
     {
         return array(
-            array(false, '10.0.0.1'),
-            array('10.0.0.2', '10.0.0.2, 10.0.0.1'),
-            array('10.0.0.2, 10.0.0.3', '10.0.0.2, 10.0.0.3, 10.0.0.1'),
+            array(null, 'for="10.0.0.1";host="localhost";proto=http'),
+            array('for=10.0.0.2', 'for="10.0.0.2";host="localhost";proto=http, for="10.0.0.1"'),
+            array('for=10.0.0.2, for=10.0.0.3', 'for="10.0.0.2";host="localhost";proto=http, for="10.0.0.3", for="10.0.0.1"'),
         );
-    }
-
-    public function testXForwarderForHeaderForPassRequests()
-    {
-        $this->setNextResponse();
-        $server = array('REMOTE_ADDR' => '10.0.0.1');
-        $this->request('POST', '/', $server);
-
-        $this->assertEquals('10.0.0.1', $this->kernel->getBackendRequest()->headers->get('X-Forwarded-For'));
     }
 
     public function testEsiCacheRemoveValidationHeadersIfEmbeddedResponses()

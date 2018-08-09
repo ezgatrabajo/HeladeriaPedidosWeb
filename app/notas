@@ -59,7 +59,7 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:validate
 
 
-php bin/console fos:user:create roma --super-admin
+php bin/console fos:user:create heladosroma --super-admin
 
 php bin/console fos:user:promote heladosroma ROLE_ADMIN
 =======
