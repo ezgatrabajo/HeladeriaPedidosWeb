@@ -48,12 +48,6 @@
 						</div>
                         
 						      
-						   
-					
-						  
-						  
-
-
 						  
                       {{ form_end(formchangestatus2) }}
 						 
@@ -94,32 +88,38 @@
 							{% if actualpote != 0 %}
 								</tbody>
 								</table>
+								</div>
+             					</div>
 							{% endif %}	
-								<br>			
-								<label>Nro Pote: {{ item.nropote }}</label>
-								<br>
-								<label>Medida Pote: {{ item.MedidaPoteFormat }}</label>
+								
 								{% set actualpote = item.nropote %}
-								<table class="table cell-border">					
-									<thead>
+								<div class="list-group">
+								<div class="list-group-item ">
+									<h4 class="list-group-item-heading">(Pote {{ item.nropote }})  Cantidad: {{ item.MedidaPoteFormat }}</h4>
+									<table class="table">
+									<thead>	
 										<th>Sabor</th>
 										<th>Cantidad</th>
 										<th>Acciones</th>
 									</thead>
-									<tbody>	
-									<form>
-									<tr>	
+									<tbody>								
 						{% endif %}
 						
+						<tr>
 						<td>{{item.producto.nombre}}</td>
 						<td>{{item.cantidadstring }}</td>			
 						<td><a href="{{ path('pedidodetalle_delete', {'id':item.id}) }}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
-						</form>
-						</tr>			
-						{% endfor %}
-						</tbody>
-					</table>
-							
+						<tr>
+						
+								
+					{% endfor %}
+					</tbody>
+				</table>
+				</div>
+             </div>
+
+
+
              </div>
              </div>
              </div>
@@ -377,7 +377,8 @@
 				//Obtener json 
 	            $.ajax({
 	                   method: "POST",
-	                   url: "http://127.0.0.1/AdaptiveComponents/web/printer/ticket/",
+	                   //url: "http://127.0.0.1/AdaptiveComponents/web/printer/ticket/",
+					   url: "http://127.0.0.1:7000/printer/ticket/",
 	                   dataType: 'json',
                        data: JSON.stringify( json ),
 					   //data: json_data ,

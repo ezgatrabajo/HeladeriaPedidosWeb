@@ -25,7 +25,7 @@ class PedidodetalleType extends AbstractType
                 'label'=>'Medida Pote:'
                 )
         )
-        ->add('medidapote', 
+        ->add('cantidad', 
             ChoiceType::class, array(
             'choices'   => GlobalValue::MEDIDA_HELADO_SELECT,
             'required'  => true,
