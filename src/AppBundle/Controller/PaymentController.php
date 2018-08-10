@@ -33,24 +33,10 @@ class PaymentController extends Controller
             $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $code    = Response::HTTP_OK; 
-
+            $json    = json_decode($content, true);
             
             $mp = new MP ("2207797945420831", "lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IE");
             
-            $json    = json_decode($content, true);
-            
-           /*
-            $preference_data = array (
-                "items" => array (
-                    array (
-                        "title" => "Test",
-                        "quantity" => 1,
-                        "currency_id" => "USD",
-                        "unit_price" => 10.4
-                    )
-                )
-            );
-            */
 
             $preference_data = array (
                 "items" => array (
@@ -81,9 +67,9 @@ class PaymentController extends Controller
     }
 
     /**
-     * @Route("/create/payment/", name="mercadopagocreatepayment")
+     * @Route("/create/preapproval/", name="mercadopagocreatepreapproval")
      */
-    public function mercadopagoCreatePaymentAction(Request $request)
+    public function mercadopagoCreatePreapprovalAction(Request $request)
     {
         try {
             $content = $request->getContent();
@@ -142,13 +128,13 @@ class PaymentController extends Controller
             $code    = Response::HTTP_OK; 
 
             $json    = json_decode($content, true);
-            $mp = new MP('2207797945420831', 'lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IE');
-
-
           
-           
-            $payment_info = $mp->get_payment_info("a481df73c8d14c8f97be12a0a83ce6f6");
-            
+            $mp = new MP('2207797945420831', 'lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IE');
+            $filters = array (
+                "id"=>"bc65828116044fccbfa2e4001f0a6eb3"
+            );
+            $searchResult = $mp->search_payment ($filters);
+
 
             $response->setContent(json_encode($searchResult));
         
@@ -163,7 +149,56 @@ class PaymentController extends Controller
         }
     }
 
+/**
+     * @Route("/create/payment/", name="mercadopagocreatepayment")
+     */
+    public function mercadopagoCreatePaymentAction(Request $request)
+    {
+        try {
+            $content = $request->getContent();
+            $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $code    = Response::HTTP_OK; 
 
+            $json    = json_decode($content, true);
+           
+            $mp = new MP('TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883');
+            /*
+            $json['transaction_amount']
+            $json['token']
+            $json['description']
+            $json['installments']
+            $json['payment_method_id']
+            $json['email']
+            */
+
+            $payment_data = array(
+                "transaction_amount" => 100,
+                "token" => "ff8080814c11e237014c1ff593b57b4d",
+                "description" => "Title of what you are paying for",
+                "installments" => 1,
+                "payment_method_id" => "visa",
+                "payer" => array (
+                    "email" => "test_user_19653727@testuser.com"
+                )
+            );
+
+            $payment = $mp->post("/v1/payments", $payment_data);
+
+
+            $response->setContent(json_encode($payment));
+        
+            return $response;
+        } catch(Exception $e) {
+            $data = array('code'=>'200',
+                'message'=>'ok',
+                'data'=>$e->getMessage()
+            );
+            $response->setData($data);
+            return $response;
+        }
+    }
 
 
 
