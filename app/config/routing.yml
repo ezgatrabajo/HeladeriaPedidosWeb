@@ -1,3 +1,7 @@
+app_horario:
+    resource: "@AppBundle/Controller/HorarioController.php"
+    type:     annotation
+
 
 app_parametro:
     resource: "@AppBundle/Controller/ParametroController.php"
