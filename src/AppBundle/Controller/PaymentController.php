@@ -149,7 +149,7 @@ class PaymentController extends Controller
         }
     }
 
-/**
+    /**
      * @Route("/create/payment/", name="mercadopagocreatepayment")
      */
     public function mercadopagoCreatePaymentAction(Request $request)

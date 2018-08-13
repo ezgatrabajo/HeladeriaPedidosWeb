@@ -1,45 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Horarios list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Dia</th>
-                <th>Apertura</th>
-                <th>Cierre</th>
-                <th>Observaciones</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for horario in horarios %}
-            <tr>
-                <td><a href="{{ path('horario_show', { 'id': horario.id }) }}">{{ horario.id }}</a></td>
-                <td>{{ horario.dia }}</td>
-                <td>{% if horario.apertura %}{{ horario.apertura|date('H:i:s') }}{% endif %}</td>
-                <td>{% if horario.cierre %}{{ horario.cierre|date('H:i:s') }}{% endif %}</td>
-                <td>{{ horario.observaciones }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('horario_show', { 'id': horario.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('horario_edit', { 'id': horario.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+<ol class="breadcrumb">
+  <li><a href="{{path('homepage')}}">Inicio</a></li>
+  <li class="active"><a href="{{path('horario_index')}}">Horario</a></li>
+</ol>
+
+ 
+<div class="row">    
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">Listado de Horarios</div>
+        <div class="panel-body">
+            <a href="{{ path('horario_new') }}"
+               class="btn btn-primary btn-xs"
+               data-toggle="tooltip" data-placement="top" title="Nuevo">Nuevo
+                <span class="glyphicon glyphicon-asterisk"  aria-hidden="true"></span></a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <span class="label label-info">Total {{ pagination.getTotalItemCount }}</span>
+                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'm.id') }}</th>
+                        <th>Dia</th>
+                        <th>Hora Apertura</th>
+                        <th>Hora Cierre</th>
+                        <th>Observaciones</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                 {% for horario in pagination %}
+                    <tr>
+
+                      
+                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'm.id') }}</th>
+                        <td>{{ select_dia[horario.dia] }}</td>
+                        <td>{% if horario.apertura %}{{ horario.apertura|date('H:i:s') }}{% endif %}</td>
+                        <td>{% if horario.cierre %}{{ horario.cierre|date('H:i:s') }}{% endif %}</td>
+                        <td>{{ horario.observaciones }}</td>
+                        
+                        <td>     
+                            <a href="{{ path('horario_edit', { 'id': horario.id }) }}" class="btn btn-primary btn-xs"
+                                 data-toggle="tooltip" data-placement="top" title="Editar">
+                                <span class="glyphicon glyphicon glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                               
+                        </td>
+                     
+
+                    </tr>
+                {% endfor %}
+          
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('horario_new') }}">Create a new horario</a>
-        </li>
-    </ul>
+   
 {% endblock %}

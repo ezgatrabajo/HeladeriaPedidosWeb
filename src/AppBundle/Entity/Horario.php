@@ -3,14 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use JsonSerializable;
 /**
  * Horario
  *
  * @ORM\Table(name="horario")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\HorarioRepository")
  */
-class Horario
+class Horario implements JsonSerializable
 {
     /**
      * @var int
@@ -154,6 +154,22 @@ class Horario
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+
+    public function jsonSerialize()
+    {
+       
+        return array(
+            'pedido'=>array(
+                'id'             => $this->id,
+                'apertura'       => $this->apertura,
+                'cierre'         => $this->cierre,
+                'dia'            => $this->dia,
+                'observaciones'  => $this->observaciones
+                
+                )
+        );
     }
 }
 

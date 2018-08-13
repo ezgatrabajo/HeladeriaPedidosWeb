@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use AppBundle\Entity\GlobalValue;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class HorarioType extends AbstractType
 {
@@ -13,7 +17,17 @@ class HorarioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dia')->add('apertura')->add('cierre')->add('observaciones');
+        $builder
+            ->add('dia', 
+                ChoiceType::class, array(
+                'choices'   => GlobalValue::DIAS_SEMANA_SELECT,
+                'required'  => true,
+                'label'=>'Dia:'
+                ))
+            ->add('apertura')
+            ->add('cierre')
+            ->add('observaciones');
+
     }/**
      * {@inheritdoc}
      */

@@ -5,7 +5,12 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Horario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Entity\GlobalValue;
+
 
 /**
  * Horario controller.
@@ -20,14 +25,15 @@ class HorarioController extends Controller
      * @Route("/", name="horario_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $horarios = $em->getRepository('AppBundle:Horario')->findAll();
-
-        return $this->render('horario/index.html.twig', array(
-            'horarios' => $horarios,
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($horarios, $request->query->getInt('page', 1),10);
+        return $this->render('horario/index.html.twig', 
+        array(
+              'pagination' => $pagination, 'select_dia'=> GlobalValue::DIAS_SEMANA
         ));
     }
 
@@ -47,7 +53,7 @@ class HorarioController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($horario);
             $em->flush();
-
+            $this->addFlash('success', 'Guardado Correctamente');
             return $this->redirectToRoute('horario_show', array('id' => $horario->getId()));
         }
 
@@ -87,7 +93,7 @@ class HorarioController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Guardado Correctamente');
             return $this->redirectToRoute('horario_edit', array('id' => $horario->getId()));
         }
 
@@ -112,6 +118,7 @@ class HorarioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($horario);
+            $this->addFlash('success', 'Eliminado Correctamente');
             $em->flush();
         }
 
@@ -133,4 +140,38 @@ class HorarioController extends Controller
             ->getForm()
         ;
     }
+
+
+     /**
+     * @Route("/v1/all/", name="horariofindall")
+     */
+    public function horariofindallAction(Request $request)
+    {
+        try {
+            $content = $request->getContent();
+            $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $code    = Response::HTTP_OK; 
+            
+            $em = $this->getDoctrine()->getManager();
+            $horarios = $em->getRepository('AppBundle:Horario')->findAll();
+            //print_r($horarios);
+            $data = json_encode(array('data'=>$horarios));
+            $response->setContent($data);
+            $response->setStatusCode(200);
+            return $response;
+
+        } catch(Exception $e) {
+            $response->setStatusCode(200);
+            $data = array('data'=>$e->getMessage());
+            $response->setContent($data);
+            return $response;
+        }
+    }
+
+
+
+
+
 }
