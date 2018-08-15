@@ -161,7 +161,7 @@ class Horario implements JsonSerializable
     {
        
         return array(
-            'pedido'=>array(
+            'horario'=>array(
                 'id'             => $this->id,
                 'apertura'       => $this->apertura,
                 'cierre'         => $this->cierre,

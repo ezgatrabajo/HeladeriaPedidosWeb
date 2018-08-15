@@ -61,13 +61,14 @@ class GlobalValue{
     const SABADO_DISPLAY = 'Sabado';
     const DOMINGO_DISPLAY = 'Domingo';
     
-    const LUNES_ID = 1;
-    const MARTES_ID = 2;
-    const MIERCOLES_ID = 3;
-    const JUEVES_ID = 4;
-    const VIERNES_ID = 5;
-    const SABADO_ID = 6;
-    const DOMINGO_ID = 7;
+    const DOMINGO_ID    = 1;
+    const LUNES_ID      = 2;
+    const MARTES_ID     = 3;
+    const MIERCOLES_ID  = 4;
+    const JUEVES_ID     = 5;
+    const VIERNES_ID    = 6;
+    const SABADO_ID     = 7;
+    
     
     const DIAS_SEMANA = 
             array(
