@@ -54,6 +54,14 @@ class Producto
     
 
     /**
+     * @var 
+     *
+     * @ORM\Column(name="preciounitario", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $preciounitario;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="imagen", type="string", length=255, nullable=true)
@@ -150,8 +158,34 @@ class Producto
     }
     
     
+
+
+    /**
+     * Set preciounitario
+     *
+     * @param string $preciounitario
+     *
+     * @return preciounitario
+     */
+    public function setPreciounitario($preciounitario)
+    {
+        $this->preciounitario = $preciounitario;
+
+        return $this;
+    }
+
+    /**
+     * Get preciounitario
+     *
+     * @return string
+     */
+    public function getPreciounitario()
+    {
+        return $this->preciounitario;
+    }
     
-    
+
+
     
     
     

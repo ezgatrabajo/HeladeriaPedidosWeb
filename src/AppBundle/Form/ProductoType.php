@@ -29,6 +29,7 @@ class ProductoType extends AbstractType
     {
         $builder->add('nombre')
                 ->add('descripcion', TextareaType::class)
+                ->add('preciounitario', NumberType::class, array('label' => 'Precio Unit.', 'required'=>true))
                 ->add('enabled', ChoiceType::class, array(
                         'choices'  => array(
                             'SI' => true,
