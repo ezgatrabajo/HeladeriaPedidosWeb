@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Heladeria Roma{% endblock %}</title>
+        <title>{% block title %}Fast Food{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -46,7 +46,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{url('admin')}}">Heladeria Roma</a>
+      <a class="navbar-brand" href="{{url('admin')}}">Fast Food</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,7 +56,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Base de Datos <span class="caret"></span></a>
           <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ url('producto_index') }}">Helados</a></li>
+                <li><a class="dropdown-item" href="{{ url('producto_index') }}">Productos</a></li>
                 <li><a class="dropdown-item" href="{{ url('promo_index') }}">Promociones</a></li>
                 <li><a class="dropdown-item" href="{{ url('marcas_index') }}">Marcas</a></li>
                 <li><a class="dropdown-item" href="{{ url('categoria_index') }}">Categorias</a></li>
@@ -64,15 +64,8 @@
                 <li><a class="dropdown-item" href="{{ url('user_index') }}">Usuarios</a></li>
                 <li><a class="dropdown-item" href="{{ url('horario_index') }}">Horario Local</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxkilo'}) }}">Precio 1 Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxtrescuartos'}) }}">Precio 3/4 Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxmedio'}) }}">Precio 1/2 Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money', {'nombre':'precioxcuarto'}) }}">Precio 1/4 Kilo</a></li>
-                <li><a class="dropdown-item" href="{{ url('parametro_edit_money',{'nombre':'preciocucurucho'}) }}">Precio C/Cucurucho</a></li>
-                <li role="separator" class="divider"></li>
                 {% if is_granted("ROLE_SUPER_ADMIN") %}   
                     <li><a class="dropdown-item" href="{{ url('parametro_index') }}">Parametros</a></li>
-                    
                 {% endif %}
                 
           </ul>
